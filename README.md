@@ -1,5 +1,10 @@
 # pumpsizer
 
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![tests](https://img.shields.io/badge/tests-70%20passing-brightgreen)
+![license](https://img.shields.io/badge/license-MIT-green)
+![EPANET](https://img.shields.io/badge/EPANET-2.2-informational)
+
 Reusable engine for **water-supply pump sizing, operating-point analysis and
 EPANET-compatible curve generation**.
 
