@@ -6,15 +6,7 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
-### Added
-- Repository scaffolding: GitHub Actions CI (pytest on Python 3.10–3.13),
-  Dependabot (grouped weekly actions + pip; alerts and security updates on),
-  bug/feature issue forms, pull-request template, `SECURITY.md`, `CODEOWNERS`,
-  `CONTRIBUTING.md`, `Makefile` of dev tasks, `.editorconfig`, and a `pre-push`
-  hook that runs the suite.
-- `ruff` configuration in `pyproject.toml` (`select` E/F/W/I/UP/B); codebase
-  passes `ruff check` and is `ruff format`-clean, with a
-  `.git-blame-ignore-revs` for the bulk-format commit.
+_Nothing yet._
 
 ## [0.1.0] — 2026-09-03
 
@@ -80,10 +72,20 @@ and NPSH (see `docs/workbook_mapping.md`). Not yet tagged or published.
   template, results workbook, and a best-effort reader for the original
   `Pump Sizing.xlsx` layout.
 
+**Tooling / repository**
+- GitHub Actions CI (pytest on Python 3.10–3.13), Dependabot (grouped weekly
+  actions + pip; alerts and security updates on), bug/feature issue forms,
+  pull-request template, `SECURITY.md`, `CODEOWNERS`, `CONTRIBUTING.md`,
+  `CHANGELOG.md`, `Makefile`, `.editorconfig`, MIT `LICENSE`, and a `pre-push`
+  hook that runs the suite.
+- `ruff` config in `pyproject.toml`; codebase passes `ruff check` and is
+  `ruff format`-clean, with a `.git-blame-ignore-revs`.
+
 ### Known limitations
 - The KSB Omega catalogue is envelope-only; digitise real curve points before
   using an entry for design (`docs/catalog_from_ksb.md`).
 - The MOC solver is single-pipe and damps the cavity-collapse spike — use a
   specialist package for a branched network or final sign-off.
 
-[Unreleased]: https://github.com/aks498-cmyk/pumpsizer/compare/db7f79d...HEAD
+[Unreleased]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/aks498-cmyk/pumpsizer/releases/tag/v0.1.0
