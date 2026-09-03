@@ -20,6 +20,7 @@ substitute for a specialist package on a complex network, but it turns the
 Phase-4 rule-of-thumb numbers into an actual pressure envelope and lets you
 check whether a proposed air vessel is enough.
 """
+
 from __future__ import annotations
 
 import math
@@ -45,37 +46,55 @@ class Pipeline:
 
     @property
     def area_m2(self) -> float:
-        return math.pi * self.diameter_m ** 2 / 4.0
+        return math.pi * self.diameter_m**2 / 4.0
 
     def node_elevations(self) -> np.ndarray:
-        return np.linspace(self.pump_elevation_m, self.reservoir_elevation_m,
-                           self.reaches + 1)
+        return np.linspace(self.pump_elevation_m, self.reservoir_elevation_m, self.reaches + 1)
 
     @classmethod
-    def from_pipe(cls, *, length_m: float, diameter_mm: float, wall_thickness_mm: float,
-                  youngs_modulus_pa: float, friction_factor: float = 0.018,
-                  pump_elevation_m: float = 0.0, reservoir_elevation_m: float = 0.0,
-                  reaches: int = 20, rho: float = 1000.0) -> Pipeline:
-        a = wave_celerity(diameter_mm / 1000.0, wall_thickness_mm / 1000.0,
-                          youngs_modulus_pa, rho=rho)
-        return cls(length_m, diameter_mm / 1000.0, a, friction_factor,
-                   pump_elevation_m, reservoir_elevation_m, reaches)
+    def from_pipe(
+        cls,
+        *,
+        length_m: float,
+        diameter_mm: float,
+        wall_thickness_mm: float,
+        youngs_modulus_pa: float,
+        friction_factor: float = 0.018,
+        pump_elevation_m: float = 0.0,
+        reservoir_elevation_m: float = 0.0,
+        reaches: int = 20,
+        rho: float = 1000.0,
+    ) -> Pipeline:
+        a = wave_celerity(
+            diameter_mm / 1000.0, wall_thickness_mm / 1000.0, youngs_modulus_pa, rho=rho
+        )
+        return cls(
+            length_m,
+            diameter_mm / 1000.0,
+            a,
+            friction_factor,
+            pump_elevation_m,
+            reservoir_elevation_m,
+            reaches,
+        )
 
 
 @dataclass
 class PumpInertia:
     """Rated point + rotating inertia for the pump-rundown boundary."""
+
     rated_speed_rpm: float
     rated_flow_m3s: float
     rated_head_m: float
     total_inertia_kgm2: float
     rated_efficiency: float = 0.80
-    curve: PumpCurve | None = None          # rated-speed H-Q; synthesised if None
+    curve: PumpCurve | None = None  # rated-speed H-Q; synthesised if None
 
     def __post_init__(self):
         if self.curve is None:
-            self.curve = PumpCurve.synthetic(self.rated_flow_m3s, self.rated_head_m,
-                                             eff_bep=self.rated_efficiency * 100.0)
+            self.curve = PumpCurve.synthetic(
+                self.rated_flow_m3s, self.rated_head_m, eff_bep=self.rated_efficiency * 100.0
+            )
 
     def head(self, q_m3s: float, w: float) -> float:
         if w <= 1e-6:
@@ -104,7 +123,7 @@ class PumpInertia:
 
 @dataclass
 class AirVessel:
-    gas_volume_m3: float                  # initial (normal-operation) gas volume
+    gas_volume_m3: float  # initial (normal-operation) gas volume
     polytropic_n: float = 1.2
 
 
@@ -135,20 +154,29 @@ class TransientResult:
             "min_head_m": round(self.min_head_m, 2),
             "min_head_at_x_m": round(float(self.node_x_m[i_lo]), 1),
             "min_gauge_pressure_head_m": round(
-                float(np.min(self.envelope_min_m - self.node_elevation_m)), 2),
+                float(np.min(self.envelope_min_m - self.node_elevation_m)), 2
+            ),
             "vapour_separation": self.vapour_anywhere,
             "air_vessel_max_gas_volume_m3": (
-                None if self.air_vessel_gas_volume_m3 is None
-                else round(float(self.air_vessel_gas_volume_m3.max()), 3)),
+                None
+                if self.air_vessel_gas_volume_m3 is None
+                else round(float(self.air_vessel_gas_volume_m3.max()), 3)
+            ),
             "notes": self.notes,
         }
 
 
-def simulate_pump_trip(pipe: Pipeline, pump: PumpInertia, *,
-                       sump_level_m: float, reservoir_level_m: float,
-                       duration_s: float | None = None, rho: float = 1000.0,
-                       air_vessel: AirVessel | None = None,
-                       vapour_head_m: float = 0.24) -> TransientResult:
+def simulate_pump_trip(
+    pipe: Pipeline,
+    pump: PumpInertia,
+    *,
+    sump_level_m: float,
+    reservoir_level_m: float,
+    duration_s: float | None = None,
+    rho: float = 1000.0,
+    air_vessel: AirVessel | None = None,
+    vapour_head_m: float = 0.24,
+) -> TransientResult:
     """Simulate a total power failure (pump torque -> 0 at t=0)."""
     n = pipe.reaches
     a, A = pipe.wave_speed_m_s, pipe.area_m2
@@ -183,10 +211,14 @@ def simulate_pump_trip(pipe: Pipeline, pump: PumpInertia, *,
     cav = np.zeros(n + 1)
     env_max, env_min = H.copy(), H.copy()
     t = np.zeros(steps + 1)
-    hp = np.zeros(steps + 1); hp[0] = H[0]
-    qp = np.zeros(steps + 1); qp[0] = Q[0]
-    wf = np.zeros(steps + 1); wf[0] = 1.0
-    hmid = np.zeros(steps + 1); hmid[0] = H[n // 2]
+    hp = np.zeros(steps + 1)
+    hp[0] = H[0]
+    qp = np.zeros(steps + 1)
+    qp[0] = Q[0]
+    wf = np.zeros(steps + 1)
+    wf[0] = 1.0
+    hmid = np.zeros(steps + 1)
+    hmid[0] = H[n // 2]
     gasv = np.zeros(steps + 1)
     vapour_anywhere = False
     check_valve_shut = False
@@ -194,7 +226,7 @@ def simulate_pump_trip(pipe: Pipeline, pump: PumpInertia, *,
     if air_vessel is not None:
         Vg = air_vessel.gas_volume_m3
         Hgas_abs0 = H[0] - z[0] + ATM_HEAD_M
-        gas_C = Hgas_abs0 * Vg ** air_vessel.polytropic_n
+        gas_C = Hgas_abs0 * Vg**air_vessel.polytropic_n
     else:
         Vg = gas_C = 0.0
     gasv[0] = Vg
@@ -275,14 +307,24 @@ def simulate_pump_trip(pipe: Pipeline, pump: PumpInertia, *,
     if check_valve_shut:
         notes.append("check valve shut on flow reversal at the pump")
     if vapour_anywhere:
-        notes.append("vapour column separation - cavity collapse can cause a "
-                     "secondary spike; protection required")
+        notes.append(
+            "vapour column separation - cavity collapse can cause a "
+            "secondary spike; protection required"
+        )
 
     return TransientResult(
-        time_s=t, head_pump_m=hp, flow_pump_m3s=qp, speed_frac=wf,
-        head_midpoint_m=hmid, envelope_max_m=env_max, envelope_min_m=env_min,
-        node_x_m=x, node_elevation_m=z, vapour_anywhere=vapour_anywhere,
-        max_head_m=float(env_max.max()), min_head_m=float(env_min.min()),
+        time_s=t,
+        head_pump_m=hp,
+        flow_pump_m3s=qp,
+        speed_frac=wf,
+        head_midpoint_m=hmid,
+        envelope_max_m=env_max,
+        envelope_min_m=env_min,
+        node_x_m=x,
+        node_elevation_m=z,
+        vapour_anywhere=vapour_anywhere,
+        max_head_m=float(env_max.max()),
+        min_head_m=float(env_min.min()),
         air_vessel_gas_volume_m3=(gasv if air_vessel is not None else None),
         notes=notes,
     )

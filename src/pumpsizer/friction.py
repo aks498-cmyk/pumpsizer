@@ -10,6 +10,7 @@ Two head-loss methods are supported:
 
 All quantities are SI: Q [m3/s], D [m], L [m], v [m/s], hf [m].
 """
+
 from __future__ import annotations
 
 import math
@@ -30,8 +31,7 @@ def _haaland(re: float, rel_rough: float) -> float:
     return (-1.8 * math.log10((rel_rough / 3.7) ** 1.11 + 6.9 / re)) ** -2
 
 
-def colebrook_white(re: float, rel_rough: float, tol: float = 1e-10,
-                    max_iter: int = 100) -> float:
+def colebrook_white(re: float, rel_rough: float, tol: float = 1e-10, max_iter: int = 100) -> float:
     """Darcy friction factor from the implicit Colebrook-White equation.
 
     ``rel_rough`` is the relative roughness e/D (both in the same unit).
@@ -46,15 +46,14 @@ def colebrook_white(re: float, rel_rough: float, tol: float = 1e-10,
     def turbulent(reynolds_number: float) -> float:
         f = _haaland(reynolds_number, rel_rough)
         for _ in range(max_iter):
-            rhs = -2.0 * math.log10(rel_rough / 3.7
-                                    + 2.51 / (reynolds_number * math.sqrt(f)))
+            rhs = -2.0 * math.log10(rel_rough / 3.7 + 2.51 / (reynolds_number * math.sqrt(f)))
             f_new = 1.0 / (rhs * rhs)
             if abs(f_new - f) <= tol:
                 return f_new
             f = f_new
         return f
 
-    if re < TURBULENT_RE:                       # transitional blend
+    if re < TURBULENT_RE:  # transitional blend
         f_lam = 64.0 / LAMINAR_RE
         f_turb = turbulent(TURBULENT_RE)
         w = (re - LAMINAR_RE) / (TURBULENT_RE - LAMINAR_RE)
@@ -74,8 +73,7 @@ def friction_factor(v: float, d: float, roughness: float, nu: float) -> float:
     return colebrook_white(re, roughness / d)
 
 
-def darcy_weisbach_hf(f: float, length: float, d: float, v: float,
-                      g: float = 9.81) -> float:
+def darcy_weisbach_hf(f: float, length: float, d: float, v: float, g: float = 9.81) -> float:
     """Darcy-Weisbach friction head loss [m]:  hf = f * (L/D) * v^2 / (2 g)."""
     if d <= 0:
         return 0.0
@@ -92,7 +90,7 @@ def hazen_williams_hf(q: float, length: float, d: float, c: float) -> float:
     """
     if d <= 0 or c <= 0 or q == 0:
         return 0.0
-    return 10.67 * length * abs(q) ** 1.852 / (c ** 1.852 * d ** 4.8704)
+    return 10.67 * length * abs(q) ** 1.852 / (c**1.852 * d**4.8704)
 
 
 def velocity(q: float, d: float) -> float:

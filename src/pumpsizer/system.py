@@ -9,6 +9,7 @@ A system curve is assembled from:
 Friction uses Darcy-Weisbach/Colebrook-White (``method="DW"``, the workbook
 method) or Hazen-Williams (``method="HW"``, to match an EPANET model).
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -50,8 +51,8 @@ class SystemCurve:
     segments: list[PipeSegment] = field(default_factory=list)
     minor_losses: list[MinorLoss] = field(default_factory=list)
     kinematic_viscosity: float = 1.0e-6
-    method: str = "DW"                      # "DW" or "HW"
-    roughness_condition: str = "new"        # label only, for reporting
+    method: str = "DW"  # "DW" or "HW"
+    roughness_condition: str = "new"  # label only, for reporting
     label: str = "system"
 
     # -- loss components ----------------------------------------------------
@@ -62,8 +63,7 @@ class SystemCurve:
             if d <= 0:
                 continue
             if self.method.upper() == "HW":
-                total += hazen_williams_hf(q_m3s, seg.length_m, d,
-                                           seg.hazen_williams_c)
+                total += hazen_williams_hf(q_m3s, seg.length_m, d, seg.hazen_williams_c)
             else:
                 v = seg.velocity(q_m3s)
                 re = reynolds(v, d, self.kinematic_viscosity)
@@ -92,7 +92,7 @@ class SystemCurve:
         evaluated at ``q_ref_m3s`` (K has units s^2/m^5)."""
         if q_ref_m3s <= 0:
             return 0.0
-        return self.dynamic_loss(q_ref_m3s) / (q_ref_m3s ** 2)
+        return self.dynamic_loss(q_ref_m3s) / (q_ref_m3s**2)
 
     def sample(self, q_max_m3s: float, n: int = 60):
         """Return (Q, H) arrays from ~0 to ``q_max_m3s`` for plotting/EPANET."""

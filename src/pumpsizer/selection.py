@@ -13,6 +13,7 @@ For every catalogue model the engine tries, in order:
 Each feasible candidate is scored on efficiency at duty, proximity to BEP,
 NPSH margin and how close the head is to the duty (avoid gross oversizing).
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -34,10 +35,11 @@ class SelectionCriteria:
     npsh_available_m: float | None = None
     allow_trim: bool = True
     allow_vfd: bool = True
-    bep_window: tuple[float, float] = (0.70, 1.20)   # acceptable Q_op / Q_bep
-    max_head_margin_pct: float = 40.0                # reject if duty head is < curve by more
-    weights: dict = field(default_factory=lambda: {
-        "efficiency": 0.45, "bep": 0.30, "npsh": 0.15, "head_margin": 0.10})
+    bep_window: tuple[float, float] = (0.70, 1.20)  # acceptable Q_op / Q_bep
+    max_head_margin_pct: float = 40.0  # reject if duty head is < curve by more
+    weights: dict = field(
+        default_factory=lambda: {"efficiency": 0.45, "bep": 0.30, "npsh": 0.15, "head_margin": 0.10}
+    )
 
     @classmethod
     def from_duty(cls, flow_lps: float, head_m: float, **kw) -> SelectionCriteria:
@@ -48,7 +50,7 @@ class SelectionCriteria:
 class Candidate:
     model: PumpModel
     feasible: bool
-    method: str                 # "fixed" | "trim" | "vfd" | "infeasible"
+    method: str  # "fixed" | "trim" | "vfd" | "infeasible"
     trim_ratio: float
     speed_ratio: float
     operating_flow_m3s: float
@@ -57,9 +59,9 @@ class Candidate:
     npshr_m: float
     npsh_margin_m: float | None
     bep_flow_m3s: float
-    bep_ratio: float            # Q_op / Q_bep
+    bep_ratio: float  # Q_op / Q_bep
     within_bep_window: bool
-    head_margin_pct: float      # (curve head at duty flow, full size) vs duty head
+    head_margin_pct: float  # (curve head at duty flow, full size) vs duty head
     shaft_power_kw: float
     score: float
     reasons: list[str] = field(default_factory=list)
@@ -73,7 +75,9 @@ class Candidate:
             "speed_ratio": round(self.speed_ratio, 4),
             "operating_flow_lps": round(self.operating_flow_m3s * 1000, 2),
             "operating_head_m": round(self.operating_head_m, 2),
-            "efficiency_pct": None if np.isnan(self.efficiency_pct) else round(self.efficiency_pct, 1),
+            "efficiency_pct": None
+            if np.isnan(self.efficiency_pct)
+            else round(self.efficiency_pct, 1),
             "npshr_m": None if np.isnan(self.npshr_m) else round(self.npshr_m, 2),
             "npsh_margin_m": None if self.npsh_margin_m is None else round(self.npsh_margin_m, 2),
             "bep_flow_lps": round(self.bep_flow_m3s * 1000, 2),
@@ -101,39 +105,51 @@ def evaluate(model: PumpModel, c: SelectionCriteria) -> Candidate:
 
     method, trim, speed = "infeasible", 1.0, 1.0
     curve = base
-    head_tol = 0.03                         # curve-reading precision: accept +/-3%
+    head_tol = 0.03  # curve-reading precision: accept +/-3%
     rel = (h_full_at_duty - hd) / hd if hd > 0 else 0.0
 
     if rel >= -head_tol:
         method, curve = "fixed", base
         if rel < 0:
-            reasons.append(f"curve {abs(rel)*100:.1f}% under duty head (within tolerance)")
+            reasons.append(f"curve {abs(rel) * 100:.1f}% under duty head (within tolerance)")
         elif c.allow_trim and rel > 0.01:
             lo = model.trim_limit_ratio
             try:
                 if base.scaled(diameter_ratio=lo).head(qd) <= hd:
-                    trim = brentq(lambda dd: base.scaled(diameter_ratio=dd).head(qd) - hd,
-                                  lo, 1.0, xtol=1e-5, maxiter=100)
+                    trim = brentq(
+                        lambda dd: base.scaled(diameter_ratio=dd).head(qd) - hd,
+                        lo,
+                        1.0,
+                        xtol=1e-5,
+                        maxiter=100,
+                    )
                     if trim >= 0.995:
                         trim, method, curve = 1.0, "fixed", base
                     else:
                         method, curve = "trim", base.scaled(diameter_ratio=trim)
-                        reasons.append(f"impeller trimmed to {trim*100:.0f}% dia")
+                        reasons.append(f"impeller trimmed to {trim * 100:.0f}% dia")
                 else:
                     method, trim = "trim", lo
                     curve = base.scaled(diameter_ratio=lo)
-                    reasons.append(f"trimmed to min {lo*100:.0f}% dia; still "
-                                   f"+{(curve.head(qd)-hd)/hd*100:.0f}% head (throttle)")
+                    reasons.append(
+                        f"trimmed to min {lo * 100:.0f}% dia; still "
+                        f"+{(curve.head(qd) - hd) / hd * 100:.0f}% head (throttle)"
+                    )
             except ValueError:
                 pass
         if method == "fixed" and rel * 100.0 > c.max_head_margin_pct:
-            reasons.append(f"oversized: +{rel*100:.0f}% head at duty flow (no trim)")
+            reasons.append(f"oversized: +{rel * 100:.0f}% head at duty flow (no trim)")
     elif c.allow_vfd and model.max_speed_ratio > 1.0:
         try:
-            speed = brentq(lambda s: base.scaled(speed_ratio=s).head(qd) - hd,
-                           1.0, model.max_speed_ratio, xtol=1e-5, maxiter=100)
+            speed = brentq(
+                lambda s: base.scaled(speed_ratio=s).head(qd) - hd,
+                1.0,
+                model.max_speed_ratio,
+                xtol=1e-5,
+                maxiter=100,
+            )
             method, curve = "vfd", base.scaled(speed_ratio=speed)
-            reasons.append(f"VFD boosted to {speed*100:.0f}% speed")
+            reasons.append(f"VFD boosted to {speed * 100:.0f}% speed")
         except ValueError:
             reasons.append("curve below duty head even at max speed")
     else:
@@ -172,7 +188,7 @@ def evaluate(model: PumpModel, c: SelectionCriteria) -> Candidate:
     bep_ratio = q_op / q_bep if q_bep > 0 else float("nan")
     within = c.bep_window[0] <= bep_ratio <= c.bep_window[1]
     if not within and feasible:
-        reasons.append(f"operates at {bep_ratio*100:.0f}% of BEP flow")
+        reasons.append(f"operates at {bep_ratio * 100:.0f}% of BEP flow")
 
     score = _score(c, eff, bep_ratio, npsh_margin, npshr, head_margin_pct, feasible, within)
     if feasible and getattr(model, "envelope_only", False):
@@ -183,18 +199,36 @@ def evaluate(model: PumpModel, c: SelectionCriteria) -> Candidate:
         score *= 0.97
 
     return Candidate(
-        model=model, feasible=feasible, method=method, trim_ratio=trim, speed_ratio=speed,
-        operating_flow_m3s=q_op, operating_head_m=h_op,
-        efficiency_pct=eff, npshr_m=npshr, npsh_margin_m=npsh_margin,
-        bep_flow_m3s=q_bep, bep_ratio=bep_ratio, within_bep_window=within,
-        head_margin_pct=head_margin_pct, shaft_power_kw=p_shaft,
-        score=score, reasons=reasons,
+        model=model,
+        feasible=feasible,
+        method=method,
+        trim_ratio=trim,
+        speed_ratio=speed,
+        operating_flow_m3s=q_op,
+        operating_head_m=h_op,
+        efficiency_pct=eff,
+        npshr_m=npshr,
+        npsh_margin_m=npsh_margin,
+        bep_flow_m3s=q_bep,
+        bep_ratio=bep_ratio,
+        within_bep_window=within,
+        head_margin_pct=head_margin_pct,
+        shaft_power_kw=p_shaft,
+        score=score,
+        reasons=reasons,
     )
 
 
-def _score(c: SelectionCriteria, eff: float, bep_ratio: float,
-           npsh_margin: float | None, npshr: float, head_margin_pct: float,
-           feasible: bool, within: bool) -> float:
+def _score(
+    c: SelectionCriteria,
+    eff: float,
+    bep_ratio: float,
+    npsh_margin: float | None,
+    npshr: float,
+    head_margin_pct: float,
+    feasible: bool,
+    within: bool,
+) -> float:
     if not feasible:
         return -1.0
     w = c.weights
@@ -206,15 +240,21 @@ def _score(c: SelectionCriteria, eff: float, bep_ratio: float,
         thr = max(0.5, 0.1 * (npshr if not np.isnan(npshr) else 0.0))
         s_npsh = np.clip((npsh_margin - thr) / 3.0 + 0.5, 0.0, 1.0)
     s_hm = np.clip(1.0 - max(head_margin_pct, 0.0) / 50.0, 0.0, 1.0)
-    score = (w["efficiency"] * s_eff + w["bep"] * s_bep
-             + w["npsh"] * s_npsh + w["head_margin"] * s_hm)
+    score = (
+        w["efficiency"] * s_eff + w["bep"] * s_bep + w["npsh"] * s_npsh + w["head_margin"] * s_hm
+    )
     if not within:
         score *= 0.85
     return float(score)
 
 
-def select(catalog: Catalog, criteria: SelectionCriteria, *, top: int | None = None,
-           include_infeasible: bool = False) -> list[Candidate]:
+def select(
+    catalog: Catalog,
+    criteria: SelectionCriteria,
+    *,
+    top: int | None = None,
+    include_infeasible: bool = False,
+) -> list[Candidate]:
     cands = [evaluate(m, criteria) for m in catalog]
     if not include_infeasible:
         cands = [x for x in cands if x.feasible]

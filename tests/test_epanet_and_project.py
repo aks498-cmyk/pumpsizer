@@ -31,7 +31,8 @@ def test_patch_inp_roundtrip(tmp_path):
     base = tmp_path / "net.inp"
     base.write_text(
         "[TITLE]\ntest\n\n[JUNCTIONS]\n J1 0\n\n[PUMPS]\n PMP1 A B HEAD OLD\n\n"
-        "[CURVES]\n OLD 1 2\n\n[ENERGY]\n GLOBAL EFFIC 75\n\n[END]\n")
+        "[CURVES]\n OLD 1 2\n\n[ENERGY]\n GLOBAL EFFIC 75\n\n[END]\n"
+    )
     p = PumpCurve.synthetic(0.3, 34.0, eff_bep=84.0, name="WS300")
     exp = build_pump_export(p, pump_id="PMP1", flow_units="LPS", head_points=3)
     out = patch_inp(base, exp, output_path=tmp_path / "patched.inp")
@@ -51,7 +52,7 @@ def test_project_example_runs():
     assert res.motor.rated_kw in (110, 132, 160, 200)
     assert res.npsh.npsh_available_m > 5.0
     assert "[PUMPS]" in res.epanet_export.full_snippet()
-    assert res.design_system_head_m > 24.0   # static + losses
+    assert res.design_system_head_m > 24.0  # static + losses
 
 
 def test_project_parallel_and_vfd_variants():

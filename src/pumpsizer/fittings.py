@@ -1,4 +1,5 @@
 """Minor-loss coefficient catalog and helpers."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -9,7 +10,11 @@ import yaml
 
 
 def _load_default_data() -> dict:
-    with resources.files("pumpsizer.data").joinpath("fittings.yaml").open("r", encoding="utf-8") as fh:
+    with (
+        resources.files("pumpsizer.data")
+        .joinpath("fittings.yaml")
+        .open("r", encoding="utf-8") as fh
+    ):
         return yaml.safe_load(fh)
 
 
@@ -24,7 +29,7 @@ class FittingCatalog:
         data = _load_default_data()
         merged: dict = {}
         merged.update(data.get("extra", {}))
-        merged.update(data.get("workbook_defaults", {}))   # workbook wins on clashes
+        merged.update(data.get("workbook_defaults", {}))  # workbook wins on clashes
         return cls(coefficients={k: float(v) for k, v in merged.items()})
 
     @classmethod
@@ -34,19 +39,33 @@ class FittingCatalog:
         flat: dict = {}
         for section in ("extra", "workbook_defaults"):
             flat.update(data.get(section, {}))
-        flat.update({k: v for k, v in data.items()
-                     if k not in ("extra", "workbook_defaults") and not isinstance(v, dict)})
+        flat.update(
+            {
+                k: v
+                for k, v in data.items()
+                if k not in ("extra", "workbook_defaults") and not isinstance(v, dict)
+            }
+        )
         return cls(coefficients={k: float(v) for k, v in flat.items()})
 
     def k(self, name: str) -> float:
         key = name.strip().lower().replace(" ", "_").replace("-", "_").replace("__", "_")
         aliases = {
-            "bellmouth": "entrance_bellmouth", "entrance": "entrance_bellmouth",
-            "90_bend": "bend_90", "90deg_bend": "bend_90", "elbow_90": "bend_90",
-            "45_bend": "bend_45", "22_5_bend": "bend_22_5", "22.5_bend": "bend_22_5",
-            "nrv": "non_return_valve", "check_valve": "non_return_valve",
-            "bfv": "butterfly_valve", "sluice_valve": "gate_valve",
-            "exit": "exit_sharp", "enlarger": "enlarger", "expander": "enlarger",
+            "bellmouth": "entrance_bellmouth",
+            "entrance": "entrance_bellmouth",
+            "90_bend": "bend_90",
+            "90deg_bend": "bend_90",
+            "elbow_90": "bend_90",
+            "45_bend": "bend_45",
+            "22_5_bend": "bend_22_5",
+            "22.5_bend": "bend_22_5",
+            "nrv": "non_return_valve",
+            "check_valve": "non_return_valve",
+            "bfv": "butterfly_valve",
+            "sluice_valve": "gate_valve",
+            "exit": "exit_sharp",
+            "enlarger": "enlarger",
+            "expander": "enlarger",
         }
         key = aliases.get(key, key)
         if key not in self.coefficients:

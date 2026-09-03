@@ -2,6 +2,7 @@
 
 Public API is intentionally small and stable; import submodules for detail.
 """
+
 from __future__ import annotations
 
 from . import epanet, solver, staging, surge, transient
@@ -26,9 +27,9 @@ from .pumpcurve import PumpCurve
 from .selection import Candidate, SelectionCriteria, evaluate, select
 from .system import SystemCurve, SystemCurveSet
 
-try:                       # optional: needs openpyxl
+try:  # optional: needs openpyxl
     from . import excelio
-except ImportError:         # pragma: no cover
+except ImportError:  # pragma: no cover
     excelio = None  # type: ignore
 
 __version__ = "0.1.0"

@@ -9,10 +9,11 @@ Internally the engine works in strict SI:
 The CLI / project files accept the field units engineers actually use
 (l/s, m, mm, kW) and convert on the way in.
 """
+
 from __future__ import annotations
 
-G = 9.81                     # m/s2, gravitational acceleration (matches the source workbook)
-RHO_WATER_DEFAULT = 1000.0   # kg/m3
+G = 9.81  # m/s2, gravitational acceleration (matches the source workbook)
+RHO_WATER_DEFAULT = 1000.0  # kg/m3
 ATM_PRESSURE_SEA_LEVEL = 101_325.0  # Pa
 
 # ---- flow ---------------------------------------------------------------

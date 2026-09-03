@@ -37,8 +37,9 @@ solver test - static lift 24 m + 500 m DN400
 
 def _standalone_prediction():
     seg = PipeSegment("RM", 500.0, 402.8, 0.06, 140.0)
-    sysc = SystemCurve(static_head=24.0, segments=[seg], minor_losses=[],
-                       kinematic_viscosity=1.004e-6, method="DW")
+    sysc = SystemCurve(
+        static_head=24.0, segments=[seg], minor_losses=[], kinematic_viscosity=1.004e-6, method="DW"
+    )
     pump = PumpCurve.synthetic(0.3, 33.0, eff_bep=84.0, name="WS300")
     return pump, solve_operating_point(pump, sysc)
 
@@ -47,8 +48,9 @@ def test_epanet_matches_standalone_operating_point(tmp_path):
     base = tmp_path / "net.inp"
     base.write_text(BASE_INP)
     pump, pred = _standalone_prediction()
-    exp = build_pump_export(pump, pump_id="PMP1", from_node="RSUC", to_node="J1",
-                            flow_units="LPS", head_points=7)
+    exp = build_pump_export(
+        pump, pump_id="PMP1", from_node="RSUC", to_node="J1", flow_units="LPS", head_points=7
+    )
     sim, patched = patch_and_simulate(base, exp, output_path=tmp_path / "patched.inp")
 
     p = sim.pump("PMP1")

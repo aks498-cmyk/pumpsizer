@@ -11,6 +11,7 @@ The source workbook used  ``Patm - Hst - Hsf - Hsm - v^2/2g - SF``  with a
 fixed ``Patm = 10 m`` and no vapour-pressure term.  Pass
 ``include_vapour_pressure=False`` and ``atmospheric_head=10.0`` to reproduce it.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -28,7 +29,9 @@ class NPSHResult:
     def as_dict(self) -> dict:
         return {
             "npsh_available_m": round(self.npsh_available_m, 3),
-            "npsh_required_m": None if self.npsh_required_m is None else round(self.npsh_required_m, 3),
+            "npsh_required_m": None
+            if self.npsh_required_m is None
+            else round(self.npsh_required_m, 3),
             "margin_m": None if self.margin_m is None else round(self.margin_m, 3),
             "margin_ratio": None if self.margin_ratio is None else round(self.margin_ratio, 3),
             "safe": self.safe,
@@ -36,28 +39,32 @@ class NPSHResult:
         }
 
 
-def npsh_available(*,
-                   atmospheric_head_m: float,
-                   static_suction_head_m: float,
-                   suction_friction_loss_m: float,
-                   suction_minor_loss_m: float,
-                   suction_velocity_head_m: float,
-                   vapour_pressure_head_m: float = 0.0,
-                   safety_margin_m: float = 0.0,
-                   npsh_required_m: float | None = None,
-                   required_margin_m: float = 0.5) -> NPSHResult:
+def npsh_available(
+    *,
+    atmospheric_head_m: float,
+    static_suction_head_m: float,
+    suction_friction_loss_m: float,
+    suction_minor_loss_m: float,
+    suction_velocity_head_m: float,
+    vapour_pressure_head_m: float = 0.0,
+    safety_margin_m: float = 0.0,
+    npsh_required_m: float | None = None,
+    required_margin_m: float = 0.5,
+) -> NPSHResult:
     """Compute NPSHa and, if ``npsh_required_m`` is given, the cavitation check.
 
     ``static_suction_head_m`` is +ve for flooded suction, -ve for suction lift.
     A common acceptance rule is NPSHa - NPSHr >= max(0.5 m, 0.1*NPSHr).
     """
-    npsha = (atmospheric_head_m
-             - vapour_pressure_head_m
-             + static_suction_head_m
-             - suction_friction_loss_m
-             - suction_minor_loss_m
-             - suction_velocity_head_m
-             - safety_margin_m)
+    npsha = (
+        atmospheric_head_m
+        - vapour_pressure_head_m
+        + static_suction_head_m
+        - suction_friction_loss_m
+        - suction_minor_loss_m
+        - suction_velocity_head_m
+        - safety_margin_m
+    )
 
     terms = {
         "atmospheric_head_m": atmospheric_head_m,
@@ -75,5 +82,4 @@ def npsh_available(*,
     margin = npsha - npsh_required_m
     ratio = (npsha / npsh_required_m) if npsh_required_m > 0 else float("inf")
     threshold = max(required_margin_m, 0.1 * npsh_required_m)
-    return NPSHResult(npsha, npsh_required_m, margin, ratio,
-                      bool(margin >= threshold), terms)
+    return NPSHResult(npsha, npsh_required_m, margin, ratio, bool(margin >= threshold), terms)

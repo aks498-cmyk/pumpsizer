@@ -40,7 +40,7 @@ def test_hazen_williams_reasonable():
     hf = hazen_williams_hf(0.05, 1000.0, 0.3, 140.0)
     assert 1.0 < hf < 3.0
     # doubling flow raises loss by ~2^1.852
-    assert hazen_williams_hf(0.10, 1000.0, 0.3, 140.0) / hf == pytest.approx(2 ** 1.852, rel=1e-3)
+    assert hazen_williams_hf(0.10, 1000.0, 0.3, 140.0) / hf == pytest.approx(2**1.852, rel=1e-3)
 
 
 def test_velocity_and_reynolds_roundtrip():

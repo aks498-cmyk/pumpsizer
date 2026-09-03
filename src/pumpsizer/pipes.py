@@ -1,4 +1,5 @@
 """Pipe internal-diameter database and diameter selection by velocity."""
+
 from __future__ import annotations
 
 import math
@@ -24,15 +25,19 @@ class PipeDatabase:
     @classmethod
     def default(cls) -> PipeDatabase:
         data = _load_default_data()
-        return cls(materials=data["materials"],
-                   water_bulk_modulus_gpa=data.get("water_bulk_modulus_gpa", 2.19))
+        return cls(
+            materials=data["materials"],
+            water_bulk_modulus_gpa=data.get("water_bulk_modulus_gpa", 2.19),
+        )
 
     @classmethod
     def from_yaml(cls, path: str | Path) -> PipeDatabase:
         with open(path, encoding="utf-8") as fh:
             data = yaml.safe_load(fh)
-        return cls(materials=data["materials"],
-                   water_bulk_modulus_gpa=data.get("water_bulk_modulus_gpa", 2.19))
+        return cls(
+            materials=data["materials"],
+            water_bulk_modulus_gpa=data.get("water_bulk_modulus_gpa", 2.19),
+        )
 
     # -- elastic properties (water hammer) ----------------------------
     def youngs_modulus_gpa(self, material: str) -> float:
@@ -41,18 +46,18 @@ class PipeDatabase:
             return float(spec["youngs_modulus_gpa"])
         raise KeyError(f"no youngs_modulus_gpa for {material!r} in the pipe DB")
 
-    def wall_thickness_mm(self, material: str, dn: float,
-                          series: str | None = None) -> float:
+    def wall_thickness_mm(self, material: str, dn: float, series: str | None = None) -> float:
         """Representative wall thickness [mm] for a DN."""
         idmm = self.internal_diameter_mm(material, dn, series)
         return self.wall_thickness_from_id_mm(material, idmm, series)
 
-    def wall_thickness_from_id_mm(self, material: str, id_mm: float,
-                                  series: str | None = None) -> float:
+    def wall_thickness_from_id_mm(
+        self, material: str, id_mm: float, series: str | None = None
+    ) -> float:
         """Representative wall thickness [mm] from an internal diameter.
         Exact (OD/SDR) for HDPE/uPVC; ``wall_ratio_e_over_d`` x ID otherwise."""
         spec = self.materials[self.material_key(material)]
-        if "outer_diameters_mm" in spec:                 # HDPE / uPVC
+        if "outer_diameters_mm" in spec:  # HDPE / uPVC
             series = series or spec.get("default_series")
             sdr = spec["series"][series]
             return id_mm / (sdr - 2.0)
@@ -64,15 +69,20 @@ class PipeDatabase:
         n = name.strip().lower().replace(" ", "_").replace("-", "_")
         if n in self.materials:
             return n
-        aliases = {"di": "ductile_iron", "ci": "ductile_iron", "ms": "steel",
-                   "pvc": "upvc", "pe": "hdpe", "frp": "grp"}
+        aliases = {
+            "di": "ductile_iron",
+            "ci": "ductile_iron",
+            "ms": "steel",
+            "pvc": "upvc",
+            "pe": "hdpe",
+            "frp": "grp",
+        }
         if n in aliases and aliases[n] in self.materials:
             return aliases[n]
         for key, spec in self.materials.items():
             if spec.get("label", "").lower() == name.strip().lower():
                 return key
-        raise KeyError(f"unknown pipe material {name!r}; "
-                       f"have {sorted(self.materials)}")
+        raise KeyError(f"unknown pipe material {name!r}; have {sorted(self.materials)}")
 
     def roughness_mm(self, material: str, condition: str = "new") -> float:
         spec = self.materials[self.material_key(material)]
@@ -88,15 +98,12 @@ class PipeDatabase:
             return {float(dn): float(idmm) for dn, idmm in spec["sizes"].items()}
         series = series or spec.get("default_series")
         sdr = spec["series"][series]
-        return {float(od): float(od) * (1.0 - 2.0 / sdr)
-                for od in spec["outer_diameters_mm"]}
+        return {float(od): float(od) * (1.0 - 2.0 / sdr) for od in spec["outer_diameters_mm"]}
 
-    def internal_diameter_mm(self, material: str, dn: float,
-                             series: str | None = None) -> float:
+    def internal_diameter_mm(self, material: str, dn: float, series: str | None = None) -> float:
         bores = self.available_bores_mm(material, series)
         if float(dn) not in bores:
-            raise KeyError(f"DN{dn} not in {material} table "
-                           f"({sorted(int(x) for x in bores)})")
+            raise KeyError(f"DN{dn} not in {material} table ({sorted(int(x) for x in bores)})")
         return bores[float(dn)]
 
 
@@ -128,14 +135,14 @@ class DiameterChoice:
     series: str | None = None
 
 
-def select_diameter(db: PipeDatabase, material: str, q_m3s: float,
-                    max_velocity: float, series: str | None = None
-                    ) -> DiameterChoice:
+def select_diameter(
+    db: PipeDatabase, material: str, q_m3s: float, max_velocity: float, series: str | None = None
+) -> DiameterChoice:
     """Smallest catalogue bore whose full-bore velocity at ``q_m3s`` does not
     exceed ``max_velocity`` [m/s].  Falls back to the largest available bore
     (with a velocity above the limit) if nothing satisfies the constraint."""
     bores = db.available_bores_mm(material, series)
-    ordered = sorted(bores.items(), key=lambda kv: kv[1])   # by bore
+    ordered = sorted(bores.items(), key=lambda kv: kv[1])  # by bore
     best_fallback = None
     for dn, idmm in ordered:
         d = idmm / 1000.0

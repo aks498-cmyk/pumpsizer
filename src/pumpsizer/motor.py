@@ -6,6 +6,7 @@
 * rounding up to the IEC 60072-1 preferred kW series,
 * nominal efficiency from the IE-class table (workbook "Motor Rating" sheet).
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -16,7 +17,9 @@ import yaml
 
 
 def _load() -> dict:
-    with resources.files("pumpsizer.data").joinpath("motors.yaml").open("r", encoding="utf-8") as fh:
+    with (
+        resources.files("pumpsizer.data").joinpath("motors.yaml").open("r", encoding="utf-8") as fh
+    ):
         return yaml.safe_load(fh)
 
 
@@ -76,9 +79,14 @@ class MotorSelection:
         }
 
 
-def size_motor(shaft_power_kw: float, *, margin_pct: float = 15.0,
-               poles: int = 2, ie_class: str = "IE3",
-               design_basis: str = "operating point") -> MotorSelection:
+def size_motor(
+    shaft_power_kw: float,
+    *,
+    margin_pct: float = 15.0,
+    poles: int = 2,
+    ie_class: str = "IE3",
+    design_basis: str = "operating point",
+) -> MotorSelection:
     """Round ``shaft_power_kw * (1 + margin)`` up to a standard motor and report
     its nominal efficiency and electrical input power."""
     required = shaft_power_kw * (1.0 + margin_pct / 100.0)
@@ -86,15 +94,21 @@ def size_motor(shaft_power_kw: float, *, margin_pct: float = 15.0,
     eff = nominal_efficiency(rated, poles=poles, ie_class=ie_class)
     input_kw = shaft_power_kw / (eff / 100.0)
     return MotorSelection(
-        shaft_power_kw=shaft_power_kw, design_basis=design_basis,
-        margin_pct=margin_pct, required_kw=required, rated_kw=rated,
-        poles=poles, ie_class=ie_class, motor_efficiency_pct=eff,
+        shaft_power_kw=shaft_power_kw,
+        design_basis=design_basis,
+        margin_pct=margin_pct,
+        required_kw=required,
+        rated_kw=rated,
+        poles=poles,
+        ie_class=ie_class,
+        motor_efficiency_pct=eff,
         input_electrical_kw=input_kw,
     )
 
 
-def non_overloading_shaft_power_kw(pump_curve, rho: float = 1000.0, g: float = 9.81,
-                                   q_max: float | None = None) -> float:
+def non_overloading_shaft_power_kw(
+    pump_curve, rho: float = 1000.0, g: float = 9.81, q_max: float | None = None
+) -> float:
     """Maximum shaft power along the pump curve from ~0 to runout - the basis
     for a 'non-overloading' motor selection."""
     q_max = q_max if q_max is not None else pump_curve.max_flow()

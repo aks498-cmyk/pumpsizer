@@ -6,11 +6,17 @@ from pumpsizer.system import MinorLoss, SystemCurve
 
 
 def make_curve():
-    seg = PipeSegment("rm", length_m=500.0, diameter_mm=402.8,
-                      roughness_mm=0.06, hazen_williams_c=140.0)
+    seg = PipeSegment(
+        "rm", length_m=500.0, diameter_mm=402.8, roughness_mm=0.06, hazen_williams_c=140.0
+    )
     minor = MinorLoss("disch", k_total=8.2, diameter_mm=402.8)
-    return SystemCurve(static_head=24.0, segments=[seg], minor_losses=[minor],
-                       kinematic_viscosity=0.8007e-6, method="DW")
+    return SystemCurve(
+        static_head=24.0,
+        segments=[seg],
+        minor_losses=[minor],
+        kinematic_viscosity=0.8007e-6,
+        method="DW",
+    )
 
 
 def test_head_increases_with_flow():
@@ -22,8 +28,7 @@ def test_head_increases_with_flow():
 def test_components_add_up():
     sc = make_curve()
     q = 0.3
-    assert sc.head(q) == pytest.approx(
-        sc.static_head + sc.friction_loss(q) + sc.minor_loss(q))
+    assert sc.head(q) == pytest.approx(sc.static_head + sc.friction_loss(q) + sc.minor_loss(q))
 
 
 def test_rising_main_friction_is_physical():
@@ -51,4 +56,4 @@ def test_hw_method_switch_changes_result():
 def test_k_resistance_reconstructs_dynamic_loss():
     sc = make_curve()
     k = sc.k_resistance(0.3)
-    assert k * 0.3 ** 2 == pytest.approx(sc.dynamic_loss(0.3), rel=1e-9)
+    assert k * 0.3**2 == pytest.approx(sc.dynamic_loss(0.3), rel=1e-9)

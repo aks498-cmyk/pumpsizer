@@ -4,6 +4,7 @@ No external dependency.  Preserves section order, comments and unknown
 sections verbatim; gives typed access to the bits this tool needs
 (``[OPTIONS]``, ``[CURVES]``, ``[PUMPS]``, ``[ENERGY]``) and safe upserts.
 """
+
 from __future__ import annotations
 
 import re
@@ -28,7 +29,7 @@ class PumpRecord:
     id: str
     node1: str
     node2: str
-    params: dict[str, str] = field(default_factory=dict)   # HEAD/POWER/SPEED/PATTERN
+    params: dict[str, str] = field(default_factory=dict)  # HEAD/POWER/SPEED/PATTERN
     comment: str = ""
 
     def to_line(self) -> str:
@@ -117,8 +118,9 @@ class InpModel:
                 pts.append((float(tok[1]), float(tok[2])))
         return pts
 
-    def upsert_curve(self, curve_id: str, points: list[tuple[float, float]],
-                     kind: str = "PUMP") -> None:
+    def upsert_curve(
+        self, curve_id: str, points: list[tuple[float, float]], kind: str = "PUMP"
+    ) -> None:
         body = self._ensure("CURVES")
         kept = [ln for ln in body if not (_tokens(ln)[:1] == [curve_id])]
         block = [f";{kind}: {curve_id}"]
@@ -143,15 +145,23 @@ class InpModel:
             recs.append(PumpRecord(tok[0], tok[1], tok[2], params, cmt.strip()))
         return recs
 
-    def upsert_pump(self, pump_id: str, node1: str, node2: str, *,
-                    head_curve: str | None = None, power_kw: float | None = None,
-                    speed: float | None = None, pattern: str | None = None,
-                    keep_existing_nodes: bool = True) -> None:
+    def upsert_pump(
+        self,
+        pump_id: str,
+        node1: str,
+        node2: str,
+        *,
+        head_curve: str | None = None,
+        power_kw: float | None = None,
+        speed: float | None = None,
+        pattern: str | None = None,
+        keep_existing_nodes: bool = True,
+    ) -> None:
         body = self._ensure("PUMPS")
         if keep_existing_nodes:
             for rec in self.pumps:
                 if rec.id == pump_id:
-                    node1, node2 = rec.node1, rec.node2      # don't move the pump
+                    node1, node2 = rec.node1, rec.node2  # don't move the pump
                     break
         params: dict[str, str] = {}
         if head_curve:
@@ -167,12 +177,20 @@ class InpModel:
         self.sections["PUMPS"] = kept + [rec.to_line()]
 
     # -- ENERGY -------------------------------------------------
-    def set_pump_energy(self, pump_id: str, *, effic_curve: str | None = None,
-                        price: float | None = None, pattern: str | None = None) -> None:
+    def set_pump_energy(
+        self,
+        pump_id: str,
+        *,
+        effic_curve: str | None = None,
+        price: float | None = None,
+        pattern: str | None = None,
+    ) -> None:
         body = self._ensure("ENERGY")
+
         def keep(ln: str) -> bool:
             tok = _tokens(ln)
             return not (len(tok) >= 2 and tok[0].upper() == "PUMP" and tok[1] == pump_id)
+
         kept = [ln for ln in body if keep(ln)]
         add = []
         if effic_curve:
@@ -194,16 +212,21 @@ class InpModel:
         """
         self.upsert_curve(export.head_curve_id, export.head_points, "PUMP")
         if export.efficiency_points and export.efficiency_curve_id:
-            self.upsert_curve(export.efficiency_curve_id, export.efficiency_points,
-                              "EFFICIENCY")
-        self.upsert_pump(export.pump_id, export.from_node, export.to_node,
-                         head_curve=export.head_curve_id,
-                         speed=export.speed if abs(export.speed - 1.0) > 1e-9 else None,
-                         pattern=export.speed_pattern,
-                         keep_existing_nodes=not move_pump)
+            self.upsert_curve(export.efficiency_curve_id, export.efficiency_points, "EFFICIENCY")
+        self.upsert_pump(
+            export.pump_id,
+            export.from_node,
+            export.to_node,
+            head_curve=export.head_curve_id,
+            speed=export.speed if abs(export.speed - 1.0) > 1e-9 else None,
+            pattern=export.speed_pattern,
+            keep_existing_nodes=not move_pump,
+        )
         if export.efficiency_curve_id or export.price_per_kwh is not None:
-            self.set_pump_energy(export.pump_id,
-                                 effic_curve=export.efficiency_curve_id,
-                                 price=export.price_per_kwh,
-                                 pattern=export.price_pattern)
+            self.set_pump_energy(
+                export.pump_id,
+                effic_curve=export.efficiency_curve_id,
+                price=export.price_per_kwh,
+                pattern=export.price_pattern,
+            )
         return self

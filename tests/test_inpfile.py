@@ -45,8 +45,9 @@ def test_pump_records():
 def test_apply_export_replaces_curve_and_pump_once():
     m = InpModel.parse(BASE)
     p = PumpCurve.synthetic(0.3, 33.0, eff_bep=84.0, name="WS300")
-    exp = build_pump_export(p, pump_id="PMP1", from_node="RSUC", to_node="J1",
-                            flow_units="LPS", head_points=3)
+    exp = build_pump_export(
+        p, pump_id="PMP1", from_node="RSUC", to_node="J1", flow_units="LPS", head_points=3
+    )
     m.apply_export(exp)
     txt = m.to_text()
     # exactly one PMP1 line, now pointing at the new curve
@@ -59,7 +60,7 @@ def test_apply_export_replaces_curve_and_pump_once():
     assert "OLDC" not in pump_lines[0]
     # efficiency wired into ENERGY
     assert any("EFFIC" in ln and "PMP1" in ln for ln in m.sections["ENERGY"])
-    assert "GLOBAL EFFIC 75" in txt          # untouched global line kept
+    assert "GLOBAL EFFIC 75" in txt  # untouched global line kept
 
 
 def test_upsert_curve_dedupes():

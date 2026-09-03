@@ -13,6 +13,7 @@ Later a one-line xlwings macro / button can call ``Project.from_dict(
 read_project(path)).run()`` and ``write_results(...)`` - this module keeps the
 engine usable with nothing but Python.
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -23,8 +24,9 @@ try:
     from openpyxl.styles import Font, PatternFill
     from openpyxl.utils import get_column_letter
 except ImportError as exc:  # pragma: no cover
-    raise ImportError("the Excel bridge needs openpyxl: pip install openpyxl "
-                      "(or pip install pumpsizer[excel])") from exc
+    raise ImportError(
+        "the Excel bridge needs openpyxl: pip install openpyxl (or pip install pumpsizer[excel])"
+    ) from exc
 
 from .project import Project, ProjectResults
 from .report import text_report
@@ -93,11 +95,19 @@ _DEFAULT_SEGMENTS = [
     ["rising_main", "discharge", 500, 400, ""],
 ]
 _DEFAULT_FITTINGS = [
-    ["suction", "entrance_bellmouth", 1], ["suction", "reducer", 1],
-    ["suction", "gate_valve", 4], ["suction", "bend_90", 4], ["suction", "tee", 1],
-    ["discharge", "tee", 1], ["discharge", "enlarger", 1], ["discharge", "bend_45", 4],
-    ["discharge", "bend_90", 4], ["discharge", "bend_22_5", 6], ["discharge", "gate_valve", 1],
-    ["discharge", "butterfly_valve", 1], ["discharge", "non_return_valve", 1],
+    ["suction", "entrance_bellmouth", 1],
+    ["suction", "reducer", 1],
+    ["suction", "gate_valve", 4],
+    ["suction", "bend_90", 4],
+    ["suction", "tee", 1],
+    ["discharge", "tee", 1],
+    ["discharge", "enlarger", 1],
+    ["discharge", "bend_45", 4],
+    ["discharge", "bend_90", 4],
+    ["discharge", "bend_22_5", 6],
+    ["discharge", "gate_valve", 1],
+    ["discharge", "butterfly_valve", 1],
+    ["discharge", "non_return_valve", 1],
     ["discharge", "exit_sharp", 1],
 ]
 _FIT_REF = {"suction": "pump_suction", "discharge": "pump_discharge"}
@@ -121,7 +131,7 @@ def write_input_template(path: str | Path) -> str:
     for section, key, default, hint in _TEMPLATE_ROWS:
         r = ws.max_row + 1
         ws.cell(r, 1, section if section != last_section else "")
-        ws.cell(r, 2, key)                      # full dotted key, unambiguous
+        ws.cell(r, 2, key)  # full dotted key, unambiguous
         vcell = ws.cell(r, 3, default)
         vcell.fill = _INPUT_FILL
         ws.cell(r, 4, hint)
@@ -198,7 +208,7 @@ def read_project(path: str | Path) -> dict:
         if not row or row[1] in (None, ""):
             continue
         key = str(row[1]).strip()
-        if "." not in key:                      # tolerate a legacy short-key sheet
+        if "." not in key:  # tolerate a legacy short-key sheet
             key = next((k for k in known if k.split(".", 1)[1] == key), key)
         if key in known:
             flat[key] = _coerce(row[2])
@@ -211,8 +221,11 @@ def read_project(path: str | Path) -> dict:
             if not row or not row[0]:
                 continue
             d = dict(zip(_SEGMENT_COLS, row))
-            seg: dict[str, Any] = {"name": str(d["name"]), "group": str(d.get("group") or "discharge"),
-                                   "length_m": float(d["length_m"])}
+            seg: dict[str, Any] = {
+                "name": str(d["name"]),
+                "group": str(d.get("group") or "discharge"),
+                "length_m": float(d["length_m"]),
+            }
             if d.get("diameter_mm"):
                 seg["diameter_mm"] = float(d["diameter_mm"])
             elif d.get("dn"):
@@ -268,8 +281,10 @@ def read_legacy_workbook(path: str | Path) -> dict:
         "pipe": {"headloss_method": "DW"},
         "flow": {"total_demand_lps": D(11), "duty_pumps": int(D(12) or 1)},
         "levels": {
-            "reservoir_hwl_m": D(42), "reservoir_bwl_m": D(43),
-            "sump_hwl_m": D(44), "sump_bwl_m": D(45),
+            "reservoir_hwl_m": D(42),
+            "reservoir_bwl_m": D(43),
+            "sump_hwl_m": D(44),
+            "sump_bwl_m": D(45),
             "pump_centreline_m": D(46) if D(46) is not None else D(45),
         },
         "control": {"vfd": (D(13) == 2), "vfd_min_speed_pct": (D(14) or 0) * 100},
@@ -280,19 +295,34 @@ def read_legacy_workbook(path: str | Path) -> dict:
             {"name": "rising_main", "group": "discharge", "length_m": D(18), "dn": None},
         ],
         "fittings": {
-            "suction": {"entrance_bellmouth": D(27) or 0, "reducer": D(28) or 0,
-                        "gate_valve": D(29) or 0, "bend_90": D(30) or 0, "tee": D(31) or 0},
-            "discharge": {"tee": D(33) or 0, "enlarger": D(34) or 0, "bend_45": D(35) or 0,
-                          "bend_90": D(36) or 0, "bend_22_5": D(37) or 0, "gate_valve": D(38) or 0,
-                          "butterfly_valve": D(39) or 0, "non_return_valve": D(40) or 0,
-                          "exit_sharp": D(41) or 0}},
+            "suction": {
+                "entrance_bellmouth": D(27) or 0,
+                "reducer": D(28) or 0,
+                "gate_valve": D(29) or 0,
+                "bend_90": D(30) or 0,
+                "tee": D(31) or 0,
+            },
+            "discharge": {
+                "tee": D(33) or 0,
+                "enlarger": D(34) or 0,
+                "bend_45": D(35) or 0,
+                "bend_90": D(36) or 0,
+                "bend_22_5": D(37) or 0,
+                "gate_valve": D(38) or 0,
+                "butterfly_valve": D(39) or 0,
+                "non_return_valve": D(40) or 0,
+                "exit_sharp": D(41) or 0,
+            },
+        },
         "fitting_reference": _FIT_REF,
         "autosize_diameter": True,
         "pump": {"source": "synthetic"},
         "water_hammer": {"enabled": True},
     }
     try:
-        data["pipe"]["material"] = material_map.get(int(wb["Material"]["C3"].value or 1), "ductile_iron")
+        data["pipe"]["material"] = material_map.get(
+            int(wb["Material"]["C3"].value or 1), "ductile_iron"
+        )
     except Exception:
         data["pipe"]["material"] = "ductile_iron"
     # drop empty leaves
@@ -321,30 +351,58 @@ def write_results(res: ProjectResults, path: str | Path, *, include_report: bool
         for k, v in rows:
             ws.append([k, v])
 
-    block("Operating point", [
-        ("Flow (l/s)", round(op.flow_lps, 2)),
-        ("Head (m)", round(op.head_m, 2)),
-        ("Running pumps", op.n_pumps),
-        ("Flow per pump (l/s)", round(op.flow_per_pump_m3s * 1000, 2)),
-        ("Pump efficiency (%)", None if op.efficiency_pct != op.efficiency_pct else round(op.efficiency_pct, 1)),
-        ("Hydraulic power total (kW)", round(op.hydraulic_power_kw, 2)),
-        ("Shaft power total (kW)", round(op.shaft_power_kw, 2)),
-        ("VFD speed (%)", round(op.speed_ratio * 100, 1)),
-    ])
-    block("System head", [
-        ("Design system head (m)", round(res.design_system_head_m, 2)),
-        ("Duty per pump", f"{res.duty_flow_per_pump_m3s*1000:.1f} l/s @ {res.duty_head_m:.2f} m"),
-    ] + [(f"H_sys [{k}] (m)", round(v.head(res.duty_flow_per_pump_m3s * op.n_pumps), 2))
-         for k, v in res.system_set.as_dict().items()])
+    block(
+        "Operating point",
+        [
+            ("Flow (l/s)", round(op.flow_lps, 2)),
+            ("Head (m)", round(op.head_m, 2)),
+            ("Running pumps", op.n_pumps),
+            ("Flow per pump (l/s)", round(op.flow_per_pump_m3s * 1000, 2)),
+            (
+                "Pump efficiency (%)",
+                None if op.efficiency_pct != op.efficiency_pct else round(op.efficiency_pct, 1),
+            ),
+            ("Hydraulic power total (kW)", round(op.hydraulic_power_kw, 2)),
+            ("Shaft power total (kW)", round(op.shaft_power_kw, 2)),
+            ("VFD speed (%)", round(op.speed_ratio * 100, 1)),
+        ],
+    )
+    block(
+        "System head",
+        [
+            ("Design system head (m)", round(res.design_system_head_m, 2)),
+            (
+                "Duty per pump",
+                f"{res.duty_flow_per_pump_m3s * 1000:.1f} l/s @ {res.duty_head_m:.2f} m",
+            ),
+        ]
+        + [
+            (f"H_sys [{k}] (m)", round(v.head(res.duty_flow_per_pump_m3s * op.n_pumps), 2))
+            for k, v in res.system_set.as_dict().items()
+        ],
+    )
     n = res.npsh
-    block("NPSH", [("NPSH available (m)", n.npsh_available_m),
-                   ("NPSH required (m)", n.npsh_required_m),
-                   ("Margin (m)", n.margin_m), ("Safe", n.safe)])
+    block(
+        "NPSH",
+        [
+            ("NPSH available (m)", n.npsh_available_m),
+            ("NPSH required (m)", n.npsh_required_m),
+            ("Margin (m)", n.margin_m),
+            ("Safe", n.safe),
+        ],
+    )
     m = res.motor
-    block("Motor", [("Shaft power one pump (kW)", round(m.shaft_power_kw, 2)),
-                    ("Rated (kW)", m.rated_kw), ("Poles", m.poles), ("IE class", m.ie_class),
-                    ("Motor efficiency (%)", round(m.motor_efficiency_pct, 1)),
-                    ("Electrical input one pump (kW)", round(m.input_electrical_kw, 2))])
+    block(
+        "Motor",
+        [
+            ("Shaft power one pump (kW)", round(m.shaft_power_kw, 2)),
+            ("Rated (kW)", m.rated_kw),
+            ("Poles", m.poles),
+            ("IE class", m.ie_class),
+            ("Motor efficiency (%)", round(m.motor_efficiency_pct, 1)),
+            ("Electrical input one pump (kW)", round(m.input_electrical_kw, 2)),
+        ],
+    )
     if res.energy:
         block("Energy", [(k, v) for k, v in res.energy.items() if not isinstance(v, dict)])
     for wn in res.warnings:
@@ -353,19 +411,32 @@ def write_results(res: ProjectResults, path: str | Path, *, include_report: bool
 
     # curve data
     cs = wb.create_sheet("Curves")
-    cs.append(["flow_lps", "system_max_used_m", "system_min_new_m", "pump_head_m",
-               "pump_eff_pct", "pump_npshr_m"])
+    cs.append(
+        [
+            "flow_lps",
+            "system_max_used_m",
+            "system_min_new_m",
+            "pump_head_m",
+            "pump_eff_pct",
+            "pump_npshr_m",
+        ]
+    )
     for c in cs[1]:
         c.font = _KEY
     import numpy as np
+
     qmax = max(res.pump.max_flow() * max(op.n_pumps, 1), res.duty_flow_per_pump_m3s * 1.4)
     for q in np.linspace(1e-4, qmax, 40):
-        cs.append([round(q * 1000, 2),
-                   round(float(res.system_set.max_static_used.head(q)), 3),
-                   round(float(res.system_set.min_static_new.head(q)), 3),
-                   round(float(res.pump.head(q)), 3),
-                   None if res.pump.eff_pts is None else round(float(res.pump.efficiency(q)), 2),
-                   None if res.pump.npshr_pts is None else round(float(res.pump.npshr(q)), 3)])
+        cs.append(
+            [
+                round(q * 1000, 2),
+                round(float(res.system_set.max_static_used.head(q)), 3),
+                round(float(res.system_set.min_static_new.head(q)), 3),
+                round(float(res.pump.head(q)), 3),
+                None if res.pump.eff_pts is None else round(float(res.pump.efficiency(q)), 2),
+                None if res.pump.npshr_pts is None else round(float(res.pump.npshr(q)), 3),
+            ]
+        )
     _autosize(cs)
 
     es = wb.create_sheet("EPANET")
@@ -375,15 +446,36 @@ def write_results(res: ProjectResults, path: str | Path, *, include_report: bool
 
     if res.selection:
         sl = wb.create_sheet("Selection")
-        sl.append(["rank", "pump", "method", "eff_pct", "Q/BEP", "npsh_margin_m",
-                   "head_margin_pct", "score", "notes"])
+        sl.append(
+            [
+                "rank",
+                "pump",
+                "method",
+                "eff_pct",
+                "Q/BEP",
+                "npsh_margin_m",
+                "head_margin_pct",
+                "score",
+                "notes",
+            ]
+        )
         for c in sl[1]:
             c.font = _KEY
         for i, cand in enumerate(res.selection, 1):
             dd = cand.as_dict()
-            sl.append([i, dd["pump"], dd["method"], dd["efficiency_pct"], dd["bep_ratio"],
-                       dd["npsh_margin_m"], dd["head_margin_pct"], dd["score"],
-                       "; ".join(dd["reasons"])])
+            sl.append(
+                [
+                    i,
+                    dd["pump"],
+                    dd["method"],
+                    dd["efficiency_pct"],
+                    dd["bep_ratio"],
+                    dd["npsh_margin_m"],
+                    dd["head_margin_pct"],
+                    dd["score"],
+                    "; ".join(dd["reasons"]),
+                ]
+            )
         _autosize(sl)
 
     if res.surge is not None:
@@ -405,7 +497,9 @@ def write_results(res: ProjectResults, path: str | Path, *, include_report: bool
     return str(path)
 
 
-def run_workbook(in_path: str | Path, out_path: str | Path, *, legacy: bool = False) -> ProjectResults:
+def run_workbook(
+    in_path: str | Path, out_path: str | Path, *, legacy: bool = False
+) -> ProjectResults:
     data = read_legacy_workbook(in_path) if legacy else read_project(in_path)
     res = Project.from_dict(data).run()
     write_results(res, out_path)

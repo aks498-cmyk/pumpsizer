@@ -51,4 +51,4 @@ def test_edited_template_values_take_effect(tmp_path):
     data = read_project(tpl)
     assert data["flow"]["total_demand_lps"] == 150
     res = Project.from_dict(data).run()
-    assert res.operating_point.flow_lps < 250       # lower demand -> lower duty
+    assert res.operating_point.flow_lps < 250  # lower demand -> lower duty

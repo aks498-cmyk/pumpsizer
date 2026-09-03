@@ -1,12 +1,13 @@
 """Command-line interface.
 
-    pumpsizer run PROJECT.yaml [--report out.txt] [--plot out.png]
-                              [--epanet out.inp] [--json out.json]
-                              [--patch existing.inp --patch-out patched.inp]
-    pumpsizer curve --duty-q 300 --duty-h 45 [--source synthetic|single_point]
-                   [--epanet-units LPS] [--points 3]
-    pumpsizer schema        # print an annotated example project file
+pumpsizer run PROJECT.yaml [--report out.txt] [--plot out.png]
+                          [--epanet out.inp] [--json out.json]
+                          [--patch existing.inp --patch-out patched.inp]
+pumpsizer curve --duty-q 300 --duty-h 45 [--source synthetic|single_point]
+               [--epanet-units LPS] [--points 3]
+pumpsizer schema        # print an annotated example project file
 """
+
 from __future__ import annotations
 
 import argparse
@@ -41,6 +42,7 @@ def _cmd_run(args: argparse.Namespace) -> int:
     target_inp = args.into
     if target_inp:
         from .inpfile import InpModel
+
         out = args.patch_out or (str(Path(target_inp).with_suffix("")) + ".patched.inp")
         model = InpModel.read(target_inp)
         model.apply_export(res.epanet_export)
@@ -52,6 +54,7 @@ def _cmd_run(args: argparse.Namespace) -> int:
     if args.plot:
         try:
             from .report import plot_performance
+
             plot_performance(res, args.plot)
             print(f"wrote plot         -> {args.plot}")
         except ImportError:
@@ -66,6 +69,7 @@ def _cmd_run(args: argparse.Namespace) -> int:
 
 def _print_sim_vs_prediction(inp_path, pump_id, predicted=None) -> int:
     from .solver import available, simulate
+
     if not available():
         print("!! EPANET solver bridge needs 'epyt'  (pip install epyt)", file=sys.stderr)
         return 2
@@ -79,9 +83,11 @@ def _print_sim_vs_prediction(inp_path, pump_id, predicted=None) -> int:
             s = sim.pump(pump_id)
             dq = (s.flow_lps - predicted.flow_lps) / predicted.flow_lps * 100
             dh = (s.head_m - predicted.head_m) / predicted.head_m * 100
-            print(f"\n  vs pumpsizer prediction for {pump_id}: "
-                  f"flow {predicted.flow_lps:.1f} -> {s.flow_lps:.1f} l/s ({dq:+.1f}%), "
-                  f"head {predicted.head_m:.1f} -> {s.head_m:.1f} m ({dh:+.1f}%)")
+            print(
+                f"\n  vs pumpsizer prediction for {pump_id}: "
+                f"flow {predicted.flow_lps:.1f} -> {s.flow_lps:.1f} l/s ({dq:+.1f}%), "
+                f"head {predicted.head_m:.1f} -> {s.head_m:.1f} m ({dh:+.1f}%)"
+            )
         except KeyError as exc:
             print(f"  ({exc})")
     for w in sim.warnings:
@@ -112,27 +118,39 @@ def _cmd_select(args: argparse.Namespace) -> int:
         if args.npsha is None:
             args.npsha = res.npsh.npsh_available_m
 
-    crit = SelectionCriteria(duty_flow_m3s=duty_q, duty_head_m=duty_h,
-                             system_curve=system, npsh_available_m=args.npsha,
-                             allow_trim=not args.no_trim, allow_vfd=not args.no_vfd)
+    crit = SelectionCriteria(
+        duty_flow_m3s=duty_q,
+        duty_head_m=duty_h,
+        system_curve=system,
+        npsh_available_m=args.npsha,
+        allow_trim=not args.no_trim,
+        allow_vfd=not args.no_vfd,
+    )
     ranked = select(cat, crit, top=args.top, include_infeasible=args.all)
     if args.json:
-        Path(args.json).write_text(json.dumps([c.as_dict() for c in ranked], indent=2),
-                                   encoding="utf-8")
+        Path(args.json).write_text(
+            json.dumps([c.as_dict() for c in ranked], indent=2), encoding="utf-8"
+        )
         print(f"wrote {args.json}")
     hdr = f"{'#':>2}  {'pump':<26}{'method':<9}{'eff%':>6}{'Q/BEP':>7}{'NPSHmgn':>9}{'score':>7}  notes"
-    print(f"duty {duty_q*1000:.0f} l/s @ {duty_h:.1f} m   "
-          f"catalogue: {len(cat)} pumps   feasible: {sum(c.feasible for c in ranked)}")
+    print(
+        f"duty {duty_q * 1000:.0f} l/s @ {duty_h:.1f} m   "
+        f"catalogue: {len(cat)} pumps   feasible: {sum(c.feasible for c in ranked)}"
+    )
     print(hdr)
     for i, c in enumerate(ranked, 1):
         if not c.feasible:
-            print(f"{i:>2}  {c.model.key:<26}{'infeasible':<9}{'':>22}{'x':>7}  "
-                  f"{'; '.join(c.reasons)[:44]}")
+            print(
+                f"{i:>2}  {c.model.key:<26}{'infeasible':<9}{'':>22}{'x':>7}  "
+                f"{'; '.join(c.reasons)[:44]}"
+            )
             continue
         nm = "-" if c.npsh_margin_m is None else f"{c.npsh_margin_m:.1f}"
         ef = "-" if c.efficiency_pct != c.efficiency_pct else f"{c.efficiency_pct:.0f}"
-        print(f"{i:>2}  {c.model.key:<26}{c.method:<9}{ef:>6}{c.bep_ratio:>7.2f}"
-              f"{nm:>9}{c.score:>7.2f}  {'; '.join(c.reasons)[:44]}")
+        print(
+            f"{i:>2}  {c.model.key:<26}{c.method:<9}{ef:>6}{c.bep_ratio:>7.2f}"
+            f"{nm:>9}{c.score:>7.2f}  {'; '.join(c.reasons)[:44]}"
+        )
     return 0
 
 
@@ -147,15 +165,21 @@ def _cmd_stage(args: argparse.Namespace) -> int:
         return 2
     st = res.staging
     sm = st.summary()
-    print(f"daily energy {sm['daily_energy_kwh']:.0f} kWh   "
-          f"eff min/mean {sm['efficiency_min_pct']:.0f}/{sm['efficiency_mean_pct']:.0f}%   "
-          f"outside BEP {sm['fraction_time_outside_bep']*100:.0f}%")
-    print(f"starts/pump {sm['per_pump_starts']}   run h/pump {sm['per_pump_run_hours']}   "
-          f"peak {sm['max_starts_per_hour_seen']:.0f}/h   standby used: {sm['standby_used']}")
+    print(
+        f"daily energy {sm['daily_energy_kwh']:.0f} kWh   "
+        f"eff min/mean {sm['efficiency_min_pct']:.0f}/{sm['efficiency_mean_pct']:.0f}%   "
+        f"outside BEP {sm['fraction_time_outside_bep'] * 100:.0f}%"
+    )
+    print(
+        f"starts/pump {sm['per_pump_starts']}   run h/pump {sm['per_pump_run_hours']}   "
+        f"peak {sm['max_starts_per_hour_seen']:.0f}/h   standby used: {sm['standby_used']}"
+    )
     print(f"{'t[h]':>5}{'demand':>9}{'deliv':>9}{'pumps':>7}{'speed%':>8}{'head':>7}{'kW':>8}")
-    for s in st.steps[:len(res.staging.steps) if args.full else 24]:
-        print(f"{s.time_h:>5.0f}{s.demand_m3s*1000:>9.0f}{s.flow_delivered_m3s*1000:>9.0f}"
-              f"{s.running_pumps:>7}{s.speed_ratio*100:>8.0f}{s.head_m:>7.1f}{s.input_power_kw:>8.1f}")
+    for s in st.steps[: len(res.staging.steps) if args.full else 24]:
+        print(
+            f"{s.time_h:>5.0f}{s.demand_m3s * 1000:>9.0f}{s.flow_delivered_m3s * 1000:>9.0f}"
+            f"{s.running_pumps:>7}{s.speed_ratio * 100:>8.0f}{s.head_m:>7.1f}{s.input_power_kw:>8.1f}"
+        )
     for w in sm["warnings"]:
         print(f"  ! {w}")
     if args.json:
@@ -171,15 +195,18 @@ def _cmd_stage(args: argparse.Namespace) -> int:
 
 def _plot_staging(st, path):
     import matplotlib
+
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+
     t = st.array("time_h")
     run = st.array("running_pumps")
     fig, (a1, a2, a3) = plt.subplots(3, 1, figsize=(9, 7), sharex=True)
-    a1.fill_between(t, 0, st.array("demand_m3s") * 1000, step="mid",
-                    color="0.85", label="demand")
+    a1.fill_between(t, 0, st.array("demand_m3s") * 1000, step="mid", color="0.85", label="demand")
     a1.plot(t, st.array("flow_delivered_m3s") * 1000, "b-", lw=1.6, label="delivered")
-    a1.set_ylabel("flow [l/s]"); a1.grid(alpha=0.3); a1.legend(fontsize=8)
+    a1.set_ylabel("flow [l/s]")
+    a1.grid(alpha=0.3)
+    a1.legend(fontsize=8)
     a1.set_title("Demand-pattern staging")
 
     a2.step(t, run, "g-", where="mid", lw=1.6, label="pumps running")
@@ -189,12 +216,17 @@ def _plot_staging(st, path):
     a2.grid(alpha=0.3)
     a2b = a2.twinx()
     a2b.plot(t, st.array("speed_ratio") * 100, "m-", alpha=0.8, label="speed %")
-    a2b.set_ylabel("speed [%]", color="m"); a2b.set_ylim(0, 105)
+    a2b.set_ylabel("speed [%]", color="m")
+    a2b.set_ylim(0, 105)
 
     a3.plot(t, st.array("tank_level_m"), "c-", lw=1.6)
-    a3.set_ylabel("tank level [m]"); a3.set_xlabel("time [h]"); a3.grid(alpha=0.3)
+    a3.set_ylabel("tank level [m]")
+    a3.set_xlabel("time [h]")
+    a3.grid(alpha=0.3)
     a3.ticklabel_format(axis="y", useOffset=False)
-    fig.tight_layout(); fig.savefig(path, dpi=130); plt.close(fig)
+    fig.tight_layout()
+    fig.savefig(path, dpi=130)
+    plt.close(fig)
 
 
 def _cmd_transient(args: argparse.Namespace) -> int:
@@ -207,27 +239,49 @@ def _cmd_transient(args: argparse.Namespace) -> int:
     id_mm = args.diameter_mm or db.internal_diameter_mm(args.material, args.dn, args.series)
     e_mm = db.wall_thickness_from_id_mm(args.material, id_mm, args.series)
     E = db.youngs_modulus_gpa(args.material) * 1e9
-    pipe = T.Pipeline.from_pipe(length_m=args.length, diameter_mm=id_mm,
-                                wall_thickness_mm=e_mm, youngs_modulus_pa=E,
-                                friction_factor=args.friction, pump_elevation_m=0.0,
-                                reservoir_elevation_m=args.static, reaches=args.reaches)
-    pump = T.PumpInertia(rated_speed_rpm=args.speed_rpm, rated_flow_m3s=args.flow_lps / 1000.0,
-                         rated_head_m=args.head, total_inertia_kgm2=args.inertia,
-                         rated_efficiency=args.efficiency)
+    pipe = T.Pipeline.from_pipe(
+        length_m=args.length,
+        diameter_mm=id_mm,
+        wall_thickness_mm=e_mm,
+        youngs_modulus_pa=E,
+        friction_factor=args.friction,
+        pump_elevation_m=0.0,
+        reservoir_elevation_m=args.static,
+        reaches=args.reaches,
+    )
+    pump = T.PumpInertia(
+        rated_speed_rpm=args.speed_rpm,
+        rated_flow_m3s=args.flow_lps / 1000.0,
+        rated_head_m=args.head,
+        total_inertia_kgm2=args.inertia,
+        rated_efficiency=args.efficiency,
+    )
     av = T.AirVessel(gas_volume_m3=args.air_vessel_m3) if args.air_vessel_m3 else None
-    r = T.simulate_pump_trip(pipe, pump, sump_level_m=0.0, reservoir_level_m=args.static,
-                             air_vessel=av, duration_s=args.duration)
+    r = T.simulate_pump_trip(
+        pipe,
+        pump,
+        sump_level_m=0.0,
+        reservoir_level_m=args.static,
+        air_vessel=av,
+        duration_s=args.duration,
+    )
     d = r.as_dict()
     if args.json:
         Path(args.json).write_text(_json.dumps(d, indent=2), encoding="utf-8")
-    print(f"pipe        {args.length:.0f} m x {id_mm:.1f} mm ID  a={pipe.wave_speed_m_s:.0f} m/s  "
-          f"Tc={2*args.length/pipe.wave_speed_m_s:.2f} s")
+    print(
+        f"pipe        {args.length:.0f} m x {id_mm:.1f} mm ID  a={pipe.wave_speed_m_s:.0f} m/s  "
+        f"Tc={2 * args.length / pipe.wave_speed_m_s:.2f} s"
+    )
     print(f"max head    {d['max_head_m']:.1f} m  (x={d['max_head_at_x_m']} m)")
-    print(f"min head    {d['min_head_m']:.1f} m  (x={d['min_head_at_x_m']} m)  "
-          f"min gauge {d['min_gauge_pressure_head_m']:.1f} m")
+    print(
+        f"min head    {d['min_head_m']:.1f} m  (x={d['min_head_at_x_m']} m)  "
+        f"min gauge {d['min_gauge_pressure_head_m']:.1f} m"
+    )
     print(f"vapour separation: {'YES' if d['vapour_separation'] else 'no'}")
     if d.get("air_vessel_max_gas_volume_m3") is not None:
-        print(f"air vessel   {args.air_vessel_m3:.1f} m3 initial -> {d['air_vessel_max_gas_volume_m3']:.1f} m3 max gas")
+        print(
+            f"air vessel   {args.air_vessel_m3:.1f} m3 initial -> {d['air_vessel_max_gas_volume_m3']:.1f} m3 max gas"
+        )
     for nt in d["notes"]:
         print(f"  - {nt}")
     if args.plot:
@@ -241,25 +295,41 @@ def _cmd_transient(args: argparse.Namespace) -> int:
 
 def _plot_transient(r, path):
     import matplotlib
+
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8.5, 6), sharex=False)
     ax1.plot(r.time_s, r.head_pump_m, label="pump")
     ax1.plot(r.time_s, r.head_midpoint_m, label="mid-line", alpha=0.7)
-    ax1.set_xlabel("time [s]"); ax1.set_ylabel("head [m]"); ax1.grid(alpha=0.3); ax1.legend(fontsize=8)
+    ax1.set_xlabel("time [s]")
+    ax1.set_ylabel("head [m]")
+    ax1.grid(alpha=0.3)
+    ax1.legend(fontsize=8)
     ax1.set_title("MOC pump-trip transient")
     ax2.plot(r.node_x_m, r.envelope_max_m, "r-", label="max envelope")
     ax2.plot(r.node_x_m, r.envelope_min_m, "b-", label="min envelope")
     ax2.plot(r.node_x_m, r.node_elevation_m, "k--", lw=0.8, label="pipe elevation")
-    ax2.fill_between(r.node_x_m, r.node_elevation_m - 10.1, r.node_elevation_m,
-                     color="orange", alpha=0.15, label="vacuum band")
-    ax2.set_xlabel("distance along main [m]"); ax2.set_ylabel("head [m]")
-    ax2.grid(alpha=0.3); ax2.legend(fontsize=8)
-    fig.tight_layout(); fig.savefig(path, dpi=130); plt.close(fig)
+    ax2.fill_between(
+        r.node_x_m,
+        r.node_elevation_m - 10.1,
+        r.node_elevation_m,
+        color="orange",
+        alpha=0.15,
+        label="vacuum band",
+    )
+    ax2.set_xlabel("distance along main [m]")
+    ax2.set_ylabel("head [m]")
+    ax2.grid(alpha=0.3)
+    ax2.legend(fontsize=8)
+    fig.tight_layout()
+    fig.savefig(path, dpi=130)
+    plt.close(fig)
 
 
 def _cmd_excel_template(args: argparse.Namespace) -> int:
     from .excelio import write_input_template
+
     write_input_template(args.out)
     print(f"wrote input template -> {args.out}")
     return 0
@@ -267,11 +337,14 @@ def _cmd_excel_template(args: argparse.Namespace) -> int:
 
 def _cmd_excel(args: argparse.Namespace) -> int:
     from .excelio import run_workbook
+
     out = args.out or (str(Path(args.workbook).with_suffix("")) + ".results.xlsx")
     res = run_workbook(args.workbook, out, legacy=args.legacy)
     print(f"read {'legacy ' if args.legacy else ''}workbook -> {args.workbook}")
-    print(f"operating point: {res.operating_point.flow_lps:.1f} l/s @ "
-          f"{res.operating_point.head_m:.2f} m   motor {res.motor.rated_kw:g} kW")
+    print(
+        f"operating point: {res.operating_point.flow_lps:.1f} l/s @ "
+        f"{res.operating_point.head_m:.2f} m   motor {res.motor.rated_kw:g} kW"
+    )
     print(f"wrote results        -> {out}")
     for w in res.warnings:
         print(f"  ! {w}")
@@ -292,35 +365,53 @@ def _cmd_surge(args: argparse.Namespace) -> int:
     e_mm = db.wall_thickness_from_id_mm(args.material, id_mm, args.series)
     E = db.youngs_modulus_gpa(args.material) * 1e9
     d_m = id_mm / 1000.0
-    v = args.velocity if args.velocity else (args.flow_lps / 1000.0) / (math.pi * d_m ** 2 / 4.0)
+    v = args.velocity if args.velocity else (args.flow_lps / 1000.0) / (math.pi * d_m**2 / 4.0)
     rating = args.rating_m or (args.pn * 10.2 if args.pn else None)
 
-    a = S.assess(length_m=args.length, diameter_m=d_m, wall_thickness_m=e_mm / 1000.0,
-                 youngs_modulus_pa=E, steady_velocity_m_s=v, static_head_m=args.static,
-                 closure_time_s=args.closure_time, pipe_rating_head_m=rating,
-                 shaft_power_kw=args.shaft_power_kw, speed_rpm=args.speed_rpm,
-                 allowable_max_head_m=args.allowable_max_m)
+    a = S.assess(
+        length_m=args.length,
+        diameter_m=d_m,
+        wall_thickness_m=e_mm / 1000.0,
+        youngs_modulus_pa=E,
+        steady_velocity_m_s=v,
+        static_head_m=args.static,
+        closure_time_s=args.closure_time,
+        pipe_rating_head_m=rating,
+        shaft_power_kw=args.shaft_power_kw,
+        speed_rpm=args.speed_rpm,
+        allowable_max_head_m=args.allowable_max_m,
+    )
     if args.json:
         Path(args.json).write_text(json.dumps(a.as_dict(), indent=2), encoding="utf-8")
-    print(f"pipe            {args.length:.0f} m x {id_mm:.1f} mm ID ({args.material}), "
-          f"wall ~{e_mm:.1f} mm")
+    print(
+        f"pipe            {args.length:.0f} m x {id_mm:.1f} mm ID ({args.material}), "
+        f"wall ~{e_mm:.1f} mm"
+    )
     print(f"celerity a      {a.celerity_m_s:.0f} m/s     pipe period Tc = {a.pipe_period_s:.2f} s")
     print(f"steady v        {v:.2f} m/s")
     print(f"surge head +/-  {a.surge_head_m:.1f} m   [{a.surge_rule}]")
     print(f"head at pump    max {a.max_head_m:.1f} m / min {a.min_head_m:.1f} m")
     if a.pipe_rating_head_m:
-        print(f"pipe rating     {a.pipe_rating_head_m:.1f} m  "
-              f"({'EXCEEDED' if a.exceeds_rating else 'ok'})")
-    print(f"column sep risk {'YES' if a.column_separation_risk else 'no'}     "
-          f"protection needed {'YES' if a.protection_needed else 'no'}")
+        print(
+            f"pipe rating     {a.pipe_rating_head_m:.1f} m  "
+            f"({'EXCEEDED' if a.exceeds_rating else 'ok'})"
+        )
+    print(
+        f"column sep risk {'YES' if a.column_separation_risk else 'no'}     "
+        f"protection needed {'YES' if a.protection_needed else 'no'}"
+    )
     for r in a.recommendations:
         print(f"  - {r}")
     if a.air_vessel:
-        print(f"  air vessel   min gas {a.air_vessel['min_normal_gas_volume_m3']} m3, "
-              f"suggested gross {a.air_vessel['suggested_gross_vessel_m3']} m3")
+        print(
+            f"  air vessel   min gas {a.air_vessel['min_normal_gas_volume_m3']} m3, "
+            f"suggested gross {a.air_vessel['suggested_gross_vessel_m3']} m3"
+        )
     if a.flywheel:
-        print(f"  flywheel     +{a.flywheel['additional_flywheel_inertia_kgm2']} kg.m2  "
-              f"(~{a.flywheel['flywheel_mass_kg']} kg at k={a.flywheel['radius_of_gyration_m']} m)")
+        print(
+            f"  flywheel     +{a.flywheel['additional_flywheel_inertia_kgm2']} kg.m2  "
+            f"(~{a.flywheel['flywheel_mass_kg']} kg at k={a.flywheel['radius_of_gyration_m']} m)"
+        )
     return 0
 
 
@@ -332,6 +423,7 @@ def _cmd_curve(args: argparse.Namespace) -> int:
         pump = PumpCurve.synthetic(q, args.duty_h, shutoff_ratio=args.shutoff)
     print(json.dumps(pump.summary(), indent=2))
     from .epanet import build_pump_export
+
     exp = build_pump_export(pump, flow_units=args.epanet_units, head_points=args.points)
     print("\n" + exp.full_snippet())
     return 0
@@ -341,7 +433,9 @@ _SCHEMA = (Path(__file__).parent / "data").parent  # placeholder; real file belo
 
 
 def _cmd_schema(_args: argparse.Namespace) -> int:
-    example = Path(__file__).resolve().parents[2] / "examples" / "potable_water_pumping_station.yaml"
+    example = (
+        Path(__file__).resolve().parents[2] / "examples" / "potable_water_pumping_station.yaml"
+    )
     if example.exists():
         print(example.read_text(encoding="utf-8"))
     else:  # installed without examples/
@@ -350,8 +444,9 @@ def _cmd_schema(_args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="pumpsizer", description=__doc__,
-                                formatter_class=argparse.RawDescriptionHelpFormatter)
+    p = argparse.ArgumentParser(
+        prog="pumpsizer", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     sub = p.add_subparsers(dest="cmd", required=True)
 
     r = sub.add_parser("run", help="run a project YAML file")
@@ -360,12 +455,16 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--json", help="write the machine-readable summary here")
     r.add_argument("--epanet", help="write the [CURVES]/[PUMPS]/[ENERGY] block here")
     r.add_argument("--plot", help="write a performance plot (PNG) here")
-    r.add_argument("--into", dest="into",
-                   help="existing .inp to splice this pump/curve/energy into")
+    r.add_argument(
+        "--into", dest="into", help="existing .inp to splice this pump/curve/energy into"
+    )
     r.add_argument("--patch", dest="into", help=argparse.SUPPRESS)  # legacy alias
     r.add_argument("--patch-out", help="output path for the patched .inp")
-    r.add_argument("--simulate", action="store_true",
-                   help="run EPANET on the patched .inp and compare (needs epyt)")
+    r.add_argument(
+        "--simulate",
+        action="store_true",
+        help="run EPANET on the patched .inp and compare (needs epyt)",
+    )
     r.set_defaults(func=_cmd_run)
 
     v = sub.add_parser("verify", help="run EPANET on an .inp and report pump operating points")
@@ -399,8 +498,12 @@ def build_parser() -> argparse.ArgumentParser:
     sg.add_argument("--closure-time", type=float, help="valve/pump-trip effective time [s]")
     sg.add_argument("--pn", type=float, help="pipe pressure class [bar] -> rating head")
     sg.add_argument("--rating-m", type=float, help="pipe rating as head [m] (overrides --pn)")
-    sg.add_argument("--allowable-max-m", type=float, help="allowable max head for vessel sizing [m]")
-    sg.add_argument("--shaft-power-kw", type=float, help="pump shaft power [kW] for flywheel sizing")
+    sg.add_argument(
+        "--allowable-max-m", type=float, help="allowable max head for vessel sizing [m]"
+    )
+    sg.add_argument(
+        "--shaft-power-kw", type=float, help="pump shaft power [kW] for flywheel sizing"
+    )
     sg.add_argument("--speed-rpm", type=float, default=1480.0)
     sg.add_argument("--json", help="write the assessment here")
     sg.set_defaults(func=_cmd_surge)
@@ -422,7 +525,9 @@ def build_parser() -> argparse.ArgumentParser:
     tr.add_argument("--flow-lps", type=float, required=True, help="steady flow [l/s]")
     tr.add_argument("--head", type=float, required=True, help="pump head at duty [m]")
     tr.add_argument("--static", type=float, required=True, help="static lift [m]")
-    tr.add_argument("--inertia", type=float, required=True, help="pump+motor rotating inertia [kg.m2]")
+    tr.add_argument(
+        "--inertia", type=float, required=True, help="pump+motor rotating inertia [kg.m2]"
+    )
     tr.add_argument("--speed-rpm", type=float, default=1480.0)
     tr.add_argument("--efficiency", type=float, default=0.82)
     tr.add_argument("--friction", type=float, default=0.017, help="Darcy f for the main")
@@ -452,8 +557,11 @@ def build_parser() -> argparse.ArgumentParser:
     ex = sub.add_parser("excel", help="run a project from an .xlsx and write a results .xlsx")
     ex.add_argument("workbook", help="input .xlsx (template-shaped, or --legacy)")
     ex.add_argument("--out", help="results .xlsx (default: <workbook>.results.xlsx)")
-    ex.add_argument("--legacy", action="store_true",
-                    help="parse the original Pump Sizing.xlsx Input-sheet layout")
+    ex.add_argument(
+        "--legacy",
+        action="store_true",
+        help="parse the original Pump Sizing.xlsx Input-sheet layout",
+    )
     ex.set_defaults(func=_cmd_excel)
     return p
 
