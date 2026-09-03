@@ -1,0 +1,14 @@
+# Code owners for pumpsizer.
+# Auto review-requests need branch protection / a ruleset with "Require review
+# from Code Owners" (Pro-gated for private repos); the file is still the record
+# of who owns what.
+
+# Everything, by default
+*                                   @aks498-cmyk
+
+# Physics / calculation core
+/src/pumpsizer/                     @aks498-cmyk
+/src/pumpsizer/data/                @aks498-cmyk
+
+# CI, issue/PR templates, dependency config
+/.github/                           @aks498-cmyk
