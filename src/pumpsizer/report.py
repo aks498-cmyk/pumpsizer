@@ -40,6 +40,22 @@ def text_report(res: ProjectResults) -> str:
     L.append(_row("Design duty (per pump)",
                   f"{res.duty_flow_per_pump_m3s*1000:.1f} l/s @ {res.duty_head_m:.2f} m", ""))
 
+    if res.selection:
+        L.append("\n-- Pump selection (ranked) --------------------------------------")
+        L.append(f"  {'#':>2}  {'pump':<26}{'method':<9}{'eff%':>6}{'Q/BEP':>7}"
+                 f"{'NPSHmgn':>9}{'score':>7}  notes")
+        for i, c in enumerate(res.selection[:8], 1):
+            if not c.feasible:
+                L.append(f"  {i:>2}  {c.model.key:<26}{'--':<9}{'':>6}{'':>7}{'':>9}"
+                         f"{'x':>7}  {'; '.join(c.reasons)[:40]}")
+                continue
+            nm = "-" if c.npsh_margin_m is None else f"{c.npsh_margin_m:.1f}"
+            ef = "-" if (c.efficiency_pct != c.efficiency_pct) else f"{c.efficiency_pct:.0f}"
+            L.append(f"  {i:>2}  {c.model.key:<26}{c.method:<9}{ef:>6}"
+                     f"{c.bep_ratio:>7.2f}{nm:>9}{c.score:>7.2f}  "
+                     f"{'; '.join(c.reasons)[:42]}")
+        L.append(f"  -> using: {res.pump.name}")
+
     L.append("\n-- Pump curve -------------------------------------------------------")
     ps = res.pump.summary()
     L.append(_row("Curve model", ps["model"], f"(fit RMS {ps['fit_rms_m']} m)"))

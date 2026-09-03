@@ -54,6 +54,7 @@ class ProjectResults:
     motor: Any
     energy: dict
     epanet_export: Any
+    selection: list[Any] | None = None
     warnings: list[str] = field(default_factory=list)
 
     def summary(self) -> dict:
@@ -76,6 +77,7 @@ class ProjectResults:
             "npsh": self.npsh.as_dict(),
             "motor": self.motor.as_dict(),
             "energy": self.energy,
+            "selection": [c.as_dict() for c in self.selection] if self.selection else None,
             "warnings": self.warnings,
         }
 
@@ -212,7 +214,13 @@ class Project:
         duty_h = float(duty_h) if duty_h else design_head
 
         # -- pump curve --------------------------------------
-        pump = self._build_pump_curve(d, duty_q_pp, duty_h, warnings)
+        selection = None
+        src = str(_get(d, "pump.source", "synthetic")).lower()
+        if src in ("catalogue", "catalog"):
+            pump, selection = self._select_from_catalogue(
+                d, duty_q_pp, duty_h, design_system, warnings)
+        else:
+            pump = self._build_pump_curve(d, duty_q_pp, duty_h, warnings)
 
         # -- operating point --------------------------------
         vfd = bool(_get(d, "control.vfd", False))
@@ -304,8 +312,44 @@ class Project:
             duty_flow_per_pump_m3s=duty_q_pp, duty_head_m=duty_h,
             pump=pump, operating_point=op, operating_points_extra=extra,
             npsh=npsh, motor=motor, energy=energy, epanet_export=export,
-            warnings=warnings,
+            selection=selection, warnings=warnings,
         )
+
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _select_from_catalogue(d, duty_q, duty_h, design_system, warnings):
+        from .catalog import Catalog
+        from .selection import SelectionCriteria, select
+
+        cat_path = _get(d, "pump.catalogue_path")
+        cat = Catalog.from_path(cat_path) if cat_path else Catalog.bundled()
+        if cat_path is None:
+            warnings.append("pump.source=catalogue but no catalogue_path given; "
+                            "using the bundled ILLUSTRATIVE catalogue")
+        sel = _get(d, "pump.selection", {}) or {}
+        crit = SelectionCriteria(
+            duty_flow_m3s=duty_q, duty_head_m=duty_h,
+            system_curve=design_system,
+            npsh_available_m=_get(d, "pump.selection.npsh_available_m"),
+            allow_trim=bool(sel.get("allow_trim", True)),
+            allow_vfd=bool(sel.get("allow_vfd", True)),
+        )
+        ranked = select(cat, crit, include_infeasible=True)
+        feasible = [c for c in ranked if c.feasible]
+        if not feasible:
+            raise ValueError("no catalogue pump can meet the duty "
+                             f"{duty_q*1000:.0f} l/s @ {duty_h:.1f} m")
+        pick_name = _get(d, "pump.model")
+        chosen = next((c for c in feasible if pick_name and pick_name.lower() in c.model.key.lower()),
+                      feasible[0])
+        curve = chosen.model.to_pump_curve(speed_ratio=chosen.speed_ratio,
+                                           diameter_ratio=chosen.trim_ratio)
+        curve.design_q_m3s = duty_q
+        warnings.append(f"selected {chosen.model.key} ({chosen.method}, "
+                        f"score {chosen.score:.2f}); {len(feasible)} feasible of {len(cat)}")
+        if not chosen.model.verified:
+            warnings.append(f"{chosen.model.key} curve is NOT verified against a datasheet")
+        return curve, ranked
 
     # ------------------------------------------------------------------
     @staticmethod

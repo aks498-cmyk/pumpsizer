@@ -132,7 +132,10 @@ class PumpCurve:
     # ------------------------------------------------------------------
     @property
     def _scale_q(self) -> float:
-        return self.speed_ratio * self.diameter_ratio ** 3
+        # speed: Q ~ n   |   impeller trim: Q ~ (D2/D1)^2  (KSB 3.4.6 turn-down rule,
+        # which keeps H/Q^2 constant so the trimmed curve slides along a
+        # system-curve-shaped locus)
+        return self.speed_ratio * self.diameter_ratio ** 2
 
     @property
     def _scale_h(self) -> float:

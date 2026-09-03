@@ -1,0 +1,87 @@
+# ILLUSTRATIVE catalogue - synthetic curve shapes for exercising the selection
+# engine.  NOT real datasheet data.  Replace with digitised curves from your
+# vendor PDFs (KSB Omega/CPKN, Lubi, Grundfos NK/HS ...) and set verified: true.
+# Template + procedure: docs/catalog_template.yaml
+
+pumps:
+  - manufacturer: Example
+    series: WS
+    model: 300-34
+    reference_speed_rpm: 1480
+    poles: 4
+    impeller_diameter_mm: 360
+    min_impeller_diameter_mm: 300
+    bore_suction_mm: 350
+    bore_discharge_mm: 300
+    verified: false
+    source: synthetic shape (duty ~300 l/s @ 33 m, BEP-matched)
+    curve:
+      q_lps:    [0, 100, 200, 300, 350, 420]
+      h_m:      [38, 37,  35,  33,  30,  24]
+      eff_pct:  [0, 58,  79,  86,  83,  73]
+      npshr_m:  [0, 1.6, 2.4, 3.3, 4.4, 6.2]
+
+  - manufacturer: Example
+    series: WS
+    model: 350-42
+    reference_speed_rpm: 1480
+    poles: 4
+    impeller_diameter_mm: 420
+    min_impeller_diameter_mm: 350
+    bore_suction_mm: 400
+    bore_discharge_mm: 350
+    verified: false
+    source: synthetic shape (oversized at reference dia; needs a trim)
+    curve:
+      q_lps:    [0, 120, 240, 300, 360, 450]
+      h_m:      [46, 44,  41,  40,  37,  30]
+      eff_pct:  [0, 62,  80,  85,  82,  72]
+      npshr_m:  [0, 1.8, 2.8, 3.6, 4.8, 7.0]
+
+  - manufacturer: Example
+    series: WS
+    model: 400-45-VFD
+    reference_speed_rpm: 1480
+    poles: 4
+    impeller_diameter_mm: 440
+    min_impeller_diameter_mm: 370
+    min_speed_ratio: 0.6
+    max_speed_ratio: 1.15
+    verified: false
+    source: synthetic shape (VFD-rated, head margin at reference speed)
+    curve:
+      q_lps:    [0, 150, 300, 380, 480]
+      h_m:      [42, 40,  36,  33,  24]
+      eff_pct:  [0, 70,  84,  82,  70]
+      npshr_m:  [0, 2.0, 3.4, 4.5, 7.0]
+
+  - manufacturer: Example
+    series: WS
+    model: 250-30
+    reference_speed_rpm: 1480
+    poles: 4
+    impeller_diameter_mm: 320
+    min_impeller_diameter_mm: 270
+    verified: false
+    source: synthetic shape (undersized for a 300 l/s @ 33 m duty)
+    curve:
+      q_lps:    [0, 100, 200, 280, 340]
+      h_m:      [32, 31,  29,  25,  20]
+      eff_pct:  [0, 60,  80,  82,  74]
+      npshr_m:  [0, 1.5, 2.3, 3.6, 5.5]
+
+  - manufacturer: Example
+    series: MS
+    model: 200-6stage
+    reference_speed_rpm: 2950
+    poles: 2
+    stages: 6
+    impeller_diameter_mm: 210
+    min_impeller_diameter_mm: 190
+    verified: false
+    source: synthetic shape (high-head multistage, for other duties)
+    curve:
+      q_lps:    [0, 60, 120, 180, 240]
+      h_m:      [120, 116, 105, 88, 64]
+      eff_pct:  [0, 55, 74, 78, 70]
+      npshr_m:  [0, 2.0, 3.2, 5.0, 8.5]

@@ -1,0 +1,45 @@
+# -------------------------------------------------------------------------
+# pumpsizer catalogue template
+#
+# One file per manufacturer series (or one big file - both work).  Load with:
+#     Catalog.from_path("my_catalogue/")          # a directory of *.yaml
+#     Catalog.from_path("ksb_omega.yaml")         # a single file
+# or point a project at it:  pump.catalogue_path: my_catalogue/
+#
+# HOW TO DIGITISE A DATASHEET CURVE
+#   1. Read 5-9 (Q, H) points off the published H-Q curve for the *named
+#      impeller diameter* (usually the maximum).  Always include Q = 0
+#      (shut-off head) and a point near runout.
+#   2. Read efficiency % at the same flows (or at its own flows -> put them in
+#      a matching-length list; the loader pairs them with q_lps unless you add
+#      an eff_q_lps list - keep them the same length for now).
+#   3. Read NPSHr (m) at the same flows.
+#   4. Record the reference speed (rpm) and the min impeller diameter the
+#      vendor allows (for trim).  If the pump is sold with a VFD, set
+#      min_speed_ratio / max_speed_ratio (e.g. 0.6 / 1.0).
+#   5. Set verified: true only after a second person checks the numbers.
+# -------------------------------------------------------------------------
+
+pumps:
+  - manufacturer: KSB
+    series: Omega
+    model: 200-400
+    reference_speed_rpm: 1480      # nameplate speed of the published curve
+    poles: 4
+    stages: 1
+    impeller_diameter_mm: 400      # diameter the curve below is for
+    min_impeller_diameter_mm: 340  # vendor trim limit -> trim_limit_ratio 0.85
+    min_speed_ratio: 1.0           # < 1.0 only if VFD-rated
+    max_speed_ratio: 1.0           # > 1.0 only if the vendor allows overspeed
+    bore_suction_mm: 250
+    bore_discharge_mm: 200
+    price: null                    # optional, any currency - used only for LCC
+    source: "KSB Omega data booklet, p.NN, curve NN, 2005"
+    verified: false
+    notes: ""
+    tags: [end-suction, clean-water]
+    curve:
+      q_lps:   [0,   50,   100,  150,  200,  250,  300]
+      h_m:     [0,   0,    0,    0,    0,    0,    0]     # <- fill in
+      eff_pct: [0,   0,    0,    0,    0,    0,    0]     # <- fill in (optional)
+      npshr_m: [0,   0,    0,    0,    0,    0,    0]     # <- fill in (optional)

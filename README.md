@@ -41,12 +41,24 @@ Python ≥ 3.10. Runtime deps: `numpy`, `scipy`, `pyyaml` (`matplotlib` only for
 pumpsizer run examples/potable_water_pumping_station.yaml \
     --plot out/perf.png --epanet out/pump.inp --json out/summary.json
 
+# rank catalogue pumps against a duty point (uses the real system curve
+# + NPSHa when a project file is given)
+pumpsizer select --duty-q 300 --duty-h 33 --npsha 9
+pumpsizer select --project examples/potable_water_pumping_station.yaml \
+    --catalogue my_catalogue/
+
 # one-off curve + EPANET block from a duty point
 pumpsizer curve --duty-q 300 --duty-h 33 --source synthetic --points 3
 
 # print the annotated project schema
 pumpsizer schema
 ```
+
+To drive selection from the project file, set `pump.source: catalogue` and
+`pump.catalogue_path: my_catalogue/` (a file or directory of YAML — see
+`docs/catalog_template.yaml`). The winning pump's curve (with any impeller trim
+or VFD speed applied) flows straight into the operating-point, NPSH, motor and
+EPANET steps; the full ranked list is in `ProjectResults.selection`.
 
 Library:
 
@@ -97,9 +109,11 @@ efficiency — are plain YAML; edit or point the API at your own via
 
 ## Roadmap
 
-* **Phase 1 (this release)** – engine, CLI, EPANET text export, `.inp` splice.
-* **Phase 2** – manufacturer-catalogue database (from the KSB / Lubi / Grundfos
-  datasheets) + selection & ranking; impeller-trim prediction.
+* **Phase 1** – engine, CLI, EPANET text export, `.inp` splice. ✅
+* **Phase 2** – catalogue data model + loader, selection & ranking, impeller-trim
+  and VFD-speed solving, `pumpsizer select`, `pump.source: catalogue`. ✅
+  *Still to do: digitise real curves from the KSB / Lubi / Grundfos datasheets
+  into `docs/catalog_template.yaml` format (bundled entries are illustrative).*
 * **Phase 3** – full `.inp` round-trip + EPANET-solver operating point
   (`epanet-python` / WNTR); multi-pump staging against a demand pattern.
 * **Phase 4** – water-hammer pre-sizing (Joukowsky + air-vessel/flywheel rules

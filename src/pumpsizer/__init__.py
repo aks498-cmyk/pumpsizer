@@ -20,6 +20,8 @@ from .operating import (
 from .npsh import npsh_available, NPSHResult
 from .motor import size_motor, MotorSelection, MOTOR_KW_SERIES
 from .energy import annual_energy_kwh, annual_energy_cost, life_cycle_cost
+from .catalog import Catalog, PumpModel
+from .selection import SelectionCriteria, Candidate, select, evaluate
 from .project import Project, ProjectResults
 from . import epanet
 
@@ -53,6 +55,12 @@ __all__ = [
     "annual_energy_kwh",
     "annual_energy_cost",
     "life_cycle_cost",
+    "Catalog",
+    "PumpModel",
+    "SelectionCriteria",
+    "Candidate",
+    "select",
+    "evaluate",
     "Project",
     "ProjectResults",
     "epanet",
