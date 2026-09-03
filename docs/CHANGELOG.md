@@ -12,27 +12,18 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 _Nothing yet._
 
-## [0.3.0] — 2026-09-04
-
-Docs site only — no functional change to the engine.
-
-### Added
-- Docs site: top navigation (Home / Workbook mapping / Catalogue guide /
-  Changelog / GitHub) with an active-page indicator, and a "back to docs home"
-  link in the footer. The `CHANGELOG` now lives at `docs/CHANGELOG.md` and
-  renders as a page on the site.
-
 ## [0.2.0] — 2026-09-04
 
-Repository / distribution changes only — no functional change to the engine
-(no API or calculation differences from 0.1.0).
+Repository / distribution and documentation only — no functional change to the
+engine (no API or calculation differences from 0.1.0).
 
 ### Added
 - Repository is public.
 - **Docs site** on GitHub Pages from `/docs`
-  (<https://aks498-cmyk.github.io/pumpsizer/>): a landing page plus the
-  reference docs, Cayman theme, with a footer carrying the project
-  description and a repo / version / licence / maintainer line.
+  (<https://aks498-cmyk.github.io/pumpsizer/>): landing page + reference docs,
+  Cayman theme, top navigation with an active-page indicator, `CHANGELOG`
+  rendered as a page, and a footer with the project description, a
+  repo / version / licence / maintainer line, and a "back to docs home" link.
 - README and docs badge row: `docs` (Pages) and `release` (latest tag) badges
   alongside CI / Python / licence / EPANET.
 
@@ -122,7 +113,6 @@ release.
 - The MOC solver is single-pipe and damps the cavity-collapse spike — use a
   specialist package for a branched network or final sign-off.
 
-[Unreleased]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.2.0...v0.3.0
+[Unreleased]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.2.0...HEAD
 [0.2.0]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/aks498-cmyk/pumpsizer/releases/tag/v0.1.0
