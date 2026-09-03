@@ -1,0 +1,34 @@
+# Minor-loss (local-loss) coefficients  K  in  h = K * v^2 / (2 g).
+#
+# The first block reproduces the exact K values hard-coded in the
+# Calculations sheet of the source workbook so results tie out.
+# The `extra` block adds common fittings (KSB "Selecting Centrifugal Pumps",
+# tables 5-8) for reuse on other projects.  All are editable.
+
+workbook_defaults:
+  entrance_bellmouth: 0.5
+  reducer: 0.75
+  gate_valve: 0.3
+  bend_90: 0.5
+  bend_45: 0.3
+  bend_22_5: 0.25
+  tee: 0.4
+  enlarger: 0.3
+  butterfly_valve: 0.5
+  non_return_valve: 1.0
+  exit_sharp: 1.0
+
+extra:
+  entrance_sharp: 0.5
+  entrance_projecting: 1.0
+  foot_valve_strainer: 2.5
+  ball_valve_full_bore: 0.1
+  globe_valve: 4.0
+  swing_check_valve: 2.0
+  bend_90_long_radius: 0.3
+  bend_90_elbow: 1.3
+  tee_branch_flow: 1.3
+  tee_line_flow: 0.4
+  diffuser_10deg: 0.25
+  y_strainer: 1.5
+  flow_meter_electromagnetic: 0.3

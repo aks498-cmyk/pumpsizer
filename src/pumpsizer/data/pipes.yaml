@@ -1,0 +1,116 @@
+# Pipe internal-diameter database.
+#
+# Two ways to describe a material:
+#   sizes:            {DN: internal_diameter_mm}            -> one bore per DN
+#   outer_diameters_mm + series: {name: SDR}               -> ID = OD * (1 - 2/SDR)
+#
+# `roughness_mm_new` / `roughness_mm_used` feed the Darcy-Weisbach method;
+# `hazen_williams_c` feeds the H-W method.  Replace / extend these tables with
+# the exact figures from your project's approved pipe schedule when available.
+# The ductile-iron DN400 (402.8 mm) and DN700 (704.4 mm) bores match the
+# Material sheet of the source workbook.
+
+materials:
+
+  ductile_iron:
+    label: Ductile Iron
+    standard: "EN 545 / ISO 2531, cement-mortar lined (representative bore)"
+    roughness_mm_new: 0.06
+    roughness_mm_used: 0.30
+    hazen_williams_c: 140
+    sizes:
+      80: 78.0
+      100: 102.6
+      150: 154.6
+      200: 204.6
+      250: 257.4
+      300: 308.4
+      350: 359.6
+      400: 402.8
+      450: 455.4
+      500: 507.6
+      600: 610.4
+      700: 704.4
+      800: 806.0
+      900: 907.4
+      1000: 1008.6
+      1100: 1110.0
+      1200: 1211.4
+
+  steel:
+    label: Steel
+    standard: "API 5L / IS 3589, cement-mortar lined (representative bore)"
+    roughness_mm_new: 0.045
+    roughness_mm_used: 0.50
+    hazen_williams_c: 130
+    sizes:
+      100: 102.3
+      150: 154.1
+      200: 202.7
+      250: 254.5
+      300: 304.8
+      350: 336.6
+      400: 387.4
+      450: 438.2
+      500: 489.0
+      600: 590.6
+      700: 692.2
+      800: 793.8
+      900: 895.4
+      1000: 997.0
+      1200: 1200.2
+
+  grp:
+    label: GRP
+    standard: "ISO 10639 / AWWA C950 (representative bore, PN10)"
+    roughness_mm_new: 0.029
+    roughness_mm_used: 0.10
+    hazen_williams_c: 150
+    sizes:
+      100: 103.0
+      150: 154.0
+      200: 205.0
+      250: 257.0
+      300: 309.0
+      350: 360.0
+      400: 411.0
+      450: 462.0
+      500: 514.0
+      600: 617.0
+      700: 720.0
+      800: 823.0
+      900: 926.0
+      1000: 1029.0
+      1200: 1235.0
+
+  hdpe:
+    label: HDPE
+    standard: "PE100, ISO 4427;  ID = OD * (1 - 2/SDR)"
+    roughness_mm_new: 0.007
+    roughness_mm_used: 0.05
+    hazen_williams_c: 150
+    outer_diameters_mm: [90, 110, 125, 140, 160, 180, 200, 225, 250, 280, 315,
+                         355, 400, 450, 500, 560, 630, 710, 800, 900, 1000, 1200]
+    series:            # SDR -> nominal pressure class (PE100, MRS 10)
+      SDR26: 26        # PN 6.3
+      SDR21: 21        # PN 8
+      SDR17: 17        # PN 10
+      SDR13.6: 13.6    # PN 12.5
+      SDR11: 11        # PN 16
+    default_series: SDR17
+
+  upvc:
+    label: uPVC
+    standard: "ISO 1452;  ID = OD * (1 - 2/SDR)"
+    roughness_mm_new: 0.007
+    roughness_mm_used: 0.05
+    hazen_williams_c: 150
+    outer_diameters_mm: [90, 110, 125, 140, 160, 180, 200, 225, 250, 280, 315,
+                         355, 400, 450, 500, 560, 630]
+    series:
+      SDR41: 41        # PN 6
+      SDR33: 33        # PN 8
+      SDR26: 26        # PN 10
+      SDR21: 21        # PN 12.5
+      SDR17: 17        # PN 16
+    default_series: SDR26

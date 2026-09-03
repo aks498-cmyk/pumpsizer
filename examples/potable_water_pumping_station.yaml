@@ -1,0 +1,116 @@
+# ---------------------------------------------------------------------------
+# pumpsizer project file
+# Reproduces the "Potable Water Pumping Station" case from Pump Sizing.xlsx,
+# with corrected Darcy-Weisbach hydraulics and a real pump curve.
+# Run:  pumpsizer run examples/potable_water_pumping_station.yaml --plot out.png
+# ---------------------------------------------------------------------------
+
+project:
+  name: Potable Water Pumping Station
+  description: Clear-water transfer, sump to service reservoir via rising main.
+
+fluid:
+  temperature_c: 30
+  altitude_m: 0                 # site elevation above MSL -> local atmospheric pressure
+
+pipe:
+  material: ductile_iron        # ductile_iron | steel | grp | hdpe | upvc
+  series: null                  # SDR name for hdpe/upvc; null for DI/steel/GRP
+  headloss_method: DW           # DW (Colebrook-White, workbook) | HW (Hazen-Williams)
+
+flow:
+  total_demand_lps: 300
+  duty_pumps: 1
+  standby_pumps: 1
+
+# Hydraulic path, split into "suction" and "discharge" groups.
+segments:
+  - {name: suction_header, group: suction,   length_m: 25, dn: 700}
+  - {name: pump_suction,   group: suction,   length_m: 10, dn: 700}
+  - {name: pump_discharge, group: discharge, length_m: 15, dn: 400}
+  - {name: rising_main,    group: discharge, length_m: 500, dn: 400}
+
+# Which segment's bore/velocity drives each fitting group.
+fitting_reference:
+  suction: pump_suction
+  discharge: pump_discharge
+
+fittings:
+  suction:
+    entrance_bellmouth: 1
+    reducer: 1
+    gate_valve: 4
+    bend_90: 4
+    tee: 1
+  discharge:
+    tee: 1
+    enlarger: 1
+    bend_45: 4
+    bend_90: 4
+    bend_22_5: 6
+    gate_valve: 1
+    butterfly_valve: 1
+    non_return_valve: 1
+    exit_sharp: 1
+
+levels:                          # metres, same datum
+  reservoir_hwl_m: 32
+  reservoir_bwl_m: 25
+  sump_hwl_m: 15
+  sump_bwl_m: 8
+  pump_centreline_m: 8           # pump set at sump BWL -> flooded suction ~0 m
+
+velocity_limits:                 # only used if autosize_diameter: true
+  suction_max_m_s: 1.0
+  discharge_max_m_s: 2.5
+autosize_diameter: false
+
+suction:
+  npsh_safety_margin_m: 0.5
+  # static_suction_head_m: 0.0   # override; +ve flooded, -ve lift
+
+pump:
+  source: synthetic              # synthetic | single_point | points
+  name: WS-300
+  shutoff_ratio: 1.20
+  bep_efficiency_pct: 84
+  # duty: {flow_lps: 300, head_m: null}   # null head -> use design system head
+  #
+  # source: points  ->  supply a measured/quoted curve instead:
+  # curve_points:
+  #   flow_lps: [0, 120, 240, 300, 360, 420]
+  #   head_m:   [40, 38, 34, 31, 26, 18]
+  # efficiency_points:
+  #   flow_lps: [120, 240, 300, 360, 420]
+  #   value_pct: [58, 78, 84, 82, 73]
+  # npshr_points:
+  #   flow_lps: [240, 300, 360, 420]
+  #   value_m:  [2.6, 3.3, 4.5, 6.4]
+
+control:
+  arrangement: single            # single | parallel | series
+  vfd: false
+  vfd_min_speed_pct: 70
+  vfd_target_flow_lps: null
+
+motor:
+  poles: 2
+  ie_class: IE3
+  rating_margin_pct: 15
+  sizing_basis: operating_point  # operating_point | non_overloading
+
+energy:
+  hours_per_day: 20
+  tariff_per_kwh: 0.12
+  demand_charge_per_kw_month: 0
+  life_cycle_years: 20
+  discount_rate: 0.08
+  capital_cost: 0
+
+epanet:
+  flow_units: LPS               # LPS | LPM | MLD | CMH | CMD | GPM | MGD | CFS
+  pump_id: PMP1
+  from_node: SUMP
+  to_node: RM_START
+  head_points: 3                # 3 -> EPANET refits A-B*Q^C; >3 -> multi-point
+  efficiency_points: 7
