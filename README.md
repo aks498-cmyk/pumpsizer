@@ -5,6 +5,8 @@
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![EPANET](https://img.shields.io/badge/EPANET-2.2-informational)
 
+**Docs: <https://aks498-cmyk.github.io/pumpsizer/>**
+
 Reusable engine for **water-supply pump sizing, operating-point analysis and
 EPANET-compatible curve generation**.
 
