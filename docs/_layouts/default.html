@@ -25,6 +25,13 @@
         <a href="{{ site.github.zip_url }}" class="btn">Download .zip</a>
         <a href="{{ site.github.tar_url }}" class="btn">Download .tar.gz</a>
       {% endif %}
+      <nav class="site-nav" role="navigation" aria-label="Documentation">
+        {% assign here = page.url | remove_first: '/' | default: 'index.html' %}
+        {% for item in site.nav %}
+          {% assign target = item.url | remove_first: '/' %}
+          <a href="{{ item.url }}"{% if here == target %} class="active" aria-current="page"{% endif %}>{{ item.title }}</a>
+        {% endfor %}
+      </nav>
     </header>
 
     <main id="content" class="main-content" role="main">

@@ -14,3 +14,16 @@ exclude:
   - social-preview.jpg
 
 footer_version: v0.2.0
+
+# top navigation (relative links - the site is flat, one level deep)
+nav:
+  - title: Home
+    url: index.html
+  - title: Workbook mapping
+    url: workbook_mapping.html
+  - title: Catalogue guide
+    url: catalog_from_ksb.html
+  - title: Changelog
+    url: CHANGELOG.html
+  - title: GitHub
+    url: https://github.com/aks498-cmyk/pumpsizer
