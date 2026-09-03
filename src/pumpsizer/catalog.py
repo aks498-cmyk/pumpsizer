@@ -45,8 +45,11 @@ class PumpModel:
     bore_discharge_mm: float | None = None
     discharge_dn: float | None = None
     price: float | None = None
+    npshr_points: dict | None = None  # {"q_lps": [...], "value_m": [...]}
+    eff_bep_pct: float | None = None  # peak efficiency (with q_bep_lps)
     source: str = ""
     verified: bool = False
+    digitised: bool = False  # machine-read from a datasheet curve
     notes: str = ""
     tags: list[str] = field(default_factory=list)
     datasheet_page: int | None = None
@@ -75,13 +78,31 @@ class PumpModel:
         if self.q_lps and self.h_m:
             q = np.asarray(self.q_lps, dtype=float) * LPS_TO_M3S
             h = np.asarray(self.h_m, dtype=float)
+
+            eff = eff_q = None
+            if self.eff_pct:
+                eff, eff_q = np.asarray(self.eff_pct, float), q
+            elif self.eff_bep_pct and self.q_bep_lps:
+                # parabola peaking eff_bep at q_bep, sampled across the curve
+                qb = self.q_bep_lps * LPS_TO_M3S
+                eff_q = q
+                r = np.clip(q / max(qb, 1e-9), 0.0, 1.9)
+                eff = np.clip(self.eff_bep_pct * (2.0 * r - r * r), 3.0, self.eff_bep_pct)
+
+            npshr = npshr_q = None
+            if self.npshr_points:
+                npshr = np.asarray(self.npshr_points["value_m"], float)
+                npshr_q = np.asarray(self.npshr_points["q_lps"], float) * LPS_TO_M3S
+            elif self.npshr_m:
+                npshr, npshr_q = np.asarray(self.npshr_m, float), q
+
             curve = PumpCurve.from_points(
                 q,
                 h,
-                eff=np.asarray(self.eff_pct, float) if self.eff_pct else None,
-                eff_q=q if self.eff_pct else None,
-                npshr=np.asarray(self.npshr_m, float) if self.npshr_m else None,
-                npshr_q=q if self.npshr_m else None,
+                eff=eff,
+                eff_q=eff_q,
+                npshr=npshr,
+                npshr_q=npshr_q,
                 name=self.key,
                 prefer="auto",
             )

@@ -10,7 +10,17 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
-_Nothing yet._
+### Changed
+- **KSB Omega catalogue is now machine-digitised, not envelope-only.**
+  `tools/digitise_ksb_omega.py` reads the vector datasheet PDF: it calibrates
+  each size page's axes from the tick labels and maps the curve polylines to
+  data, giving a real Q-H curve, NPSHr points and a BEP (Q, efficiency) for
+  the largest impeller of **70 of 74 sizes** (4 skipped on sanity checks).
+  Entries are `digitised: true`, still `verified: false`.
+- `catalog.PumpModel` reads `curve:` / `npshr_points:` / `eff_bep_pct:`;
+  `selection` flags digitised candidates ("confirm against datasheet p.N",
+  ×0.94 score) distinctly from unverified envelope entries.
+- Removed the old envelope-only builder (`tools/build_ksb_omega_catalog.py`).
 
 ## [0.2.0] — 2026-09-04
 

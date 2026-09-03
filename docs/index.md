@@ -60,13 +60,13 @@ print(res.operating_point.as_dict())
 ## Reference
 
 - [Workbook mapping](workbook_mapping.html) — how the schema maps onto the source spreadsheet, and the corrections made
-- [Building a catalogue from a KSB booklet](catalog_from_ksb.html) — the envelope-only entries and how to upgrade them
+- [Building a catalogue from a KSB booklet](catalog_from_ksb.html) — how the curves were digitised and how to verify them
 - [`catalog_template.yaml`](catalog_template.yaml) — catalogue file template
 - [Contributing](https://github.com/aks498-cmyk/pumpsizer/blob/master/CONTRIBUTING.md)
 
 ## Limitations
 
-The KSB Omega catalogue is **envelope-only** (BEP approximated, `verified: false`) —
-digitise real curve points before design use. The MOC solver is single-pipe and
+The KSB Omega catalogue is **machine-digitised from the datasheet** (`verified: false`) —
+verify an entry against its datasheet page before design use. The MOC solver is single-pipe and
 damps the cavity-collapse spike; use a specialist package for a branched network
 or final sign-off.

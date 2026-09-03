@@ -191,10 +191,13 @@ def evaluate(model: PumpModel, c: SelectionCriteria) -> Candidate:
         reasons.append(f"operates at {bep_ratio * 100:.0f}% of BEP flow")
 
     score = _score(c, eff, bep_ratio, npsh_margin, npshr, head_margin_pct, feasible, within)
+    page = f" p.{model.datasheet_page}" if getattr(model, "datasheet_page", None) else ""
     if feasible and getattr(model, "envelope_only", False):
-        page = f" (datasheet p.{model.datasheet_page})" if model.datasheet_page else ""
         reasons.append(f"envelope match - confirm curve from {model.series} booklet{page}")
         score *= 0.88
+    elif feasible and getattr(model, "digitised", False) and not model.verified:
+        reasons.append(f"curve machine-digitised - confirm against datasheet{page}")
+        score *= 0.94
     elif feasible and not model.verified:
         score *= 0.97
 

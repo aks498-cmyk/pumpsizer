@@ -152,11 +152,12 @@ efficiency — are plain YAML; edit or point the API at your own via
 * **Phase 1** – engine, CLI, EPANET text export, `.inp` splice. ✅
 * **Phase 2** – catalogue data model + loader, selection & ranking, impeller-trim
   and VFD-speed solving, `pumpsizer select`, `pump.source: catalogue`. ✅
-  Bundled catalogues: 5 illustrative pumps + **74 KSB Omega / Omega V 50 Hz
-  sizes** parsed from the datasheet booklet (`ksb_omega_50hz.yaml`, envelope +
-  page number per size; BEP approximated, `verified: false`). Selection flags
-  every envelope hit with "confirm curve from booklet p.N" and a score penalty.
-  See `docs/catalog_from_ksb.md` to upgrade an entry with digitised points.
+  Bundled catalogues: 5 illustrative pumps + **70 KSB Omega / Omega V 50 Hz
+  sizes machine-digitised** from the vector datasheet booklet
+  (`ksb_omega_50hz.yaml` via `tools/digitise_ksb_omega.py`: real Q-H curve,
+  NPSHr points and a BEP per size; `verified: false`). Selection flags each
+  digitised hit with "confirm against datasheet p.N" and a score penalty.
+  See `docs/catalog_from_ksb.md`.
 * **Phase 3** – `inpfile.InpModel` structured `.inp` reader/writer; `.inp`
   splice (curve + pump + energy, keeps the existing pump's end nodes); `solver`
   bridge to the EPANET 2.2 engine via `epyt`; `pumpsizer verify` and
@@ -185,7 +186,7 @@ efficiency — are plain YAML; edit or point the API at your own via
   stage` (+ demand / pumps / tank-level plot) and a `staging:` project block. ✅
 * **Next** – optional xlwings "Run" button inside the workbook itself (needs
   Python alongside Excel on each machine); real vendor curves digitised into
-  the catalogue beyond the KSB Omega envelopes.
+  the catalogue beyond KSB Omega; verifying the digitised entries you rely on.
 
 ## Contributing
 
