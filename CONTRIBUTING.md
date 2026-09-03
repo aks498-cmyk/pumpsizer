@@ -32,6 +32,11 @@ py -m pumpsizer.cli --help          # or: pumpsizer --help  (after install)
 py -m pumpsizer.cli run examples/potable_water_pumping_station.yaml
 ```
 
+There's a `Makefile` with shortcuts (`make dev`, `make test`, `make hook`,
+`make run`, `make plots`, `make catalog`, `make clean`) — `make` is optional,
+each target is just a one-liner. Run `make help` for the list. On non-Windows:
+`make test PYTHON=python3`.
+
 The EPANET-solver tests `skipif` when `epyt` can't import, so a partial
 install still gives a green suite.
 
