@@ -1,3 +1,6 @@
+---
+---
+
 # Turning a KSB (or similar) curve booklet into a catalogue
 
 `src/pumpsizer/data/catalog/ksb_omega_50hz.yaml` was generated from

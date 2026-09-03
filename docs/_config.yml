@@ -1,0 +1,14 @@
+title: pumpsizer
+description: >-
+  Water-supply pump sizing, operating-point analysis, EPANET curve generation,
+  water hammer (rule-of-thumb + method-of-characteristics) and demand-pattern
+  multi-pump staging.
+theme: jekyll-theme-cayman
+show_downloads: false
+
+# render the reference docs (they get YAML front matter); serve the rest as-is
+include:
+  - workbook_mapping.md
+  - catalog_from_ksb.md
+exclude:
+  - social-preview.jpg
