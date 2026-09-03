@@ -136,6 +136,67 @@ def _cmd_select(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_stage(args: argparse.Namespace) -> int:
+    proj = Project.from_yaml(args.project)
+    if args.mode:
+        proj.data.setdefault("staging", {})["mode"] = args.mode
+    proj.data.setdefault("staging", {})["enabled"] = True
+    res = proj.run()
+    if res.staging is None:
+        print("no staging result (check the staging: block)", file=sys.stderr)
+        return 2
+    st = res.staging
+    sm = st.summary()
+    print(f"daily energy {sm['daily_energy_kwh']:.0f} kWh   "
+          f"eff min/mean {sm['efficiency_min_pct']:.0f}/{sm['efficiency_mean_pct']:.0f}%   "
+          f"outside BEP {sm['fraction_time_outside_bep']*100:.0f}%")
+    print(f"starts/pump {sm['per_pump_starts']}   run h/pump {sm['per_pump_run_hours']}   "
+          f"peak {sm['max_starts_per_hour_seen']:.0f}/h   standby used: {sm['standby_used']}")
+    print(f"{'t[h]':>5}{'demand':>9}{'deliv':>9}{'pumps':>7}{'speed%':>8}{'head':>7}{'kW':>8}")
+    for s in st.steps[:len(res.staging.steps) if args.full else 24]:
+        print(f"{s.time_h:>5.0f}{s.demand_m3s*1000:>9.0f}{s.flow_delivered_m3s*1000:>9.0f}"
+              f"{s.running_pumps:>7}{s.speed_ratio*100:>8.0f}{s.head_m:>7.1f}{s.input_power_kw:>8.1f}")
+    for w in sm["warnings"]:
+        print(f"  ! {w}")
+    if args.json:
+        Path(args.json).write_text(json.dumps(sm, indent=2), encoding="utf-8")
+    if args.plot:
+        try:
+            _plot_staging(st, args.plot)
+            print(f"wrote plot -> {args.plot}")
+        except ImportError:
+            print("!! matplotlib not installed", file=sys.stderr)
+    return 0
+
+
+def _plot_staging(st, path):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    t = st.array("time_h")
+    run = st.array("running_pumps")
+    fig, (a1, a2, a3) = plt.subplots(3, 1, figsize=(9, 7), sharex=True)
+    a1.fill_between(t, 0, st.array("demand_m3s") * 1000, step="mid",
+                    color="0.85", label="demand")
+    a1.plot(t, st.array("flow_delivered_m3s") * 1000, "b-", lw=1.6, label="delivered")
+    a1.set_ylabel("flow [l/s]"); a1.grid(alpha=0.3); a1.legend(fontsize=8)
+    a1.set_title("Demand-pattern staging")
+
+    a2.step(t, run, "g-", where="mid", lw=1.6, label="pumps running")
+    a2.set_ylabel("pumps running", color="g")
+    a2.set_ylim(-0.2, max(1, int(run.max())) + 0.5)
+    a2.set_yticks(range(0, max(1, int(run.max())) + 1))
+    a2.grid(alpha=0.3)
+    a2b = a2.twinx()
+    a2b.plot(t, st.array("speed_ratio") * 100, "m-", alpha=0.8, label="speed %")
+    a2b.set_ylabel("speed [%]", color="m"); a2b.set_ylim(0, 105)
+
+    a3.plot(t, st.array("tank_level_m"), "c-", lw=1.6)
+    a3.set_ylabel("tank level [m]"); a3.set_xlabel("time [h]"); a3.grid(alpha=0.3)
+    a3.ticklabel_format(axis="y", useOffset=False)
+    fig.tight_layout(); fig.savefig(path, dpi=130); plt.close(fig)
+
+
 def _cmd_transient(args: argparse.Namespace) -> int:
     import json as _json
 
@@ -343,6 +404,14 @@ def build_parser() -> argparse.ArgumentParser:
     sg.add_argument("--speed-rpm", type=float, default=1480.0)
     sg.add_argument("--json", help="write the assessment here")
     sg.set_defaults(func=_cmd_surge)
+
+    stg = sub.add_parser("stage", help="extended-period demand-pattern multi-pump staging")
+    stg.add_argument("project", help="project YAML with a staging: block")
+    stg.add_argument("--mode", choices=["fixed", "vfd"], help="override staging.mode")
+    stg.add_argument("--full", action="store_true", help="print every step, not just 24 h")
+    stg.add_argument("--plot", help="write demand / pumps / tank-level PNG")
+    stg.add_argument("--json", help="write the staging summary here")
+    stg.set_defaults(func=_cmd_stage)
 
     tr = sub.add_parser("transient", help="method-of-characteristics pump-trip surge run")
     tr.add_argument("--length", type=float, required=True, help="rising-main length [m]")

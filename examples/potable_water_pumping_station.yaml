@@ -101,10 +101,31 @@ motor:
 
 water_hammer:                   # rule-of-thumb pre-sizing on the rising main
   enabled: true
+  method: rule_of_thumb         # rule_of_thumb | moc (method-of-characteristics)
   closure_time_s: null          # null -> assume rapid (worst case, full Joukowsky)
   pressure_class_pn: 16         # pipe class [bar] -> rating head (16 bar ~ 163 m)
   allowable_max_head_m: 150     # target ceiling for air-vessel sizing
   restraint: 1.0
+  # moc_reaches: 24
+  # pump_motor_inertia_kgm2: 5
+  # air_vessel_gas_volume_m3: 20
+
+staging:                        # extended-period demand-pattern simulation
+  enabled: true
+  mode: vfd                     # vfd (common speed) | fixed (lead/lag on tank level)
+  pattern_kind: peak            # 'peak' -> pattern_base_lps is the daily peak; 'average' -> the mean
+  pattern_base_lps: 300         # defaults to flow.total_demand_lps
+  pattern_step_hours: 1
+  # demand_pattern: [24 hourly multipliers]   # omitted -> generic municipal diurnal
+  days: 1
+  vfd_min_speed_pct: 65
+  max_starts_per_hour: 10
+  n_pumps_available: 2          # defaults to duty + standby
+  tank:
+    plan_area_m2: 250
+    level_min_m: 25             # defaults to levels.reservoir_bwl_m
+    level_max_m: 32             # defaults to levels.reservoir_hwl_m
+    # start_level_m / stop_level_m / initial_level_m default within the band
 
 energy:
   hours_per_day: 20

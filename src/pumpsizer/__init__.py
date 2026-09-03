@@ -28,6 +28,7 @@ from . import epanet
 from . import solver
 from . import surge
 from . import transient
+from . import staging
 
 try:                       # optional: needs openpyxl
     from . import excelio
@@ -77,6 +78,7 @@ __all__ = [
     "solver",
     "surge",
     "transient",
+    "staging",
     "excelio",
     "__version__",
 ]

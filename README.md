@@ -58,6 +58,10 @@ pumpsizer surge --length 2500 --material ductile_iron --dn 400 \
 pumpsizer transient --length 2500 --dn 400 --flow-lps 300 --head 33 \
     --static 24 --inertia 5 --air-vessel-m3 20 --plot out/transient.png
 
+# 24-h demand-pattern multi-pump staging (VFD common-speed or fixed lead/lag)
+pumpsizer stage examples/potable_water_pumping_station.yaml --plot out/staging.png
+pumpsizer stage examples/potable_water_pumping_station.yaml --mode fixed
+
 # splice the sized pump into a real network and let EPANET solve it
 pumpsizer run examples/potable_water_pumping_station.yaml \
     --into examples/network_skeleton.inp --patch-out out/net.inp --simulate
@@ -109,7 +113,8 @@ print(res.epanet_export.full_snippet())
 | `pump` | `source: synthetic` \| `single_point` \| `points` (+ `curve_points`, `efficiency_points`, `npshr_points`) |
 | `control` | `arrangement: single`/`parallel`/`series`, `vfd`, `vfd_min_speed_pct`, `vfd_target_flow_lps` |
 | `motor` | `poles`, `ie_class`, `rating_margin_pct`, `sizing_basis` |
-| `water_hammer` | `enabled`, `closure_time_s`, `pressure_class_pn` (bar), `allowable_max_head_m` — rule-of-thumb surge pre-sizing on the rising main |
+| `water_hammer` | `enabled`, `method` (`rule_of_thumb`/`moc`), `closure_time_s`, `pressure_class_pn`, `allowable_max_head_m`, `air_vessel_gas_volume_m3`, `pump_motor_inertia_kgm2` |
+| `staging` | `enabled`, `mode` (`vfd`/`fixed`), `pattern_kind` (`peak`/`average`), `pattern_base_lps`, `demand_pattern` (24 multipliers), `days`, `vfd_min_speed_pct`, `n_pumps_available`, `tank.{plan_area_m2,level_min_m,level_max_m,…}` |
 | `energy` | `hours_per_day`, `tariff_per_kwh`, `life_cycle_years`, `discount_rate` |
 | `epanet` | `flow_units` (LPS/CMH/MLD/…), `pump_id`, `from_node`, `to_node`, `head_points` (3 → EPANET refits A-B·Qᶜ; >3 → multi-point) |
 
@@ -164,9 +169,14 @@ efficiency — are plain YAML; edit or point the API at your own via
   `excel-template` writes a labelled input workbook, `excel` reads it (or the
   original `Pump Sizing.xlsx` via `--legacy`) and writes a multi-sheet results
   workbook (Summary / Curves / EPANET / Selection / Surge / Report). ✅
+* **Phase 6** – `staging` module: 24-h demand pattern + delivery-tank dynamics
+  + a staging controller (VFD common-speed, or fixed-speed lead/lag on
+  staggered tank levels). Reports daily energy, per-pump starts / run-hours,
+  efficiency stats, BEP-window compliance, unmet-demand steps. `pumpsizer
+  stage` (+ demand / pumps / tank-level plot) and a `staging:` project block. ✅
 * **Next** – optional xlwings "Run" button inside the workbook itself (needs
   Python alongside Excel on each machine); real vendor curves digitised into
-  the catalogue; EPD demand-pattern staging.
+  the catalogue beyond the KSB Omega envelopes.
 
 ## Tests
 

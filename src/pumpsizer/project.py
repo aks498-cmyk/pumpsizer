@@ -57,6 +57,7 @@ class ProjectResults:
     epanet_export: Any
     selection: list[Any] | None = None
     surge: Any = None
+    staging: Any = None
     warnings: list[str] = field(default_factory=list)
 
     def summary(self) -> dict:
@@ -81,6 +82,7 @@ class ProjectResults:
             "energy": self.energy,
             "selection": [c.as_dict() for c in self.selection] if self.selection else None,
             "surge": self.surge.as_dict() if self.surge else None,
+            "staging": self.staging.summary() if self.staging else None,
             "warnings": self.warnings,
         }
 
@@ -303,6 +305,13 @@ class Project:
                 d, wh, pipe_db, material, series, seg_by_group, diameters,
                 h_static_max, op, motor, rho, water, warnings)
 
+        # -- demand-pattern multi-pump staging -----------------
+        staging = None
+        stg = _get(d, "staging", {}) or {}
+        if stg.get("enabled", False):
+            staging = self._run_staging(d, stg, pump, design_system, system_set,
+                                        q_total, n_duty, lv, tariff, water, warnings)
+
         # -- EPANET export --------------------------
         ep = _get(d, "epanet", {}) or {}
         export = build_pump_export(
@@ -323,8 +332,49 @@ class Project:
             duty_flow_per_pump_m3s=duty_q_pp, duty_head_m=duty_h,
             pump=pump, operating_point=op, operating_points_extra=extra,
             npsh=npsh, motor=motor, energy=energy, epanet_export=export,
-            selection=selection, surge=surge, warnings=warnings,
+            selection=selection, surge=surge, staging=staging, warnings=warnings,
         )
+
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _run_staging(d, stg, pump, design_system, system_set, q_total, n_duty,
+                     lv, tariff, water, warnings):
+        from .staging import DemandPattern, StagingConfig, Tank, simulate_staging
+
+        n_avail = int(stg.get("n_pumps_available",
+                              n_duty + int(_get(d, "flow.standby_pumps", 1))))
+        base_lps = float(stg.get("pattern_base_lps", q_total * 1000.0))
+        dp = DemandPattern.diurnal(
+            base_flow_m3s=base_lps / 1000.0,
+            kind=str(stg.get("pattern_kind", "peak")),
+            multipliers=stg.get("demand_pattern"),
+            step_hours=float(stg.get("pattern_step_hours", 1.0)))
+
+        tcfg = stg.get("tank", {}) or {}
+        level_min = float(tcfg.get("level_min_m", lv.get("reservoir_bwl_m", 0.0)))
+        level_max = float(tcfg.get("level_max_m", lv.get("reservoir_hwl_m", level_min + 5.0)))
+        tank = Tank(
+            plan_area_m2=float(tcfg.get("plan_area_m2", 300.0)),
+            level_min_m=level_min, level_max_m=level_max,
+            start_level_m=tcfg.get("start_level_m"), stop_level_m=tcfg.get("stop_level_m"),
+            initial_level_m=tcfg.get("initial_level_m"))
+        if "plan_area_m2" not in tcfg:
+            warnings.append("staging.tank.plan_area_m2 not given; assumed 300 m2")
+
+        cfg = StagingConfig(
+            n_pumps_available=n_avail, mode=str(stg.get("mode", "vfd")).lower(),
+            vfd_min_speed=float(stg.get("vfd_min_speed_pct", 65)) / 100.0,
+            max_starts_per_hour=float(stg.get("max_starts_per_hour", 10)),
+            sump_level_m=float(lv.get("sump_bwl_m", 0.0)))
+
+        # design_system static head corresponds to the reservoir HWL
+        ref_level = float(lv.get("reservoir_hwl_m", level_max))
+        return simulate_staging(
+            pump, design_system, tank, dp, cfg,
+            rho=water.density, days=int(stg.get("days", 1)),
+            tariff_per_kwh=tariff, motor_poles=int(_get(d, "motor.poles", 2)),
+            motor_ie_class=str(_get(d, "motor.ie_class", "IE3")),
+            base_static_reference_level_m=ref_level)
 
     # ------------------------------------------------------------------
     @staticmethod

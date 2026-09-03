@@ -159,6 +159,27 @@ def text_report(res: ProjectResults) -> str:
         else:
             L.append("  (rule-of-thumb only - set water_hammer.method: moc for a transient run)")
 
+    if res.staging is not None:
+        st = res.staging
+        sm = st.summary()
+        L.append("\n-- Demand-pattern staging ------------------------------------")
+        L.append(_row("Mode", "VFD common-speed" if any(s.speed_ratio not in (0.0, 1.0)
+                      for s in st.steps) else "fixed-speed lead/lag", ""))
+        L.append(_row("Daily energy", f"{sm['daily_energy_kwh']:.0f}", "kWh"))
+        if sm["daily_energy_cost"]:
+            L.append(_row("Daily energy cost", f"{sm['daily_energy_cost']:.0f}", ""))
+        L.append(_row("Running efficiency min / mean",
+                      f"{sm['efficiency_min_pct']:.0f} / {sm['efficiency_mean_pct']:.0f}", "%"))
+        L.append(_row("Time outside BEP window", f"{sm['fraction_time_outside_bep']*100:.0f}", "%"))
+        L.append(_row("Starts per pump", str(sm["per_pump_starts"]), ""))
+        L.append(_row("Run hours per pump", str(sm["per_pump_run_hours"]), ""))
+        L.append(_row("Peak starts/hour", f"{sm['max_starts_per_hour_seen']:.0f}", ""))
+        L.append(_row("Standby pump needed", "YES" if sm["standby_used"] else "no", ""))
+        if sm["unmet_demand_steps"]:
+            L.append(_row("Steps demand NOT met", sm["unmet_demand_steps"], ""))
+        for wn in sm["warnings"]:
+            L.append(f"    - {wn}")
+
     L.append("\n-- EPANET export ------------------------------------------------")
     L.append(f"(flow units: {res.epanet_export.flow_units}, head: m)\n")
     L.append(res.epanet_export.full_snippet())
