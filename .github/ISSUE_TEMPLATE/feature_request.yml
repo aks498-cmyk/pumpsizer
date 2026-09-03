@@ -1,0 +1,75 @@
+name: Feature request
+description: Suggest a new capability, an extra input, or a model improvement
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Keep it concrete — a worked example of the input you'd give and the
+        output you'd want is worth more than a general wish.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Where does this belong?
+      options:
+        - Hydraulics / system curve
+        - Pump curve / affinity / selection
+        - Catalogue data (new vendor / more curves)
+        - EPANET export / .inp / solver
+        - Water hammer (surge / transient)
+        - Demand-pattern staging
+        - Motor / energy / life-cycle cost
+        - NPSH / suction
+        - CLI / project schema / reporting
+        - Excel bridge
+        - New analysis type
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What can't you do today, or what's awkward? What real task is this for?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behaviour
+      description: |
+        What should it do? If it adds a project-file field or a CLI flag, show
+        the input and the output you'd expect.
+      render: yaml
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Method / references
+      description: Standard, textbook, paper or datasheet the calculation should follow (KSB booklet, AWWA, ISO, Wylie & Streeter, …), if any.
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing workarounds, other tools, or why the current behaviour isn't enough.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues for a similar request
+          required: true
+        - label: This is a change to pumpsizer itself, not a usage question
+          required: true
