@@ -1,0 +1,81 @@
+name: Bug report
+description: Something in pumpsizer produces a wrong number, a crash, or unexpected behaviour
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please include enough to reproduce it — a failing
+        input beats a description.
+
+  - type: input
+    id: version
+    attributes:
+      label: pumpsizer version
+      description: "`python -c \"import pumpsizer; print(pumpsizer.__version__)\"` (and commit hash if from a clone)"
+      placeholder: "0.1.0 (84d04f4)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part is misbehaving?
+      options:
+        - CLI (pumpsizer run / curve / schema)
+        - Selection & catalogue (select)
+        - EPANET export / .inp / solver (verify, --into)
+        - Water hammer (surge / transient)
+        - Demand-pattern staging (stage)
+        - Excel bridge (excel / excel-template)
+        - Library API / Project
+        - Hydraulics / pump-curve maths
+        - Other / not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you ran, what you expected, what you got. Paste the full command and any traceback.
+      placeholder: |
+        $ pumpsizer run myjob.yaml
+        ...
+        Expected: operating point near 300 l/s
+        Got: ValueError: pump shut-off head is below the system static head
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: input
+    attributes:
+      label: Minimal input
+      description: The smallest project YAML / catalogue snippet / .inp that reproduces it. Redact anything sensitive.
+      render: yaml
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Python version, and which optional extras are installed.
+      value: |
+        - OS:
+        - Python: (python --version)
+        - Extras: epyt? matplotlib? openpyxl? (pip show epyt matplotlib openpyxl | grep -E 'Name|Version')
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I'm on the latest `master` (or noted my version above)
+          required: true
+        - label: I searched existing issues
+          required: true
