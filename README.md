@@ -188,3 +188,12 @@ efficiency — are plain YAML; edit or point the API at your own via
 ```bash
 py -m pytest -q
 ```
+
+A `pre-push` hook that runs the suite and blocks a failing push is in
+`scripts/git-hooks/`. Install it per clone:
+
+```bash
+cp scripts/git-hooks/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+```
+
+(`git push --no-verify` bypasses it; `SKIP_TESTS=1 git push` skips just the tests.)

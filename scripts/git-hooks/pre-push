@@ -1,0 +1,23 @@
+#!/bin/sh
+# Block a push if the test suite fails.
+# Install:  cp scripts/git-hooks/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+# Bypass once:  git push --no-verify        Skip tests:  SKIP_TESTS=1 git push
+
+[ "$SKIP_TESTS" = "1" ] && { echo "pre-push: SKIP_TESTS=1, skipping pytest"; exit 0; }
+
+root=$(git rev-parse --show-toplevel)
+cd "$root" || exit 1
+
+if command -v py >/dev/null 2>&1; then PY=py
+elif command -v python3 >/dev/null 2>&1; then PY=python3
+else PY=python
+fi
+
+echo "pre-push: running $PY -m pytest -q ..."
+if ! "$PY" -m pytest -q; then
+    echo
+    echo "pre-push: tests failed - push aborted.  Use 'git push --no-verify' to override."
+    exit 1
+fi
+echo "pre-push: tests passed."
+exit 0
