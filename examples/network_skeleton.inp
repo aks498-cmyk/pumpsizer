@@ -1,0 +1,39 @@
+[TITLE]
+Skeleton network approximating the Potable Water Pumping Station example so the
+stand-alone operating point and EPANET's own solve can be compared.
+  static lift        24 m   (SUMP 8 m  ->  RM_END 32 m)
+  suction path       35 m of DN700, K 4.85, aged roughness 0.30 mm
+  discharge path    515 m of DN400, K 8.20, aged roughness 0.30 mm
+Run:  pumpsizer run potable_water_pumping_station.yaml --into net.inp --simulate
+
+[JUNCTIONS]
+ PUMP_IN         8    0
+ PUMP_OUT        8    0
+
+[RESERVOIRS]
+ SUMP            8
+ RM_END          32
+
+[PIPES]
+ SUCTION         SUMP       PUMP_IN    35    704.4   0.30   4.85   Open
+ RISING_MAIN     PUMP_OUT   RM_END     515   402.8   0.30   8.20   Open
+
+[PUMPS]
+ PMP1            PUMP_IN    PUMP_OUT   HEAD C_PLACEHOLDER
+
+[CURVES]
+ C_PLACEHOLDER   0     45
+ C_PLACEHOLDER   300   35
+ C_PLACEHOLDER   600   8
+
+[OPTIONS]
+ UNITS           LPS
+ HEADLOSS        D-W
+
+[TIMES]
+ DURATION        0
+
+[REPORT]
+ STATUS          NO
+
+[END]

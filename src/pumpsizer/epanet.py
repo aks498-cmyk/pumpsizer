@@ -190,71 +190,29 @@ def read_sections(text: str) -> dict[str, list[str]]:
     return sections
 
 
-def patch_inp(inp_path: str | Path, export: EpanetPumpExport, *,
+def patch_inp(inp_path: str | Path, export: "EpanetPumpExport", *,
               output_path: str | Path | None = None,
               replace_pump: bool = True) -> str:
-    """Insert/replace this pump's curve, efficiency curve, [PUMPS] line and
-    [ENERGY] entries in an existing .inp.  Returns the new file text (and writes
-    it if ``output_path`` is given).
+    """Splice this pump's head curve, efficiency curve, ``[PUMPS]`` line and
+    ``[ENERGY]`` entries into an existing ``.inp`` (via :class:`InpModel`, which
+    preserves section order and every other section verbatim).  Returns the new
+    file text and writes it when ``output_path`` is given.
 
-    This is deliberately conservative: it appends curve rows, replaces the
-    matching [PUMPS] line when ``replace_pump`` is set, and de-duplicates
-    [ENERGY] lines for the pump.  Review the result before running it.
-    """
-    text = Path(inp_path).read_text()
-    lines = text.splitlines()
-    out: list[str] = []
-    section = "_PREAMBLE"
-    seen = {"CURVES": False, "PUMPS": False, "ENERGY": False}
+    ``replace_pump=False`` keeps any existing ``[PUMPS]`` line for the same id
+    (a new one is still appended - EPANET would reject the duplicate, so this is
+    only for diffing)."""
+    from .inpfile import InpModel
 
-    curve_rows = [f" {export.head_curve_id:<15} {_fmt(q):>11} {_fmt(h):>11}"
-                  for q, h in export.head_points]
-    if export.efficiency_points and export.efficiency_curve_id:
-        curve_rows += [f" {export.efficiency_curve_id:<15} {_fmt(q):>11} {_fmt(e):>11}"
-                       for q, e in export.efficiency_points]
-    pump_row = "  ".join(
-        [f" {export.pump_id:<15} {export.from_node:<10} {export.to_node:<10}",
-         f"HEAD {export.head_curve_id}"]
-        + ([f"SPEED {_fmt(export.speed)}"] if abs(export.speed - 1.0) > 1e-6 else [])
-        + ([f"PATTERN {export.speed_pattern}"] if export.speed_pattern else [])
-    )
-    energy_rows = [r for r in export.energy_section().splitlines() if not r.startswith("[")]
-
-    def flush_section_extra(sec: str):
-        if sec == "CURVES":
-            out.append(f";; --- pumpsizer: {export.head_curve_id} ---")
-            out.extend(curve_rows)
-        elif sec == "PUMPS":
-            out.append(pump_row)
-        elif sec == "ENERGY":
-            out.extend(energy_rows)
-
-    for line in lines:
-        m = _SECTION_RE.match(line)
-        if m:
-            new_sec = m.group(1).upper()
-            # about to leave a section we need to top up
-            if section in seen and not seen[section]:
-                flush_section_extra(section)
-                seen[section] = True
-            section = new_sec
-            out.append(line)
-            continue
-        if section == "PUMPS" and replace_pump and re.match(
-                rf"\s*{re.escape(export.pump_id)}\s", line):
-            continue  # drop the old pump definition
-        if section == "ENERGY" and re.match(
-                rf"\s*PUMP\s+{re.escape(export.pump_id)}\s", line, re.IGNORECASE):
-            continue  # drop old energy entries for this pump
-        out.append(line)
-
-    for sec, done in seen.items():
-        if not done:
-            if sec not in read_sections(text):
-                out.append(f"[{sec}]")
-            flush_section_extra(sec)
-
-    result = "\n".join(out) + "\n"
+    model = InpModel.read(inp_path)
+    if not replace_pump:
+        model._ensure("PUMPS")
+        existing = list(model.sections["PUMPS"])
+        model.apply_export(export)
+        model.sections["PUMPS"] = existing + [
+            ln for ln in model.sections["PUMPS"] if ln not in existing]
+    else:
+        model.apply_export(export)
+    text = model.to_text()
     if output_path is not None:
-        Path(output_path).write_text(result)
-    return result
+        Path(output_path).write_text(text)
+    return text

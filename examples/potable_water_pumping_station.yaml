@@ -109,8 +109,8 @@ energy:
 
 epanet:
   flow_units: LPS               # LPS | LPM | MLD | CMH | CMD | GPM | MGD | CFS
-  pump_id: PMP1
-  from_node: SUMP
-  to_node: RM_START
+  pump_id: PMP1                 # must match the pump id in --into <network>.inp
+  from_node: SUMP               # only used when ADDING a new pump (see network_skeleton.inp)
+  to_node: PUMP_OUT
   head_points: 3                # 3 -> EPANET refits A-B*Q^C; >3 -> multi-point
   efficiency_points: 7

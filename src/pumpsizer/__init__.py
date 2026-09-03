@@ -23,7 +23,9 @@ from .energy import annual_energy_kwh, annual_energy_cost, life_cycle_cost
 from .catalog import Catalog, PumpModel
 from .selection import SelectionCriteria, Candidate, select, evaluate
 from .project import Project, ProjectResults
+from .inpfile import InpModel
 from . import epanet
+from . import solver
 
 __version__ = "0.1.0"
 
@@ -63,6 +65,8 @@ __all__ = [
     "evaluate",
     "Project",
     "ProjectResults",
+    "InpModel",
     "epanet",
+    "solver",
     "__version__",
 ]

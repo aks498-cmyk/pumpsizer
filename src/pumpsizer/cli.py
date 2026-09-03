@@ -38,11 +38,16 @@ def _cmd_run(args: argparse.Namespace) -> int:
         Path(args.epanet).write_text(res.epanet_export.full_snippet(), encoding="utf-8")
         print(f"wrote EPANET block -> {args.epanet}")
 
-    if args.patch:
-        from .epanet import patch_inp
-        out = args.patch_out or (str(Path(args.patch).with_suffix("")) + ".patched.inp")
-        patch_inp(args.patch, res.epanet_export, output_path=out)
+    target_inp = args.into
+    if target_inp:
+        from .inpfile import InpModel
+        out = args.patch_out or (str(Path(target_inp).with_suffix("")) + ".patched.inp")
+        model = InpModel.read(target_inp)
+        model.apply_export(res.epanet_export)
+        model.write(out)
         print(f"patched .inp       -> {out}")
+        if args.simulate:
+            _print_sim_vs_prediction(out, res.epanet_export.pump_id, res.operating_point)
 
     if args.plot:
         try:
@@ -57,6 +62,39 @@ def _cmd_run(args: argparse.Namespace) -> int:
         for w in res.warnings:
             print(f"  ! {w}")
     return 0
+
+
+def _print_sim_vs_prediction(inp_path, pump_id, predicted=None) -> int:
+    from .solver import available, simulate
+    if not available():
+        print("!! EPANET solver bridge needs 'epyt'  (pip install epyt)", file=sys.stderr)
+        return 2
+    sim = simulate(inp_path)
+    print(f"\nEPANET simulation ({sim.flow_units}):")
+    print(f"  {'pump':<14}{'flow l/s':>12}{'head m':>10}{'status':>9}")
+    for p in sim.pumps:
+        print(f"  {p.id:<14}{p.flow_lps:>12.2f}{p.head_m:>10.2f}{p.status:>9}")
+    if predicted is not None:
+        try:
+            s = sim.pump(pump_id)
+            dq = (s.flow_lps - predicted.flow_lps) / predicted.flow_lps * 100
+            dh = (s.head_m - predicted.head_m) / predicted.head_m * 100
+            print(f"\n  vs pumpsizer prediction for {pump_id}: "
+                  f"flow {predicted.flow_lps:.1f} -> {s.flow_lps:.1f} l/s ({dq:+.1f}%), "
+                  f"head {predicted.head_m:.1f} -> {s.head_m:.1f} m ({dh:+.1f}%)")
+        except KeyError as exc:
+            print(f"  ({exc})")
+    for w in sim.warnings:
+        if w.strip():
+            print(f"  epanet: {w.strip()}")
+    return 0
+
+
+def _cmd_verify(args: argparse.Namespace) -> int:
+    predicted = None
+    if args.project:
+        predicted = Project.from_yaml(args.project).run().operating_point
+    return _print_sim_vs_prediction(args.inp, args.pump_id, predicted)
 
 
 def _cmd_select(args: argparse.Namespace) -> int:
@@ -134,9 +172,19 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("--json", help="write the machine-readable summary here")
     r.add_argument("--epanet", help="write the [CURVES]/[PUMPS]/[ENERGY] block here")
     r.add_argument("--plot", help="write a performance plot (PNG) here")
-    r.add_argument("--patch", help="existing .inp to splice this pump into")
+    r.add_argument("--into", dest="into",
+                   help="existing .inp to splice this pump/curve/energy into")
+    r.add_argument("--patch", dest="into", help=argparse.SUPPRESS)  # legacy alias
     r.add_argument("--patch-out", help="output path for the patched .inp")
+    r.add_argument("--simulate", action="store_true",
+                   help="run EPANET on the patched .inp and compare (needs epyt)")
     r.set_defaults(func=_cmd_run)
+
+    v = sub.add_parser("verify", help="run EPANET on an .inp and report pump operating points")
+    v.add_argument("inp", help=".inp file to simulate")
+    v.add_argument("--pump-id", default="PMP1", help="pump id to compare against a prediction")
+    v.add_argument("--project", help="project YAML whose prediction to compare with")
+    v.set_defaults(func=_cmd_verify)
 
     sel = sub.add_parser("select", help="rank catalogue pumps against a duty point")
     sel.add_argument("--duty-q", type=float, default=0.0, help="duty flow [l/s]")

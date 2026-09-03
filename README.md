@@ -50,9 +50,21 @@ pumpsizer select --project examples/potable_water_pumping_station.yaml \
 # one-off curve + EPANET block from a duty point
 pumpsizer curve --duty-q 300 --duty-h 33 --source synthetic --points 3
 
+# splice the sized pump into a real network and let EPANET solve it
+pumpsizer run examples/potable_water_pumping_station.yaml \
+    --into examples/network_skeleton.inp --patch-out out/net.inp --simulate
+
+# run EPANET on any .inp and report the pump operating points
+pumpsizer verify out/net.inp --pump-id PMP1 \
+    --project examples/potable_water_pumping_station.yaml
+
 # print the annotated project schema
 pumpsizer schema
 ```
+
+`--into` / `verify` need the EPANET solver bridge: `pip install epyt`
+(`pip install -e ".[epanet]"`). On the bundled example the stand-alone operating
+point and EPANET's own solve agree to ~0.2%.
 
 To drive selection from the project file, set `pump.source: catalogue` and
 `pump.catalogue_path: my_catalogue/` (a file or directory of YAML — see
@@ -114,8 +126,12 @@ efficiency — are plain YAML; edit or point the API at your own via
   and VFD-speed solving, `pumpsizer select`, `pump.source: catalogue`. ✅
   *Still to do: digitise real curves from the KSB / Lubi / Grundfos datasheets
   into `docs/catalog_template.yaml` format (bundled entries are illustrative).*
-* **Phase 3** – full `.inp` round-trip + EPANET-solver operating point
-  (`epanet-python` / WNTR); multi-pump staging against a demand pattern.
+* **Phase 3** – `inpfile.InpModel` structured `.inp` reader/writer; `.inp`
+  splice (curve + pump + energy, keeps the existing pump's end nodes); `solver`
+  bridge to the EPANET 2.2 engine via `epyt`; `pumpsizer verify` and
+  `run --into --simulate`. ✅  On the bundled example the stand-alone operating
+  point and EPANET's own solve agree to ~0.2%.  *Still to do: multi-pump
+  staging against a demand pattern; extended-period energy read-back.*
 * **Phase 4** – water-hammer pre-sizing (Joukowsky + air-vessel/flywheel rules
   of thumb).
 * **Excel front end** – keep `Pump Sizing.xlsx` as the input UI, this package as
