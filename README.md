@@ -193,7 +193,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for dev setup, layout and conventions.
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md).
+See [docs/CHANGELOG.md](docs/CHANGELOG.md) (also on the [docs site](https://aks498-cmyk.github.io/pumpsizer/CHANGELOG.html)).
 
 ## Tests
 

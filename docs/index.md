@@ -14,8 +14,8 @@ EPANET-compatible curve generation** — plus water hammer and demand-pattern
 staging.
 
 [Source &amp; README](https://github.com/aks498-cmyk/pumpsizer){: .btn} ·
-[v0.1.0 release](https://github.com/aks498-cmyk/pumpsizer/releases/tag/v0.1.0) ·
-[Changelog](https://github.com/aks498-cmyk/pumpsizer/blob/master/CHANGELOG.md)
+[latest release](https://github.com/aks498-cmyk/pumpsizer/releases/latest) ·
+[Changelog](CHANGELOG.html)
 
 ## What it does
 
