@@ -28,24 +28,35 @@ class PumpModel:
     series: str
     model: str
     reference_speed_rpm: float
-    q_lps: list[float]
-    h_m: list[float]
+    q_lps: list[float] | None = None
+    h_m: list[float] | None = None
     eff_pct: list[float] | None = None
     npshr_m: list[float] | None = None
     shaft_power_kw: list[float] | None = None
     impeller_diameter_mm: float | None = None
     min_impeller_diameter_mm: float | None = None      # trim limit
+    impeller_options_mm: list[float] | None = None
     stages: int = 1
     poles: int = 2
     min_speed_ratio: float = 1.0                       # < 1 if VFD-rated
     max_speed_ratio: float = 1.0
     bore_suction_mm: float | None = None
     bore_discharge_mm: float | None = None
+    discharge_dn: float | None = None
     price: float | None = None
     source: str = ""
     verified: bool = False
     notes: str = ""
     tags: list[str] = field(default_factory=list)
+    datasheet_page: int | None = None
+    # ---- envelope-only entries (no digitised curve yet) ----
+    envelope_only: bool = False
+    estimated_bep: bool = False
+    q_bep_lps: float | None = None
+    h_bep_m: float | None = None
+    q_min_lps: float | None = None
+    q_max_lps: float | None = None
+    shutoff_head_m: float | None = None
 
     # -- identity ------------------------------------------------------
     @property
@@ -61,16 +72,25 @@ class PumpModel:
     # -- to a solvable curve ----------------------------------------
     def to_pump_curve(self, *, speed_ratio: float = 1.0,
                       diameter_ratio: float = 1.0) -> PumpCurve:
-        q = np.asarray(self.q_lps, dtype=float) * LPS_TO_M3S
-        h = np.asarray(self.h_m, dtype=float)
-        curve = PumpCurve.from_points(
-            q, h,
-            eff=np.asarray(self.eff_pct, float) if self.eff_pct else None,
-            eff_q=q if self.eff_pct else None,
-            npshr=np.asarray(self.npshr_m, float) if self.npshr_m else None,
-            npshr_q=q if self.npshr_m else None,
-            name=self.key, prefer="auto",
-        )
+        if self.q_lps and self.h_m:
+            q = np.asarray(self.q_lps, dtype=float) * LPS_TO_M3S
+            h = np.asarray(self.h_m, dtype=float)
+            curve = PumpCurve.from_points(
+                q, h,
+                eff=np.asarray(self.eff_pct, float) if self.eff_pct else None,
+                eff_q=q if self.eff_pct else None,
+                npshr=np.asarray(self.npshr_m, float) if self.npshr_m else None,
+                npshr_q=q if self.npshr_m else None,
+                name=self.key, prefer="auto",
+            )
+        elif self.q_bep_lps and self.h_bep_m:
+            # envelope-only: synthesise a plausible curve around the (approx) BEP
+            ratio = (self.shutoff_head_m / self.h_bep_m) if self.shutoff_head_m else 1.20
+            curve = PumpCurve.synthetic(
+                self.q_bep_lps * LPS_TO_M3S, self.h_bep_m,
+                shutoff_ratio=min(max(ratio, 1.05), 1.6), eff_bep=80.0, name=self.key)
+        else:
+            raise ValueError(f"{self.key}: no curve points and no BEP estimate")
         if speed_ratio != 1.0 or diameter_ratio != 1.0:
             curve = curve.scaled(speed_ratio=speed_ratio, diameter_ratio=diameter_ratio)
         return curve

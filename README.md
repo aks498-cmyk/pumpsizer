@@ -134,8 +134,11 @@ efficiency — are plain YAML; edit or point the API at your own via
 * **Phase 1** – engine, CLI, EPANET text export, `.inp` splice. ✅
 * **Phase 2** – catalogue data model + loader, selection & ranking, impeller-trim
   and VFD-speed solving, `pumpsizer select`, `pump.source: catalogue`. ✅
-  *Still to do: digitise real curves from the KSB / Lubi / Grundfos datasheets
-  into `docs/catalog_template.yaml` format (bundled entries are illustrative).*
+  Bundled catalogues: 5 illustrative pumps + **74 KSB Omega / Omega V 50 Hz
+  sizes** parsed from the datasheet booklet (`ksb_omega_50hz.yaml`, envelope +
+  page number per size; BEP approximated, `verified: false`). Selection flags
+  every envelope hit with "confirm curve from booklet p.N" and a score penalty.
+  See `docs/catalog_from_ksb.md` to upgrade an entry with digitised points.
 * **Phase 3** – `inpfile.InpModel` structured `.inp` reader/writer; `.inp`
   splice (curve + pump + energy, keeps the existing pump's end nodes); `solver`
   bridge to the EPANET 2.2 engine via `epyt`; `pumpsizer verify` and

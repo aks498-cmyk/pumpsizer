@@ -1,0 +1,1860 @@
+# KSB Omega / Omega V, 50 Hz - axially split volute casing pumps for water supply.
+# Envelope-only entries: Q/H bounds read from each datasheet page's axis ranges;
+# BEP is APPROXIMATED and every entry is verified: false + estimated_bep: true.
+# Replace q_bep/h_bep (and add a real `curve:` block) with points digitised from
+# the page given by `datasheet_page`.  See docs/catalog_from_ksb.md.
+# Generated from dow-omega-data.pdf : 74 sizes.
+
+pumps:
+- manufacturer: KSB
+  series: Omega
+  model: 080-210A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 215
+  min_impeller_diameter_mm: 170
+  impeller_options_mm:
+  - 215
+  - 200
+  - 185
+  - 170
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 20.0
+  h_bep_m: 13.0
+  q_min_lps: 10.0
+  q_max_lps: 33.3
+  shutoff_head_m: 18.0
+  datasheet_page: 20
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-210B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 215
+  min_impeller_diameter_mm: 170
+  impeller_options_mm:
+  - 215
+  - 200
+  - 185
+  - 170
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 20.0
+  h_bep_m: 13.0
+  q_min_lps: 10.0
+  q_max_lps: 33.3
+  shutoff_head_m: 18.0
+  datasheet_page: 21
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-270A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 275
+  min_impeller_diameter_mm: 215
+  impeller_options_mm:
+  - 275
+  - 255
+  - 235
+  - 215
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 23.3
+  h_bep_m: 20.9
+  q_min_lps: 11.7
+  q_max_lps: 38.9
+  shutoff_head_m: 29.0
+  datasheet_page: 22
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-270B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 275
+  min_impeller_diameter_mm: 215
+  impeller_options_mm:
+  - 275
+  - 255
+  - 235
+  - 215
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 20.0
+  h_bep_m: 20.2
+  q_min_lps: 10.0
+  q_max_lps: 33.3
+  shutoff_head_m: 28.0
+  datasheet_page: 23
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-370A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 345
+  min_impeller_diameter_mm: 270
+  impeller_options_mm:
+  - 345
+  - 320
+  - 300
+  - 270
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 26.6
+  h_bep_m: 33.1
+  q_min_lps: 13.3
+  q_max_lps: 44.4
+  shutoff_head_m: 46.0
+  datasheet_page: 24
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-370B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 345
+  min_impeller_diameter_mm: 270
+  impeller_options_mm:
+  - 345
+  - 320
+  - 295
+  - 270
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 23.3
+  h_bep_m: 33.1
+  q_min_lps: 11.7
+  q_max_lps: 38.9
+  shutoff_head_m: 46.0
+  datasheet_page: 25
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-250A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 100
+  impeller_diameter_mm: 254
+  min_impeller_diameter_mm: 201
+  impeller_options_mm:
+  - 254
+  - 236
+  - 219
+  - 201
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 41.6
+  h_bep_m: 18.0
+  q_min_lps: 20.8
+  q_max_lps: 69.4
+  shutoff_head_m: 25.0
+  datasheet_page: 26
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-250B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 100
+  impeller_diameter_mm: 254
+  min_impeller_diameter_mm: 201
+  impeller_options_mm:
+  - 254
+  - 236
+  - 219
+  - 201
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 30.0
+  h_bep_m: 17.3
+  q_min_lps: 15.0
+  q_max_lps: 50.0
+  shutoff_head_m: 24.0
+  datasheet_page: 27
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-310A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 100
+  impeller_diameter_mm: 325
+  min_impeller_diameter_mm: 254
+  impeller_options_mm:
+  - 325
+  - 301
+  - 278
+  - 254
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 41.6
+  h_bep_m: 28.8
+  q_min_lps: 20.8
+  q_max_lps: 69.4
+  shutoff_head_m: 40.0
+  datasheet_page: 28
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-310B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 100
+  impeller_diameter_mm: 325
+  min_impeller_diameter_mm: 254
+  impeller_options_mm:
+  - 325
+  - 301
+  - 278
+  - 254
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 30.0
+  h_bep_m: 28.8
+  q_min_lps: 15.0
+  q_max_lps: 50.0
+  shutoff_head_m: 40.0
+  datasheet_page: 29
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-375A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 100
+  impeller_diameter_mm: 408
+  min_impeller_diameter_mm: 325
+  impeller_options_mm:
+  - 408
+  - 378
+  - 355
+  - 325
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 33.4
+  h_bep_m: 47.5
+  q_min_lps: 16.7
+  q_max_lps: 55.6
+  shutoff_head_m: 66.0
+  datasheet_page: 30
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-375B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 100
+  impeller_diameter_mm: 408
+  min_impeller_diameter_mm: 325
+  impeller_options_mm:
+  - 408
+  - 378
+  - 355
+  - 325
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 33.4
+  h_bep_m: 47.5
+  q_min_lps: 16.7
+  q_max_lps: 55.6
+  shutoff_head_m: 66.0
+  datasheet_page: 31
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-230A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 245
+  min_impeller_diameter_mm: 193
+  impeller_options_mm:
+  - 245
+  - 228
+  - 210
+  - 193
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 17.3
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 24.0
+  datasheet_page: 32
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-230B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 245
+  min_impeller_diameter_mm: 193
+  impeller_options_mm:
+  - 245
+  - 228
+  - 210
+  - 193
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 58.3
+  h_bep_m: 16.6
+  q_min_lps: 29.2
+  q_max_lps: 97.2
+  shutoff_head_m: 23.0
+  datasheet_page: 33
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-290A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 301
+  min_impeller_diameter_mm: 232
+  impeller_options_mm:
+  - 301
+  - 276
+  - 254
+  - 232
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 25.9
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 36.0
+  datasheet_page: 34
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-290B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 301
+  min_impeller_diameter_mm: 232
+  impeller_options_mm:
+  - 301
+  - 276
+  - 254
+  - 232
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 58.3
+  h_bep_m: 25.9
+  q_min_lps: 29.2
+  q_max_lps: 97.2
+  shutoff_head_m: 36.0
+  datasheet_page: 35
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-365A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 385
+  min_impeller_diameter_mm: 289
+  impeller_options_mm:
+  - 385
+  - 353
+  - 321
+  - 289
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 41.8
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 58.0
+  datasheet_page: 36
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-365B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 385
+  min_impeller_diameter_mm: 289
+  impeller_options_mm:
+  - 385
+  - 353
+  - 321
+  - 289
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 40.3
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 56.0
+  datasheet_page: 37
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-500A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 475
+  min_impeller_diameter_mm: 381
+  impeller_options_mm:
+  - 475
+  - 443
+  - 412
+  - 381
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 68.4
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 95.0
+  datasheet_page: 38
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-500B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 475
+  min_impeller_diameter_mm: 381
+  impeller_options_mm:
+  - 475
+  - 443
+  - 412
+  - 381
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 64.8
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 90.0
+  datasheet_page: 39
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-290A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 289
+  min_impeller_diameter_mm: 227
+  impeller_options_mm:
+  - 289
+  - 269
+  - 245
+  - 227
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 100.0
+  h_bep_m: 24.5
+  q_min_lps: 50.0
+  q_max_lps: 166.7
+  shutoff_head_m: 34.0
+  datasheet_page: 40
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-290B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 289
+  min_impeller_diameter_mm: 227
+  impeller_options_mm:
+  - 289
+  - 269
+  - 245
+  - 227
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 83.3
+  h_bep_m: 21.6
+  q_min_lps: 41.7
+  q_max_lps: 138.9
+  shutoff_head_m: 30.0
+  datasheet_page: 41
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-290C (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 282
+  min_impeller_diameter_mm: 222
+  impeller_options_mm:
+  - 282
+  - 263
+  - 242
+  - 222
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 83.3
+  h_bep_m: 21.6
+  q_min_lps: 41.7
+  q_max_lps: 138.9
+  shutoff_head_m: 30.0
+  datasheet_page: 42
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-360A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 355
+  min_impeller_diameter_mm: 274
+  impeller_options_mm:
+  - 355
+  - 325
+  - 299
+  - 274
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 100.0
+  h_bep_m: 36.0
+  q_min_lps: 50.0
+  q_max_lps: 166.7
+  shutoff_head_m: 50.0
+  datasheet_page: 43
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-360B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 355
+  min_impeller_diameter_mm: 280
+  impeller_options_mm:
+  - 355
+  - 330
+  - 305
+  - 280
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 100.0
+  h_bep_m: 34.6
+  q_min_lps: 50.0
+  q_max_lps: 166.7
+  shutoff_head_m: 48.0
+  datasheet_page: 44
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-460A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 454
+  min_impeller_diameter_mm: 340
+  impeller_options_mm:
+  - 454
+  - 416
+  - 378
+  - 340
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 116.6
+  h_bep_m: 57.6
+  q_min_lps: 58.3
+  q_max_lps: 194.4
+  shutoff_head_m: 80.0
+  datasheet_page: 45
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-460B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 454
+  min_impeller_diameter_mm: 345
+  impeller_options_mm:
+  - 454
+  - 420
+  - 382
+  - 345
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 100.0
+  h_bep_m: 57.6
+  q_min_lps: 50.0
+  q_max_lps: 166.7
+  shutoff_head_m: 80.0
+  datasheet_page: 46
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-605A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 560
+  min_impeller_diameter_mm: 449
+  impeller_options_mm:
+  - 560
+  - 523
+  - 486
+  - 449
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 133.3
+  h_bep_m: 93.6
+  q_min_lps: 66.7
+  q_max_lps: 222.2
+  shutoff_head_m: 130.0
+  datasheet_page: 47
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 150-605B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 560
+  min_impeller_diameter_mm: 449
+  impeller_options_mm:
+  - 560
+  - 523
+  - 486
+  - 449
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 116.6
+  h_bep_m: 86.4
+  q_min_lps: 58.3
+  q_max_lps: 194.4
+  shutoff_head_m: 120.0
+  datasheet_page: 48
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-320A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 338
+  min_impeller_diameter_mm: 266
+  impeller_options_mm:
+  - 338
+  - 314
+  - 290
+  - 266
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 166.7
+  h_bep_m: 33.1
+  q_min_lps: 83.3
+  q_max_lps: 277.8
+  shutoff_head_m: 46.0
+  datasheet_page: 49
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-320B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 338
+  min_impeller_diameter_mm: 266
+  impeller_options_mm:
+  - 338
+  - 314
+  - 290
+  - 266
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 166.7
+  h_bep_m: 28.8
+  q_min_lps: 83.3
+  q_max_lps: 277.8
+  shutoff_head_m: 40.0
+  datasheet_page: 50
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-320C (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 333
+  min_impeller_diameter_mm: 262
+  impeller_options_mm:
+  - 333
+  - 310
+  - 286
+  - 262
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 133.3
+  h_bep_m: 28.8
+  q_min_lps: 66.7
+  q_max_lps: 222.2
+  shutoff_head_m: 40.0
+  datasheet_page: 51
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-420A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 415
+  min_impeller_diameter_mm: 320
+  impeller_options_mm:
+  - 415
+  - 380
+  - 350
+  - 320
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 166.7
+  h_bep_m: 50.4
+  q_min_lps: 83.3
+  q_max_lps: 277.8
+  shutoff_head_m: 70.0
+  datasheet_page: 52
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-420B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 415
+  min_impeller_diameter_mm: 320
+  impeller_options_mm:
+  - 415
+  - 380
+  - 350
+  - 320
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 166.7
+  h_bep_m: 50.4
+  q_min_lps: 83.3
+  q_max_lps: 277.8
+  shutoff_head_m: 70.0
+  datasheet_page: 53
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-520A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 530
+  min_impeller_diameter_mm: 398
+  impeller_options_mm:
+  - 530
+  - 486
+  - 442
+  - 398
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 200.0
+  h_bep_m: 86.4
+  q_min_lps: 100.0
+  q_max_lps: 333.3
+  shutoff_head_m: 120.0
+  datasheet_page: 54
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-520B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 530
+  min_impeller_diameter_mm: 398
+  impeller_options_mm:
+  - 530
+  - 486
+  - 442
+  - 398
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 166.7
+  h_bep_m: 79.2
+  q_min_lps: 83.3
+  q_max_lps: 277.8
+  shutoff_head_m: 110.0
+  datasheet_page: 55
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-670A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 655
+  min_impeller_diameter_mm: 525
+  impeller_options_mm:
+  - 655
+  - 611
+  - 568
+  - 525
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 166.7
+  h_bep_m: 129.6
+  q_min_lps: 83.3
+  q_max_lps: 277.8
+  shutoff_head_m: 180.0
+  datasheet_page: 56
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 200-670B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 655
+  min_impeller_diameter_mm: 525
+  impeller_options_mm:
+  - 655
+  - 611
+  - 568
+  - 525
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 133.3
+  h_bep_m: 115.2
+  q_min_lps: 66.7
+  q_max_lps: 222.2
+  shutoff_head_m: 160.0
+  datasheet_page: 57
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 250-370A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 389
+  min_impeller_diameter_mm: 306
+  impeller_options_mm:
+  - 389
+  - 362
+  - 334
+  - 306
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 266.6
+  h_bep_m: 40.3
+  q_min_lps: 133.3
+  q_max_lps: 444.4
+  shutoff_head_m: 56.0
+  datasheet_page: 58
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 250-370B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 389
+  min_impeller_diameter_mm: 306
+  impeller_options_mm:
+  - 389
+  - 362
+  - 334
+  - 306
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 233.3
+  h_bep_m: 43.2
+  q_min_lps: 116.7
+  q_max_lps: 388.9
+  shutoff_head_m: 60.0
+  datasheet_page: 59
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 250-370C (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 389
+  min_impeller_diameter_mm: 306
+  impeller_options_mm:
+  - 389
+  - 362
+  - 334
+  - 306
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 233.3
+  h_bep_m: 40.3
+  q_min_lps: 116.7
+  q_max_lps: 388.9
+  shutoff_head_m: 56.0
+  datasheet_page: 60
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 250-480A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 478
+  min_impeller_diameter_mm: 369
+  impeller_options_mm:
+  - 478
+  - 438
+  - 403
+  - 369
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 300.0
+  h_bep_m: 68.4
+  q_min_lps: 150.0
+  q_max_lps: 500.0
+  shutoff_head_m: 95.0
+  datasheet_page: 61
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 250-480B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 478
+  min_impeller_diameter_mm: 369
+  impeller_options_mm:
+  - 478
+  - 438
+  - 403
+  - 369
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 266.6
+  h_bep_m: 64.8
+  q_min_lps: 133.3
+  q_max_lps: 444.4
+  shutoff_head_m: 90.0
+  datasheet_page: 62
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 250-600A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 610
+  min_impeller_diameter_mm: 475
+  impeller_options_mm:
+  - 610
+  - 568
+  - 520
+  - 475
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 300.0
+  h_bep_m: 108.0
+  q_min_lps: 150.0
+  q_max_lps: 500.0
+  shutoff_head_m: 150.0
+  datasheet_page: 63
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 250-600B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 610
+  min_impeller_diameter_mm: 475
+  impeller_options_mm:
+  - 610
+  - 568
+  - 520
+  - 475
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 266.6
+  h_bep_m: 100.8
+  q_min_lps: 133.3
+  q_max_lps: 444.4
+  shutoff_head_m: 140.0
+  datasheet_page: 64
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 250-800A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 764
+  min_impeller_diameter_mm: 612
+  impeller_options_mm:
+  - 764
+  - 713
+  - 663
+  - 612
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 266.6
+  h_bep_m: 172.8
+  q_min_lps: 133.3
+  q_max_lps: 444.4
+  shutoff_head_m: 240.0
+  datasheet_page: 65
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-300A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 330
+  min_impeller_diameter_mm: 266
+  impeller_options_mm:
+  - 330
+  - 315
+  - 302
+  - 287
+  - 266
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 266.6
+  h_bep_m: 28.8
+  q_min_lps: 133.3
+  q_max_lps: 444.4
+  shutoff_head_m: 40.0
+  datasheet_page: 66
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-300B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 330
+  min_impeller_diameter_mm: 266
+  impeller_options_mm:
+  - 330
+  - 315
+  - 302
+  - 287
+  - 266
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 233.3
+  h_bep_m: 25.9
+  q_min_lps: 116.7
+  q_max_lps: 388.9
+  shutoff_head_m: 36.0
+  datasheet_page: 67
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-435A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 450
+  min_impeller_diameter_mm: 354
+  impeller_options_mm:
+  - 450
+  - 418
+  - 386
+  - 354
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 416.6
+  h_bep_m: 57.6
+  q_min_lps: 208.3
+  q_max_lps: 694.4
+  shutoff_head_m: 80.0
+  datasheet_page: 68
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-435B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 450
+  min_impeller_diameter_mm: 354
+  impeller_options_mm:
+  - 450
+  - 418
+  - 386
+  - 354
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 416.6
+  h_bep_m: 57.6
+  q_min_lps: 208.3
+  q_max_lps: 694.4
+  shutoff_head_m: 80.0
+  datasheet_page: 69
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-435C (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 448
+  min_impeller_diameter_mm: 352
+  impeller_options_mm:
+  - 448
+  - 417
+  - 385
+  - 352
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 333.4
+  h_bep_m: 54.0
+  q_min_lps: 166.7
+  q_max_lps: 555.6
+  shutoff_head_m: 75.0
+  datasheet_page: 70
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-560A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 553
+  min_impeller_diameter_mm: 426
+  impeller_options_mm:
+  - 553
+  - 506
+  - 466
+  - 426
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 416.6
+  h_bep_m: 86.4
+  q_min_lps: 208.3
+  q_max_lps: 694.4
+  shutoff_head_m: 120.0
+  datasheet_page: 71
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-560B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 553
+  min_impeller_diameter_mm: 426
+  impeller_options_mm:
+  - 553
+  - 506
+  - 466
+  - 426
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 333.4
+  h_bep_m: 82.8
+  q_min_lps: 166.7
+  q_max_lps: 555.6
+  shutoff_head_m: 115.0
+  datasheet_page: 72
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-700A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 705
+  min_impeller_diameter_mm: 550
+  impeller_options_mm:
+  - 705
+  - 655
+  - 600
+  - 550
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 416.6
+  h_bep_m: 144.0
+  q_min_lps: 208.3
+  q_max_lps: 694.4
+  shutoff_head_m: 200.0
+  datasheet_page: 73
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 300-700B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 705
+  min_impeller_diameter_mm: 550
+  impeller_options_mm:
+  - 705
+  - 655
+  - 600
+  - 550
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 416.6
+  h_bep_m: 144.0
+  q_min_lps: 208.3
+  q_max_lps: 694.4
+  shutoff_head_m: 200.0
+  datasheet_page: 74
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 350-360A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 382
+  min_impeller_diameter_mm: 308
+  impeller_options_mm:
+  - 382
+  - 350
+  - 332
+  - 308
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 416.6
+  h_bep_m: 39.6
+  q_min_lps: 208.3
+  q_max_lps: 694.4
+  shutoff_head_m: 55.0
+  datasheet_page: 75
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 350-360B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 382
+  min_impeller_diameter_mm: 308
+  impeller_options_mm:
+  - 382
+  - 350
+  - 332
+  - 308
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 333.4
+  h_bep_m: 34.6
+  q_min_lps: 166.7
+  q_max_lps: 555.6
+  shutoff_head_m: 48.0
+  datasheet_page: 76
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 350-430A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 440
+  min_impeller_diameter_mm: 355
+  impeller_options_mm:
+  - 440
+  - 402
+  - 382
+  - 355
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 666.7
+  h_bep_m: 50.4
+  q_min_lps: 333.3
+  q_max_lps: 1111.1
+  shutoff_head_m: 70.0
+  datasheet_page: 77
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 350-430B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 440
+  min_impeller_diameter_mm: 355
+  impeller_options_mm:
+  - 440
+  - 402
+  - 382
+  - 355
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 500.0
+  h_bep_m: 43.2
+  q_min_lps: 250.0
+  q_max_lps: 833.3
+  shutoff_head_m: 60.0
+  datasheet_page: 78
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 350-510A (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 518
+  min_impeller_diameter_mm: 408
+  impeller_options_mm:
+  - 518
+  - 482
+  - 445
+  - 408
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 666.7
+  h_bep_m: 72.0
+  q_min_lps: 333.3
+  q_max_lps: 1111.1
+  shutoff_head_m: 100.0
+  datasheet_page: 79
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 350-510B (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 518
+  min_impeller_diameter_mm: 408
+  impeller_options_mm:
+  - 518
+  - 482
+  - 445
+  - 408
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 583.3
+  h_bep_m: 72.0
+  q_min_lps: 291.7
+  q_max_lps: 972.2
+  shutoff_head_m: 100.0
+  datasheet_page: 80
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 350-510C (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 518
+  min_impeller_diameter_mm: 407
+  impeller_options_mm:
+  - 518
+  - 482
+  - 445
+  - 407
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 500.0
+  h_bep_m: 72.0
+  q_min_lps: 250.0
+  q_max_lps: 833.3
+  shutoff_head_m: 100.0
+  datasheet_page: 81
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-210A (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 80
+  impeller_diameter_mm: 215
+  min_impeller_diameter_mm: 170
+  impeller_options_mm:
+  - 215
+  - 200
+  - 185
+  - 170
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 41.6
+  h_bep_m: 54.0
+  q_min_lps: 20.8
+  q_max_lps: 69.4
+  shutoff_head_m: 75.0
+  datasheet_page: 8
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-210B (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 80
+  impeller_diameter_mm: 215
+  min_impeller_diameter_mm: 170
+  impeller_options_mm:
+  - 215
+  - 200
+  - 185
+  - 170
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 41.6
+  h_bep_m: 54.0
+  q_min_lps: 20.8
+  q_max_lps: 69.4
+  shutoff_head_m: 75.0
+  datasheet_page: 9
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-270A (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 80
+  impeller_diameter_mm: 275
+  min_impeller_diameter_mm: 215
+  impeller_options_mm:
+  - 275
+  - 255
+  - 235
+  - 215
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 41.6
+  h_bep_m: 82.8
+  q_min_lps: 20.8
+  q_max_lps: 69.4
+  shutoff_head_m: 115.0
+  datasheet_page: 10
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 080-270B (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 80
+  impeller_diameter_mm: 275
+  min_impeller_diameter_mm: 215
+  impeller_options_mm:
+  - 275
+  - 255
+  - 235
+  - 215
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 41.6
+  h_bep_m: 79.2
+  q_min_lps: 20.8
+  q_max_lps: 69.4
+  shutoff_head_m: 110.0
+  datasheet_page: 11
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-250A (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 100
+  impeller_diameter_mm: 254
+  min_impeller_diameter_mm: 201
+  impeller_options_mm:
+  - 254
+  - 236
+  - 219
+  - 201
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 72.0
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 100.0
+  datasheet_page: 12
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-250B (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 100
+  impeller_diameter_mm: 254
+  min_impeller_diameter_mm: 201
+  impeller_options_mm:
+  - 254
+  - 236
+  - 219
+  - 201
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 72.0
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 100.0
+  datasheet_page: 13
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-310A (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 100
+  impeller_diameter_mm: 325
+  min_impeller_diameter_mm: 254
+  impeller_options_mm:
+  - 325
+  - 301
+  - 278
+  - 254
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 66.7
+  h_bep_m: 115.2
+  q_min_lps: 33.3
+  q_max_lps: 111.1
+  shutoff_head_m: 160.0
+  datasheet_page: 14
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 100-310B (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 100
+  impeller_diameter_mm: 325
+  min_impeller_diameter_mm: 254
+  impeller_options_mm:
+  - 325
+  - 301
+  - 278
+  - 254
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 58.3
+  h_bep_m: 111.6
+  q_min_lps: 29.2
+  q_max_lps: 97.2
+  shutoff_head_m: 155.0
+  datasheet_page: 15
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-230A (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 125
+  impeller_diameter_mm: 245
+  min_impeller_diameter_mm: 193
+  impeller_options_mm:
+  - 245
+  - 228
+  - 210
+  - 193
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 133.3
+  h_bep_m: 68.4
+  q_min_lps: 66.7
+  q_max_lps: 222.2
+  shutoff_head_m: 95.0
+  datasheet_page: 16
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-230B (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 125
+  impeller_diameter_mm: 245
+  min_impeller_diameter_mm: 193
+  impeller_options_mm:
+  - 245
+  - 228
+  - 210
+  - 193
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 116.6
+  h_bep_m: 68.4
+  q_min_lps: 58.3
+  q_max_lps: 194.4
+  shutoff_head_m: 95.0
+  datasheet_page: 17
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-290A (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 125
+  impeller_diameter_mm: 301
+  min_impeller_diameter_mm: 232
+  impeller_options_mm:
+  - 301
+  - 276
+  - 254
+  - 232
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 116.6
+  h_bep_m: 100.8
+  q_min_lps: 58.3
+  q_max_lps: 194.4
+  shutoff_head_m: 140.0
+  datasheet_page: 18
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page
+- manufacturer: KSB
+  series: Omega
+  model: 125-290B (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 125
+  impeller_diameter_mm: 301
+  min_impeller_diameter_mm: 232
+  impeller_options_mm:
+  - 301
+  - 276
+  - 254
+  - 232
+  envelope_only: true
+  estimated_bep: true
+  verified: false
+  q_bep_lps: 100.0
+  h_bep_m: 100.8
+  q_min_lps: 50.0
+  q_max_lps: 166.7
+  shutoff_head_m: 140.0
+  datasheet_page: 19
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016)
+  notes: envelope from datasheet axis ranges; BEP approximated (q_bep~0.6*q_max, h_bep~0.72*h_shutoff)
+    - confirm from the curve page

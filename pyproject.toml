@@ -29,7 +29,7 @@ pumpsizer = "pumpsizer.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-pumpsizer = ["data/*.yaml"]
+pumpsizer = ["data/*.yaml", "data/catalog/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -67,6 +67,28 @@ def test_vfd_pump_can_speed_up_when_needed():
     assert cand.method == "vfd" and cand.speed_ratio > 1.0
 
 
+def test_ksb_omega_envelope_catalogue():
+    from pathlib import Path
+
+    p = Path(__file__).resolve().parents[1] / "src/pumpsizer/data/catalog/ksb_omega_50hz.yaml"
+    cat = Catalog.from_path(p)
+    assert len(cat) > 50
+    m = cat.models[0]
+    assert m.envelope_only and not m.verified and m.datasheet_page
+    # an envelope model still yields a usable synthetic curve
+    curve = m.to_pump_curve()
+    assert curve.head(0.0) > curve.head(m.q_bep_lps / 1000.0) > 0
+
+    crit = SelectionCriteria.from_duty(300, 33, npsh_available_m=9.0)
+    ranked = select(cat, crit, top=5)
+    assert ranked and ranked[0].feasible
+    # the shortlist must flag that the curve needs confirming, and be penalised
+    assert any("confirm curve" in r for r in ranked[0].reasons)
+    assert ranked[0].score < 0.95
+    # DN350-ish pump for ~1000 m3/h @ 33 m
+    assert "350-" in ranked[0].model.model or "300-" in ranked[0].model.model
+
+
 def test_project_catalogue_source_runs():
     data = {**Project.from_yaml(EXAMPLE).data}
     data["pump"] = {"source": "catalogue"}      # -> bundled illustrative catalogue
