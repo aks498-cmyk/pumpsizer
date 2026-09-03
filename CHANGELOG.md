@@ -6,7 +6,10 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
-_Nothing yet._
+### Added
+- Repository is public; GitHub Pages site from `/docs`
+  (<https://aks498-cmyk.github.io/pumpsizer/>); a `master` branch ruleset
+  (no force-push, no deletion, linear history).
 
 ## [0.1.0] — 2026-09-03
 
