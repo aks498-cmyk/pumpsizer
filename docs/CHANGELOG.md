@@ -15,7 +15,8 @@ _Nothing yet._
 ## [0.2.0] — 2026-09-04
 
 Repository / distribution and documentation only — no functional change to the
-engine (no API or calculation differences from 0.1.0).
+engine (no API or calculation differences from 0.1.0). Consolidates the
+earlier `v0.2.0` and `v0.3.0` tags (both docs-only), which were removed.
 
 ### Added
 - Repository is public.
