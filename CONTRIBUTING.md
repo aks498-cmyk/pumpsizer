@@ -81,4 +81,3 @@ tools/                                 build_ksb_omega_catalog.py (regenerates a
 - Update `CHANGELOG.md` (Unreleased section) for anything user-facing.
 - Commit messages: imperative subject, a short body explaining *why* for
   anything non-obvious.
-  anything non-obvious.
