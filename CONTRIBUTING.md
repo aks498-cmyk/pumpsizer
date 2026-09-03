@@ -78,5 +78,7 @@ tools/                                 build_ksb_omega_catalog.py (regenerates a
 - `py -m pytest -q` is green (the hook enforces this locally).
 - New behaviour has a test; changed numbers have a comment saying why.
 - CI runs the suite on Python 3.10–3.13 for every push and PR to `master`.
+- Update `CHANGELOG.md` (Unreleased section) for anything user-facing.
 - Commit messages: imperative subject, a short body explaining *why* for
+  anything non-obvious.
   anything non-obvious.

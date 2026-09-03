@@ -187,6 +187,10 @@ efficiency — are plain YAML; edit or point the API at your own via
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for dev setup, layout and conventions.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
 ## Tests
 
 ```bash
