@@ -1,5 +1,4 @@
 import numpy as np
-import pytest
 
 from pumpsizer.surge import wave_celerity
 from pumpsizer.transient import (

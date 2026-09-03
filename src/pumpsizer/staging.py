@@ -43,7 +43,7 @@ class DemandPattern:
     @classmethod
     def diurnal(cls, base_flow_m3s: float, *, kind: str = "average",
                 multipliers: list[float] | None = None,
-                step_hours: float = 1.0) -> "DemandPattern":
+                step_hours: float = 1.0) -> DemandPattern:
         m = list(multipliers if multipliers is not None else DEFAULT_DIURNAL)
         if kind == "peak":                # scale so the peak multiplier maps to base
             peak = max(m)

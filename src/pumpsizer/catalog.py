@@ -96,7 +96,7 @@ class PumpModel:
         return curve
 
     @classmethod
-    def from_dict(cls, d: dict) -> "PumpModel":
+    def from_dict(cls, d: dict) -> PumpModel:
         curve = d.get("curve", d)
         known = cls.__dataclass_fields__
         payload = {k: v for k, v in {**d, **curve}.items() if k in known}
@@ -115,7 +115,7 @@ class Catalog:
 
     # -- loading -----------------------------------------------------
     @classmethod
-    def bundled(cls) -> "Catalog":
+    def bundled(cls) -> Catalog:
         cat = cls()
         root = resources.files("pumpsizer.data").joinpath("catalog")
         for entry in root.iterdir():
@@ -124,7 +124,7 @@ class Catalog:
         return cat
 
     @classmethod
-    def from_path(cls, path: str | Path) -> "Catalog":
+    def from_path(cls, path: str | Path) -> Catalog:
         p = Path(path)
         files = sorted(p.glob("*.y*ml")) if p.is_dir() else [p]
         cat = cls()
@@ -132,14 +132,14 @@ class Catalog:
             cat.models.extend(_read_models(f.read_text(encoding="utf-8")))
         return cat
 
-    def extend_from_path(self, path: str | Path) -> "Catalog":
+    def extend_from_path(self, path: str | Path) -> Catalog:
         self.models.extend(Catalog.from_path(path).models)
         return self
 
     # -- filtering -------------------------------------------------
     def filter(self, *, manufacturer: str | None = None, series: str | None = None,
                poles: int | None = None, tag: str | None = None,
-               verified_only: bool = False) -> "Catalog":
+               verified_only: bool = False) -> Catalog:
         def ok(m: PumpModel) -> bool:
             return (
                 (manufacturer is None or manufacturer.lower() in m.manufacturer.lower())

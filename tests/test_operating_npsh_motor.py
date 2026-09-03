@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 
 from pumpsizer.motor import next_standard_kw, nominal_efficiency, size_motor

@@ -1,4 +1,3 @@
-import numpy as np
 import pytest
 
 from pumpsizer.epanet import build_pump_export

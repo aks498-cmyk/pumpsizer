@@ -49,7 +49,7 @@ class InpModel:
 
     # ------------------------------------------------------------------
     @classmethod
-    def parse(cls, text: str) -> "InpModel":
+    def parse(cls, text: str) -> InpModel:
         m = cls()
         current = "_PREAMBLE"
         m.order.append(current)
@@ -66,7 +66,7 @@ class InpModel:
         return m
 
     @classmethod
-    def read(cls, path: str | Path) -> "InpModel":
+    def read(cls, path: str | Path) -> InpModel:
         return cls.parse(Path(path).read_text())
 
     def to_text(self) -> str:
@@ -184,7 +184,7 @@ class InpModel:
         self.sections["ENERGY"] = kept + add
 
     # -- convenience --------------------------------------------
-    def apply_export(self, export, *, move_pump: bool = False) -> "InpModel":
+    def apply_export(self, export, *, move_pump: bool = False) -> InpModel:
         """Splice a :class:`pumpsizer.epanet.EpanetPumpExport` into this model.
 
         If a pump with ``export.pump_id`` already exists its end nodes are kept

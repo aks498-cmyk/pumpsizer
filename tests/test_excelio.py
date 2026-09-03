@@ -2,13 +2,12 @@ import pytest
 
 openpyxl = pytest.importorskip("openpyxl")
 
-from pumpsizer.excelio import (        # noqa: E402
+from pumpsizer.excelio import (  # noqa: E402
     read_project,
     run_workbook,
     write_input_template,
-    write_results,
 )
-from pumpsizer.project import Project   # noqa: E402
+from pumpsizer.project import Project  # noqa: E402
 
 
 def test_template_roundtrips_into_a_runnable_project(tmp_path):

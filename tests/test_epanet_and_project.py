@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from pumpsizer.epanet import FLOW_UNITS, build_pump_export, patch_inp, read_sections
+from pumpsizer.epanet import build_pump_export, patch_inp, read_sections
 from pumpsizer.project import Project
 from pumpsizer.pumpcurve import PumpCurve
 

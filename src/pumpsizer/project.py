@@ -17,7 +17,7 @@ from typing import Any
 import numpy as np
 import yaml
 
-from .constants import G, LPS_TO_M3S
+from .constants import LPS_TO_M3S, G
 from .energy import annual_energy_cost, annual_energy_kwh, life_cycle_cost
 from .epanet import build_pump_export
 from .fittings import FittingCatalog
@@ -93,12 +93,12 @@ class Project:
 
     # ------------------------------------------------------------------
     @classmethod
-    def from_yaml(cls, path: str | Path) -> "Project":
-        with open(path, "r", encoding="utf-8") as fh:
+    def from_yaml(cls, path: str | Path) -> Project:
+        with open(path, encoding="utf-8") as fh:
             return cls(data=yaml.safe_load(fh))
 
     @classmethod
-    def from_dict(cls, d: dict) -> "Project":
+    def from_dict(cls, d: dict) -> Project:
         return cls(data=d)
 
     def to_yaml(self, path: str | Path) -> None:
@@ -186,7 +186,6 @@ class Project:
 
         # -- static head family ---------------------------------
         lv = _get(d, "levels", {}) or {}
-        s_static = _get(d, "suction.static_suction_head_m")
         if {"reservoir_hwl_m", "reservoir_bwl_m", "sump_hwl_m", "sump_bwl_m"} <= set(lv):
             h_static_max = lv["reservoir_hwl_m"] - lv["sump_bwl_m"]
             h_static_min = lv["reservoir_bwl_m"] - lv["sump_hwl_m"]

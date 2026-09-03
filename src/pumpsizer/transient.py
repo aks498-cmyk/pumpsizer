@@ -55,7 +55,7 @@ class Pipeline:
     def from_pipe(cls, *, length_m: float, diameter_mm: float, wall_thickness_mm: float,
                   youngs_modulus_pa: float, friction_factor: float = 0.018,
                   pump_elevation_m: float = 0.0, reservoir_elevation_m: float = 0.0,
-                  reaches: int = 20, rho: float = 1000.0) -> "Pipeline":
+                  reaches: int = 20, rho: float = 1000.0) -> Pipeline:
         a = wave_celerity(diameter_mm / 1000.0, wall_thickness_mm / 1000.0,
                           youngs_modulus_pa, rho=rho)
         return cls(length_m, diameter_mm / 1000.0, a, friction_factor,

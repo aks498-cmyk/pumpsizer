@@ -190,7 +190,7 @@ def read_sections(text: str) -> dict[str, list[str]]:
     return sections
 
 
-def patch_inp(inp_path: str | Path, export: "EpanetPumpExport", *,
+def patch_inp(inp_path: str | Path, export: EpanetPumpExport, *,
               output_path: str | Path | None = None,
               replace_pump: bool = True) -> str:
     """Splice this pump's head curve, efficiency curve, ``[PUMPS]`` line and

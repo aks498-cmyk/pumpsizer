@@ -70,7 +70,7 @@ tools/                                 build_ksb_omega_catalog.py (regenerates a
 - Catalogue entries digitised from a datasheet must set `verified: true` only
   after a second check; envelope-only entries stay `verified: false`
   (see `docs/catalog_from_ksb.md`).
-- Match the surrounding style; no formatter is enforced, but ~95-col lines and
+- Match the surrounding style; no formatter is enforced, but ~100-col lines and
   stdlib + numpy/scipy idioms fit the codebase.
 
 ## Before you push

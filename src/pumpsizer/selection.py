@@ -21,7 +21,7 @@ import numpy as np
 from scipy.optimize import brentq
 
 from .catalog import Catalog, PumpModel
-from .constants import G, LPS_TO_M3S
+from .constants import LPS_TO_M3S, G
 from .operating import solve_operating_point
 from .system import SystemCurve
 
@@ -40,7 +40,7 @@ class SelectionCriteria:
         "efficiency": 0.45, "bep": 0.30, "npsh": 0.15, "head_margin": 0.10})
 
     @classmethod
-    def from_duty(cls, flow_lps: float, head_m: float, **kw) -> "SelectionCriteria":
+    def from_duty(cls, flow_lps: float, head_m: float, **kw) -> SelectionCriteria:
         return cls(duty_flow_m3s=flow_lps * LPS_TO_M3S, duty_head_m=head_m, **kw)
 
 

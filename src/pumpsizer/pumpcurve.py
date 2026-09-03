@@ -14,8 +14,7 @@ import warnings
 from dataclasses import dataclass, field
 
 import numpy as np
-from scipy.optimize import brentq, curve_fit
-from scipy.optimize import OptimizeWarning
+from scipy.optimize import OptimizeWarning, curve_fit
 
 
 def _abc(q, a, b, c):
@@ -46,7 +45,7 @@ class PumpCurve:
     # ------------------------------------------------------------------
     @classmethod
     def from_points(cls, q_m3s, h_m, *, eff=None, eff_q=None, npshr=None,
-                    npshr_q=None, name="pump", prefer="auto") -> "PumpCurve":
+                    npshr_q=None, name="pump", prefer="auto") -> PumpCurve:
         q = np.asarray(q_m3s, dtype=float)
         h = np.asarray(h_m, dtype=float)
         order = np.argsort(q)
@@ -66,7 +65,7 @@ class PumpCurve:
     @classmethod
     def from_single_point(cls, q_design_m3s: float, h_design_m: float, *,
                           shutoff_ratio: float = 1.33, runout_flow_ratio: float = 2.0,
-                          name="pump") -> "PumpCurve":
+                          name="pump") -> PumpCurve:
         """Synthesise a curve from one duty point using EPANET's rule:
         shut-off head = ``shutoff_ratio`` x design head at Q = 0, and
         zero head at Q = ``runout_flow_ratio`` x design flow.  Fitted as A-B*Q^C.
@@ -80,7 +79,7 @@ class PumpCurve:
     @classmethod
     def synthetic(cls, q_design_m3s: float, h_design_m: float, *,
                   shutoff_ratio: float = 1.20, runout_flow_ratio: float = 1.9,
-                  eff_bep: float = 82.0, name="pump") -> "PumpCurve":
+                  eff_bep: float = 82.0, name="pump") -> PumpCurve:
         """A fuller synthetic curve (5 head points + parabolic efficiency +
         rising NPSHr) for when no manufacturer data exists yet.  ``shutoff_ratio``
         of 1.10-1.25 suits medium specific-speed water pumps."""
@@ -217,7 +216,7 @@ class PumpCurve:
     # ------------------------------------------------------------------
     # affinity & combination
     # ------------------------------------------------------------------
-    def scaled(self, speed_ratio: float = 1.0, diameter_ratio: float = 1.0) -> "PumpCurve":
+    def scaled(self, speed_ratio: float = 1.0, diameter_ratio: float = 1.0) -> PumpCurve:
         c = PumpCurve(**{**self.__dict__})
         c.speed_ratio = self.speed_ratio * speed_ratio
         c.diameter_ratio = self.diameter_ratio * diameter_ratio
@@ -229,7 +228,7 @@ class PumpCurve:
         return q, self.head(q)
 
     @staticmethod
-    def parallel(pumps: list["PumpCurve"], n: int = 40) -> "PumpCurve":
+    def parallel(pumps: list[PumpCurve], n: int = 40) -> PumpCurve:
         """Combined curve of pumps in parallel (flows add at equal head)."""
         h_lo = max(min(p.head(p.max_flow() * 0.999) for p in pumps), 0.0)
         h_hi = min(p.shutoff_head() for p in pumps)
@@ -244,7 +243,7 @@ class PumpCurve:
                                      prefer="multipoint")
 
     @staticmethod
-    def series(pumps: list["PumpCurve"], n: int = 40) -> "PumpCurve":
+    def series(pumps: list[PumpCurve], n: int = 40) -> PumpCurve:
         """Combined curve of pumps/stages in series (heads add at equal flow)."""
         q_hi = min(p.max_flow() for p in pumps)
         q = np.linspace(0.0, q_hi, n)

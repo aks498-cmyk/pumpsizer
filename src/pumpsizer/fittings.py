@@ -20,7 +20,7 @@ class FittingCatalog:
     coefficients: dict = field(default_factory=dict)
 
     @classmethod
-    def default(cls) -> "FittingCatalog":
+    def default(cls) -> FittingCatalog:
         data = _load_default_data()
         merged: dict = {}
         merged.update(data.get("extra", {}))
@@ -28,8 +28,8 @@ class FittingCatalog:
         return cls(coefficients={k: float(v) for k, v in merged.items()})
 
     @classmethod
-    def from_yaml(cls, path: str | Path) -> "FittingCatalog":
-        with open(path, "r", encoding="utf-8") as fh:
+    def from_yaml(cls, path: str | Path) -> FittingCatalog:
+        with open(path, encoding="utf-8") as fh:
             data = yaml.safe_load(fh)
         flat: dict = {}
         for section in ("extra", "workbook_defaults"):

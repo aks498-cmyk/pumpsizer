@@ -141,7 +141,7 @@ def text_report(res: ProjectResults) -> str:
             fw = s.flywheel
             L.append("  flywheel (run-down estimate):")
             L.append(_row("  additional inertia", fw["additional_flywheel_inertia_kgm2"], "kg.m2"))
-            L.append(_row("  flywheel mass @ k=%.2fm" % fw["radius_of_gyration_m"],
+            L.append(_row(f"  flywheel mass @ k={fw['radius_of_gyration_m']:.2f}m",
                           fw["flywheel_mass_kg"], "kg"))
         if getattr(s, "transient", None):
             tr = s.transient

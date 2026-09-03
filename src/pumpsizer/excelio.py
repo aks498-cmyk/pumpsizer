@@ -20,7 +20,7 @@ from typing import Any
 
 try:
     import openpyxl
-    from openpyxl.styles import Alignment, Font, PatternFill
+    from openpyxl.styles import Font, PatternFill
     from openpyxl.utils import get_column_letter
 except ImportError as exc:  # pragma: no cover
     raise ImportError("the Excel bridge needs openpyxl: pip install openpyxl "

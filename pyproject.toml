@@ -33,3 +33,19 @@ pumpsizer = ["data/*.yaml", "data/catalog/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+# E/F/W pycodestyle+pyflakes, I import order, UP pyupgrade, B bugbear.
+# E501 (line length) is left to the editor / a formatter; E702 (semicolons)
+# is used deliberately in tight array-init and plotting blocks; B905
+# (zip strict=) is 3.10+ only and noisy here.
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501", "E702", "B905"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["pumpsizer"]

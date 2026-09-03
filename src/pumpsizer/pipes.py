@@ -22,14 +22,14 @@ class PipeDatabase:
     water_bulk_modulus_gpa: float = 2.19
 
     @classmethod
-    def default(cls) -> "PipeDatabase":
+    def default(cls) -> PipeDatabase:
         data = _load_default_data()
         return cls(materials=data["materials"],
                    water_bulk_modulus_gpa=data.get("water_bulk_modulus_gpa", 2.19))
 
     @classmethod
-    def from_yaml(cls, path: str | Path) -> "PipeDatabase":
-        with open(path, "r", encoding="utf-8") as fh:
+    def from_yaml(cls, path: str | Path) -> PipeDatabase:
+        with open(path, encoding="utf-8") as fh:
             data = yaml.safe_load(fh)
         return cls(materials=data["materials"],
                    water_bulk_modulus_gpa=data.get("water_bulk_modulus_gpa", 2.19))
