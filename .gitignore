@@ -10,4 +10,5 @@ venv/
 *.png
 *.pdf
 !docs/*.pdf
+!docs/social-preview.png
 out/
