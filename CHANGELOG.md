@@ -7,15 +7,26 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 ## [Unreleased]
 
 ### Added
-- Repository is public; GitHub Pages site from `/docs`
-  (<https://aks498-cmyk.github.io/pumpsizer/>); a `master` branch ruleset
-  (no force-push, no deletion, linear history).
+- Repository is public.
+- **Docs site** on GitHub Pages from `/docs`
+  (<https://aks498-cmyk.github.io/pumpsizer/>): a landing page plus the
+  reference docs, Cayman theme, with a footer carrying the project
+  description and a repo / version / licence / maintainer line.
+- README and docs badge row: `docs` (Pages) and `release` (latest tag) badges
+  alongside CI / Python / licence / EPANET.
+
+### Changed
+- `master` branch ruleset: no force-push, no branch deletion, linear history
+  (admin bypass).
+- CI actions bumped to `actions/checkout@v7` and `actions/setup-python@v7`
+  (Dependabot).
 
 ## [0.1.0] — 2026-09-03
 
 First working version. A clean-room re-implementation of the `Pump Sizing.xlsx`
 workbook as a reusable Python engine, with corrected Darcy–Weisbach friction
-and NPSH (see `docs/workbook_mapping.md`). Not yet tagged or published.
+and NPSH (see `docs/workbook_mapping.md`). Tagged `v0.1.0` with a GitHub
+release.
 
 ### Added
 
