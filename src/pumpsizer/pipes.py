@@ -19,15 +19,44 @@ class PipeDatabase:
     """Lookup of internal diameters, roughness and Hazen-Williams C by material."""
 
     materials: dict = field(default_factory=dict)
+    water_bulk_modulus_gpa: float = 2.19
 
     @classmethod
     def default(cls) -> "PipeDatabase":
-        return cls(materials=_load_default_data()["materials"])
+        data = _load_default_data()
+        return cls(materials=data["materials"],
+                   water_bulk_modulus_gpa=data.get("water_bulk_modulus_gpa", 2.19))
 
     @classmethod
     def from_yaml(cls, path: str | Path) -> "PipeDatabase":
         with open(path, "r", encoding="utf-8") as fh:
-            return cls(materials=yaml.safe_load(fh)["materials"])
+            data = yaml.safe_load(fh)
+        return cls(materials=data["materials"],
+                   water_bulk_modulus_gpa=data.get("water_bulk_modulus_gpa", 2.19))
+
+    # -- elastic properties (water hammer) ----------------------------
+    def youngs_modulus_gpa(self, material: str) -> float:
+        spec = self.materials[self.material_key(material)]
+        if "youngs_modulus_gpa" in spec:
+            return float(spec["youngs_modulus_gpa"])
+        raise KeyError(f"no youngs_modulus_gpa for {material!r} in the pipe DB")
+
+    def wall_thickness_mm(self, material: str, dn: float,
+                          series: str | None = None) -> float:
+        """Representative wall thickness [mm] for a DN."""
+        idmm = self.internal_diameter_mm(material, dn, series)
+        return self.wall_thickness_from_id_mm(material, idmm, series)
+
+    def wall_thickness_from_id_mm(self, material: str, id_mm: float,
+                                  series: str | None = None) -> float:
+        """Representative wall thickness [mm] from an internal diameter.
+        Exact (OD/SDR) for HDPE/uPVC; ``wall_ratio_e_over_d`` x ID otherwise."""
+        spec = self.materials[self.material_key(material)]
+        if "outer_diameters_mm" in spec:                 # HDPE / uPVC
+            series = series or spec.get("default_series")
+            sdr = spec["series"][series]
+            return id_mm / (sdr - 2.0)
+        return id_mm * float(spec.get("wall_ratio_e_over_d", 0.03))
 
     # -- introspection --------------------------------------------------
     def material_key(self, name: str) -> str:

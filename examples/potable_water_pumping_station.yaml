@@ -99,6 +99,13 @@ motor:
   rating_margin_pct: 15
   sizing_basis: operating_point  # operating_point | non_overloading
 
+water_hammer:                   # rule-of-thumb pre-sizing on the rising main
+  enabled: true
+  closure_time_s: null          # null -> assume rapid (worst case, full Joukowsky)
+  pressure_class_pn: 16         # pipe class [bar] -> rating head (16 bar ~ 163 m)
+  allowable_max_head_m: 150     # target ceiling for air-vessel sizing
+  restraint: 1.0
+
 energy:
   hours_per_day: 20
   tariff_per_kwh: 0.12

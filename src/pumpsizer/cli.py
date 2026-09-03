@@ -136,6 +136,52 @@ def _cmd_select(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_surge(args: argparse.Namespace) -> int:
+    import math
+
+    from . import surge as S
+    from .pipes import PipeDatabase
+
+    db = PipeDatabase.default()
+    if args.diameter_mm:
+        id_mm = args.diameter_mm
+    else:
+        id_mm = db.internal_diameter_mm(args.material, args.dn, args.series)
+    e_mm = db.wall_thickness_from_id_mm(args.material, id_mm, args.series)
+    E = db.youngs_modulus_gpa(args.material) * 1e9
+    d_m = id_mm / 1000.0
+    v = args.velocity if args.velocity else (args.flow_lps / 1000.0) / (math.pi * d_m ** 2 / 4.0)
+    rating = args.rating_m or (args.pn * 10.2 if args.pn else None)
+
+    a = S.assess(length_m=args.length, diameter_m=d_m, wall_thickness_m=e_mm / 1000.0,
+                 youngs_modulus_pa=E, steady_velocity_m_s=v, static_head_m=args.static,
+                 closure_time_s=args.closure_time, pipe_rating_head_m=rating,
+                 shaft_power_kw=args.shaft_power_kw, speed_rpm=args.speed_rpm,
+                 allowable_max_head_m=args.allowable_max_m)
+    if args.json:
+        Path(args.json).write_text(json.dumps(a.as_dict(), indent=2), encoding="utf-8")
+    print(f"pipe            {args.length:.0f} m x {id_mm:.1f} mm ID ({args.material}), "
+          f"wall ~{e_mm:.1f} mm")
+    print(f"celerity a      {a.celerity_m_s:.0f} m/s     pipe period Tc = {a.pipe_period_s:.2f} s")
+    print(f"steady v        {v:.2f} m/s")
+    print(f"surge head +/-  {a.surge_head_m:.1f} m   [{a.surge_rule}]")
+    print(f"head at pump    max {a.max_head_m:.1f} m / min {a.min_head_m:.1f} m")
+    if a.pipe_rating_head_m:
+        print(f"pipe rating     {a.pipe_rating_head_m:.1f} m  "
+              f"({'EXCEEDED' if a.exceeds_rating else 'ok'})")
+    print(f"column sep risk {'YES' if a.column_separation_risk else 'no'}     "
+          f"protection needed {'YES' if a.protection_needed else 'no'}")
+    for r in a.recommendations:
+        print(f"  - {r}")
+    if a.air_vessel:
+        print(f"  air vessel   min gas {a.air_vessel['min_normal_gas_volume_m3']} m3, "
+              f"suggested gross {a.air_vessel['suggested_gross_vessel_m3']} m3")
+    if a.flywheel:
+        print(f"  flywheel     +{a.flywheel['additional_flywheel_inertia_kgm2']} kg.m2  "
+              f"(~{a.flywheel['flywheel_mass_kg']} kg at k={a.flywheel['radius_of_gyration_m']} m)")
+    return 0
+
+
 def _cmd_curve(args: argparse.Namespace) -> int:
     q = args.duty_q / 1000.0
     if args.source == "single_point":
@@ -198,6 +244,24 @@ def build_parser() -> argparse.ArgumentParser:
     sel.add_argument("--top", type=int, help="show only the top N")
     sel.add_argument("--json", help="write the ranked list here")
     sel.set_defaults(func=_cmd_select)
+
+    sg = sub.add_parser("surge", help="rule-of-thumb water-hammer pre-sizing for a main")
+    sg.add_argument("--length", type=float, required=True, help="rising-main length [m]")
+    sg.add_argument("--material", default="ductile_iron")
+    sg.add_argument("--dn", type=float, help="nominal diameter (uses the pipe DB bore)")
+    sg.add_argument("--diameter-mm", type=float, help="internal diameter [mm] (overrides --dn)")
+    sg.add_argument("--series", help="SDR name for HDPE/uPVC")
+    sg.add_argument("--velocity", type=float, help="steady velocity [m/s]")
+    sg.add_argument("--flow-lps", type=float, help="steady flow [l/s] (if --velocity omitted)")
+    sg.add_argument("--static", type=float, required=True, help="static head [m]")
+    sg.add_argument("--closure-time", type=float, help="valve/pump-trip effective time [s]")
+    sg.add_argument("--pn", type=float, help="pipe pressure class [bar] -> rating head")
+    sg.add_argument("--rating-m", type=float, help="pipe rating as head [m] (overrides --pn)")
+    sg.add_argument("--allowable-max-m", type=float, help="allowable max head for vessel sizing [m]")
+    sg.add_argument("--shaft-power-kw", type=float, help="pump shaft power [kW] for flywheel sizing")
+    sg.add_argument("--speed-rpm", type=float, default=1480.0)
+    sg.add_argument("--json", help="write the assessment here")
+    sg.set_defaults(func=_cmd_surge)
 
     c = sub.add_parser("curve", help="quick curve from a duty point")
     c.add_argument("--duty-q", type=float, required=True, help="duty flow [l/s]")

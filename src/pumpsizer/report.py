@@ -113,6 +113,38 @@ def text_report(res: ProjectResults) -> str:
             else:
                 L.append(_row(k, v, ""))
 
+    if res.surge is not None:
+        s = res.surge
+        L.append("\n-- Water hammer (rule-of-thumb pre-sizing) --------------------")
+        L.append(_row("Rising main assessed", f"{s.length_m:.0f} m x {s.diameter_m*1000:.0f} mm ID", ""))
+        L.append(_row("Wall thickness (assumed)", f"{s.wall_thickness_mm:.1f}", "mm"))
+        L.append(_row("Wave celerity a", f"{s.celerity_m_s:.0f}", "m/s"))
+        L.append(_row("Pipe period  Tc = 2L/a", f"{s.pipe_period_s:.2f}", "s"))
+        L.append(_row("Steady velocity", f"{s.steady_velocity_m_s:.2f}", "m/s"))
+        L.append(_row("Surge head  +/-", f"{s.surge_head_m:.1f}", f"m   [{s.surge_rule}]"))
+        L.append(_row("Max head at pump (static+surge)", f"{s.max_head_m:.1f}", "m"))
+        L.append(_row("Min head at pump (static-surge)", f"{s.min_head_m:.1f}", "m"))
+        if s.pipe_rating_head_m is not None:
+            L.append(_row("Pipe pressure rating", f"{s.pipe_rating_head_m:.1f}",
+                          f"m   ({'EXCEEDED' if s.exceeds_rating else 'ok'})"))
+        L.append(_row("Column-separation risk", "YES" if s.column_separation_risk else "no", ""))
+        L.append(_row("Protection needed", "YES" if s.protection_needed else "no", ""))
+        for r in s.recommendations:
+            L.append(f"    - {r}")
+        if s.air_vessel:
+            av = s.air_vessel
+            L.append("  air vessel (energy-balance estimate):")
+            L.append(_row("  min normal gas volume", av["min_normal_gas_volume_m3"], "m3"))
+            L.append(_row("  gas volume at down-surge", av["expanded_gas_volume_m3"], "m3"))
+            L.append(_row("  suggested gross vessel", av["suggested_gross_vessel_m3"], "m3"))
+        if s.flywheel:
+            fw = s.flywheel
+            L.append("  flywheel (run-down estimate):")
+            L.append(_row("  additional inertia", fw["additional_flywheel_inertia_kgm2"], "kg.m2"))
+            L.append(_row("  flywheel mass @ k=%.2fm" % fw["radius_of_gyration_m"],
+                          fw["flywheel_mass_kg"], "kg"))
+        L.append("  (rule-of-thumb only - confirm with a method-of-characteristics model)")
+
     L.append("\n-- EPANET export ------------------------------------------------")
     L.append(f"(flow units: {res.epanet_export.flow_units}, head: m)\n")
     L.append(res.epanet_export.full_snippet())

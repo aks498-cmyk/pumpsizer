@@ -50,6 +50,10 @@ pumpsizer select --project examples/potable_water_pumping_station.yaml \
 # one-off curve + EPANET block from a duty point
 pumpsizer curve --duty-q 300 --duty-h 33 --source synthetic --points 3
 
+# rule-of-thumb water-hammer check + air-vessel / flywheel pre-size
+pumpsizer surge --length 2500 --material ductile_iron --dn 400 \
+    --flow-lps 300 --static 24 --pn 16 --shaft-power-kw 114
+
 # splice the sized pump into a real network and let EPANET solve it
 pumpsizer run examples/potable_water_pumping_station.yaml \
     --into examples/network_skeleton.inp --patch-out out/net.inp --simulate
@@ -96,6 +100,7 @@ print(res.epanet_export.full_snippet())
 | `pump` | `source: synthetic` \| `single_point` \| `points` (+ `curve_points`, `efficiency_points`, `npshr_points`) |
 | `control` | `arrangement: single`/`parallel`/`series`, `vfd`, `vfd_min_speed_pct`, `vfd_target_flow_lps` |
 | `motor` | `poles`, `ie_class`, `rating_margin_pct`, `sizing_basis` |
+| `water_hammer` | `enabled`, `closure_time_s`, `pressure_class_pn` (bar), `allowable_max_head_m` — rule-of-thumb surge pre-sizing on the rising main |
 | `energy` | `hours_per_day`, `tariff_per_kwh`, `life_cycle_years`, `discount_rate` |
 | `epanet` | `flow_units` (LPS/CMH/MLD/…), `pump_id`, `from_node`, `to_node`, `head_points` (3 → EPANET refits A-B·Qᶜ; >3 → multi-point) |
 
@@ -132,8 +137,11 @@ efficiency — are plain YAML; edit or point the API at your own via
   `run --into --simulate`. ✅  On the bundled example the stand-alone operating
   point and EPANET's own solve agree to ~0.2%.  *Still to do: multi-pump
   staging against a demand pattern; extended-period energy read-back.*
-* **Phase 4** – water-hammer pre-sizing (Joukowsky + air-vessel/flywheel rules
-  of thumb).
+* **Phase 4** – `surge` module: wave celerity, pipe period `2L/a`, Joukowsky &
+  Michaud slow-closure surge, column-separation / pipe-rating check, and
+  energy-balance air-vessel + run-down flywheel pre-sizing; `pumpsizer surge`
+  and a `water_hammer:` project block. ✅  Rule-of-thumb only — a
+  method-of-characteristics transient model is still needed for final design.
 * **Excel front end** – keep `Pump Sizing.xlsx` as the input UI, this package as
   the calc engine (xlwings), once the core is signed off.
 

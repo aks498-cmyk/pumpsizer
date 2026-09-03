@@ -26,6 +26,7 @@ from .project import Project, ProjectResults
 from .inpfile import InpModel
 from . import epanet
 from . import solver
+from . import surge
 
 __version__ = "0.1.0"
 
@@ -68,5 +69,6 @@ __all__ = [
     "InpModel",
     "epanet",
     "solver",
+    "surge",
     "__version__",
 ]

@@ -10,6 +10,14 @@
 # The ductile-iron DN400 (402.8 mm) and DN700 (704.4 mm) bores match the
 # Material sheet of the source workbook.
 
+# Elastic data for wave-celerity (water-hammer) calculations:
+#   youngs_modulus_gpa      - pipe wall Young's modulus E
+#   wall_ratio_e_over_d     - representative wall thickness / internal diameter,
+#                            used only when an explicit wall thickness is not
+#                            given.  For HDPE/uPVC the true value is 1/SDR and
+#                            is used automatically.
+water_bulk_modulus_gpa: 2.19        # K for water at ~20 degC
+
 materials:
 
   ductile_iron:
@@ -18,6 +26,8 @@ materials:
     roughness_mm_new: 0.06
     roughness_mm_used: 0.30
     hazen_williams_c: 140
+    youngs_modulus_gpa: 170
+    wall_ratio_e_over_d: 0.042
     sizes:
       80: 78.0
       100: 102.6
@@ -43,6 +53,8 @@ materials:
     roughness_mm_new: 0.045
     roughness_mm_used: 0.50
     hazen_williams_c: 130
+    youngs_modulus_gpa: 210
+    wall_ratio_e_over_d: 0.012
     sizes:
       100: 102.3
       150: 154.1
@@ -66,6 +78,8 @@ materials:
     roughness_mm_new: 0.029
     roughness_mm_used: 0.10
     hazen_williams_c: 150
+    youngs_modulus_gpa: 20
+    wall_ratio_e_over_d: 0.030
     sizes:
       100: 103.0
       150: 154.0
@@ -89,6 +103,7 @@ materials:
     roughness_mm_new: 0.007
     roughness_mm_used: 0.05
     hazen_williams_c: 150
+    youngs_modulus_gpa: 1.1
     outer_diameters_mm: [90, 110, 125, 140, 160, 180, 200, 225, 250, 280, 315,
                          355, 400, 450, 500, 560, 630, 710, 800, 900, 1000, 1200]
     series:            # SDR -> nominal pressure class (PE100, MRS 10)
@@ -105,6 +120,7 @@ materials:
     roughness_mm_new: 0.007
     roughness_mm_used: 0.05
     hazen_williams_c: 150
+    youngs_modulus_gpa: 3.3
     outer_diameters_mm: [90, 110, 125, 140, 160, 180, 200, 225, 250, 280, 315,
                          355, 400, 450, 500, 560, 630]
     series:

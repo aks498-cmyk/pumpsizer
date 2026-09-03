@@ -9,6 +9,7 @@ unit-explicit.  See ``examples/potable_water_pumping_station.yaml``.
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -55,6 +56,7 @@ class ProjectResults:
     energy: dict
     epanet_export: Any
     selection: list[Any] | None = None
+    surge: Any = None
     warnings: list[str] = field(default_factory=list)
 
     def summary(self) -> dict:
@@ -78,6 +80,7 @@ class ProjectResults:
             "motor": self.motor.as_dict(),
             "energy": self.energy,
             "selection": [c.as_dict() for c in self.selection] if self.selection else None,
+            "surge": self.surge.as_dict() if self.surge else None,
             "warnings": self.warnings,
         }
 
@@ -292,6 +295,14 @@ class Project:
                     years=int(_get(d, "energy.life_cycle_years", 20)),
                     discount_rate=float(_get(d, "energy.discount_rate", 0.08)))
 
+        # -- water hammer (rule-of-thumb pre-sizing) -----------
+        surge = None
+        wh = _get(d, "water_hammer", {}) or {}
+        if wh.get("enabled", False):
+            surge = self._surge_assessment(
+                d, wh, pipe_db, material, series, seg_by_group, diameters,
+                h_static_max, op, motor, rho, water, warnings)
+
         # -- EPANET export --------------------------
         ep = _get(d, "epanet", {}) or {}
         export = build_pump_export(
@@ -312,7 +323,44 @@ class Project:
             duty_flow_per_pump_m3s=duty_q_pp, duty_head_m=duty_h,
             pump=pump, operating_point=op, operating_points_extra=extra,
             npsh=npsh, motor=motor, energy=energy, epanet_export=export,
-            selection=selection, warnings=warnings,
+            selection=selection, surge=surge, warnings=warnings,
+        )
+
+    # ------------------------------------------------------------------
+    @staticmethod
+    def _surge_assessment(d, wh, pipe_db, material, series, seg_by_group,
+                          diameters, h_static_max, op, motor, rho, water, warnings):
+        from . import surge as _surge
+
+        disch = seg_by_group.get("discharge") or []
+        if not disch:
+            warnings.append("water_hammer: no discharge segment to assess")
+            return None
+        rm = max(disch, key=lambda s: s.length_m)          # the rising main
+        length = float(wh.get("length_m", rm.length_m))
+        d_m = rm.diameter_mm / 1000.0
+        e_mm = pipe_db.wall_thickness_from_id_mm(material, rm.diameter_mm, series)
+        E_pa = pipe_db.youngs_modulus_gpa(material) * 1e9
+        v = op.flow_per_pump_m3s * op.n_pumps / (math.pi * d_m ** 2 / 4.0)
+
+        pn = wh.get("pipe_rating_head_m")
+        if pn is None and wh.get("pressure_class_pn"):
+            pn = float(wh["pressure_class_pn"]) * 10.2
+        elif pn is None and _get(d, "pipe.pressure_class_pn"):
+            pn = float(_get(d, "pipe.pressure_class_pn")) * 10.2
+
+        poles = int(_get(d, "motor.poles", 2))
+        rpm = {2: 2900.0, 4: 1450.0, 6: 960.0, 8: 725.0}.get(poles, 1450.0)
+
+        return _surge.assess(
+            length_m=length, diameter_m=d_m, wall_thickness_m=e_mm / 1000.0,
+            youngs_modulus_pa=E_pa, steady_velocity_m_s=v,
+            static_head_m=float(h_static_max), rho=rho,
+            closure_time_s=wh.get("closure_time_s"),
+            pipe_rating_head_m=pn, restraint=float(wh.get("restraint", 1.0)),
+            shaft_power_kw=motor.shaft_power_kw, speed_rpm=rpm,
+            allowable_max_head_m=wh.get("allowable_max_head_m"),
+            allowable_min_head_m=float(wh.get("allowable_min_head_m", 0.0)),
         )
 
     # ------------------------------------------------------------------
