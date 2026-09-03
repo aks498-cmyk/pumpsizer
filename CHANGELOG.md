@@ -6,6 +6,13 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
+_Nothing yet._
+
+## [0.2.0] — 2026-09-04
+
+Repository / distribution changes only — no functional change to the engine
+(no API or calculation differences from 0.1.0).
+
 ### Added
 - Repository is public.
 - **Docs site** on GitHub Pages from `/docs`
@@ -101,5 +108,6 @@ release.
 - The MOC solver is single-pipe and damps the cavity-collapse spike — use a
   specialist package for a branched network or final sign-off.
 
-[Unreleased]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/aks498-cmyk/pumpsizer/releases/tag/v0.1.0

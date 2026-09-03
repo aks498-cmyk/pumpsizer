@@ -12,3 +12,5 @@ include:
   - catalog_from_ksb.md
 exclude:
   - social-preview.jpg
+
+footer_version: v0.2.0
