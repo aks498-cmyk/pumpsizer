@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Water-supply pump sizing, operating-point analysis and EPANET-compatible curve generation"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = { file = "LICENSE" }
 authors = [{ name = "Ashok" }]
 dependencies = [
     "numpy>=1.24",
