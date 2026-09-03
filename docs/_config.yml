@@ -1,4 +1,7 @@
 title: pumpsizer
+# short form used in the home-page <title>; the full text below stays as the
+# meta/OG description
+tagline: pump sizing, EPANET curves, water hammer &amp; staging
 description: >-
   Water-supply pump sizing, operating-point analysis, EPANET curve generation,
   water hammer (rule-of-thumb + method-of-characteristics) and demand-pattern
