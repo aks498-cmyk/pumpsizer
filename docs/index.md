@@ -2,6 +2,12 @@
 title: pumpsizer
 ---
 
+[![CI](https://github.com/aks498-cmyk/pumpsizer/actions/workflows/ci.yml/badge.svg)](https://github.com/aks498-cmyk/pumpsizer/actions/workflows/ci.yml)
+[![docs](https://img.shields.io/badge/docs-pages-blue)](https://aks498-cmyk.github.io/pumpsizer/)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![license](https://img.shields.io/badge/license-MIT-green)
+![EPANET](https://img.shields.io/badge/EPANET-2.2-informational)
+
 Reusable engine for **water-supply pump sizing, operating-point analysis and
 EPANET-compatible curve generation** — plus water hammer and demand-pattern
 staging.
