@@ -136,6 +136,26 @@ def _cmd_select(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_excel_template(args: argparse.Namespace) -> int:
+    from .excelio import write_input_template
+    write_input_template(args.out)
+    print(f"wrote input template -> {args.out}")
+    return 0
+
+
+def _cmd_excel(args: argparse.Namespace) -> int:
+    from .excelio import run_workbook
+    out = args.out or (str(Path(args.workbook).with_suffix("")) + ".results.xlsx")
+    res = run_workbook(args.workbook, out, legacy=args.legacy)
+    print(f"read {'legacy ' if args.legacy else ''}workbook -> {args.workbook}")
+    print(f"operating point: {res.operating_point.flow_lps:.1f} l/s @ "
+          f"{res.operating_point.head_m:.2f} m   motor {res.motor.rated_kw:g} kW")
+    print(f"wrote results        -> {out}")
+    for w in res.warnings:
+        print(f"  ! {w}")
+    return 0
+
+
 def _cmd_surge(args: argparse.Namespace) -> int:
     import math
 
@@ -274,6 +294,17 @@ def build_parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("schema", help="print an example project file")
     s.set_defaults(func=_cmd_schema)
+
+    et = sub.add_parser("excel-template", help="write a blank input workbook (openpyxl)")
+    et.add_argument("out", help="output .xlsx path")
+    et.set_defaults(func=_cmd_excel_template)
+
+    ex = sub.add_parser("excel", help="run a project from an .xlsx and write a results .xlsx")
+    ex.add_argument("workbook", help="input .xlsx (template-shaped, or --legacy)")
+    ex.add_argument("--out", help="results .xlsx (default: <workbook>.results.xlsx)")
+    ex.add_argument("--legacy", action="store_true",
+                    help="parse the original Pump Sizing.xlsx Input-sheet layout")
+    ex.set_defaults(func=_cmd_excel)
     return p
 
 

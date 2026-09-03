@@ -28,6 +28,11 @@ from . import epanet
 from . import solver
 from . import surge
 
+try:                       # optional: needs openpyxl
+    from . import excelio
+except ImportError:         # pragma: no cover
+    excelio = None  # type: ignore
+
 __version__ = "0.1.0"
 
 __all__ = [
@@ -70,5 +75,6 @@ __all__ = [
     "epanet",
     "solver",
     "surge",
+    "excelio",
     "__version__",
 ]

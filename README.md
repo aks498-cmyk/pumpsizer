@@ -62,6 +62,11 @@ pumpsizer run examples/potable_water_pumping_station.yaml \
 pumpsizer verify out/net.inp --pump-id PMP1 \
     --project examples/potable_water_pumping_station.yaml
 
+# Excel in / out (headless, needs openpyxl - no Excel install)
+pumpsizer excel-template my_inputs.xlsx        # blank labelled input workbook
+pumpsizer excel my_inputs.xlsx --out result.xlsx
+pumpsizer excel "Pump Sizing.xlsx" --legacy --out result.xlsx   # original layout
+
 # print the annotated project schema
 pumpsizer schema
 ```
@@ -142,8 +147,13 @@ efficiency — are plain YAML; edit or point the API at your own via
   energy-balance air-vessel + run-down flywheel pre-sizing; `pumpsizer surge`
   and a `water_hammer:` project block. ✅  Rule-of-thumb only — a
   method-of-characteristics transient model is still needed for final design.
-* **Excel front end** – keep `Pump Sizing.xlsx` as the input UI, this package as
-  the calc engine (xlwings), once the core is signed off.
+* **Phase 5** – `excelio` headless Excel bridge (openpyxl, no Excel/xlwings):
+  `excel-template` writes a labelled input workbook, `excel` reads it (or the
+  original `Pump Sizing.xlsx` via `--legacy`) and writes a multi-sheet results
+  workbook (Summary / Curves / EPANET / Selection / Surge / Report). ✅
+* **Next** – optional xlwings "Run" button inside the workbook itself (needs
+  Python alongside Excel on each machine); real vendor curves digitised into
+  the catalogue; EPD demand-pattern staging.
 
 ## Tests
 
