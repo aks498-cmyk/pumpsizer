@@ -10,7 +10,11 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
-_Nothing yet._
+### Added
+- Docs site: top navigation (Home / Workbook mapping / Catalogue guide /
+  Changelog / GitHub) with an active-page indicator, and a "back to docs home"
+  link in the footer. The `CHANGELOG` now lives at `docs/CHANGELOG.md` and
+  renders as a page on the site.
 
 ## [0.2.0] — 2026-09-04
 
