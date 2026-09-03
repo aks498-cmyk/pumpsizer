@@ -3,6 +3,7 @@ title: pumpsizer
 ---
 
 [![CI](https://github.com/aks498-cmyk/pumpsizer/actions/workflows/ci.yml/badge.svg)](https://github.com/aks498-cmyk/pumpsizer/actions/workflows/ci.yml)
+[![release](https://img.shields.io/github/v/release/aks498-cmyk/pumpsizer?sort=semver)](https://github.com/aks498-cmyk/pumpsizer/releases)
 [![docs](https://img.shields.io/badge/docs-pages-blue)](https://aks498-cmyk.github.io/pumpsizer/)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
