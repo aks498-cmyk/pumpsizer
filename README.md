@@ -183,6 +183,10 @@ efficiency — are plain YAML; edit or point the API at your own via
   Python alongside Excel on each machine); real vendor curves digitised into
   the catalogue beyond the KSB Omega envelopes.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for dev setup, layout and conventions.
+
 ## Tests
 
 ```bash
