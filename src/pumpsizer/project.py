@@ -352,7 +352,7 @@ class Project:
         poles = int(_get(d, "motor.poles", 2))
         rpm = {2: 2900.0, 4: 1450.0, 6: 960.0, 8: 725.0}.get(poles, 1450.0)
 
-        return _surge.assess(
+        result = _surge.assess(
             length_m=length, diameter_m=d_m, wall_thickness_m=e_mm / 1000.0,
             youngs_modulus_pa=E_pa, steady_velocity_m_s=v,
             static_head_m=float(h_static_max), rho=rho,
@@ -362,6 +362,39 @@ class Project:
             allowable_max_head_m=wh.get("allowable_max_head_m"),
             allowable_min_head_m=float(wh.get("allowable_min_head_m", 0.0)),
         )
+
+        if str(wh.get("method", "rule_of_thumb")).lower() == "moc":
+            from . import transient as _tr
+            lv = _get(d, "levels", {}) or {}
+            pump_el = float(lv.get("sump_bwl_m", 0.0))
+            res_el = pump_el + float(h_static_max)
+            inertia = wh.get("pump_motor_inertia_kgm2")
+            if inertia is None:
+                inertia = 0.03 * motor.shaft_power_kw * (1000.0 / rpm) ** 2
+                warnings.append(f"water_hammer.moc: pump+motor inertia not given; "
+                                f"estimated {inertia:.1f} kg.m2")
+            pipe_obj = _tr.Pipeline.from_pipe(
+                length_m=length, diameter_mm=rm.diameter_mm, wall_thickness_mm=e_mm,
+                youngs_modulus_pa=E_pa, friction_factor=0.017,
+                pump_elevation_m=pump_el, reservoir_elevation_m=res_el,
+                reaches=int(wh.get("moc_reaches", 24)), rho=rho)
+            pump_obj = _tr.PumpInertia(
+                rated_speed_rpm=rpm, rated_flow_m3s=op.flow_per_pump_m3s,
+                rated_head_m=op.head_m, total_inertia_kgm2=float(inertia),
+                rated_efficiency=max((op.efficiency_pct or 80.0) / 100.0, 0.4))
+            av = None
+            if wh.get("air_vessel_gas_volume_m3"):
+                av = _tr.AirVessel(gas_volume_m3=float(wh["air_vessel_gas_volume_m3"]),
+                                   polytropic_n=float(wh.get("polytropic_n", 1.2)))
+            tr = _tr.simulate_pump_trip(
+                pipe_obj, pump_obj, sump_level_m=pump_el, reservoir_level_m=res_el,
+                rho=rho, air_vessel=av,
+                vapour_head_m=water.vapour_pressure_head)
+            result.transient = tr.as_dict()
+            if pn is not None:
+                result.transient["exceeds_rating"] = tr.max_head_m > pn
+
+        return result
 
     # ------------------------------------------------------------------
     @staticmethod

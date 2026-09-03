@@ -27,6 +27,7 @@ from .inpfile import InpModel
 from . import epanet
 from . import solver
 from . import surge
+from . import transient
 
 try:                       # optional: needs openpyxl
     from . import excelio
@@ -75,6 +76,7 @@ __all__ = [
     "epanet",
     "solver",
     "surge",
+    "transient",
     "excelio",
     "__version__",
 ]

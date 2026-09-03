@@ -136,6 +136,67 @@ def _cmd_select(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_transient(args: argparse.Namespace) -> int:
+    import json as _json
+
+    from . import transient as T
+    from .pipes import PipeDatabase
+
+    db = PipeDatabase.default()
+    id_mm = args.diameter_mm or db.internal_diameter_mm(args.material, args.dn, args.series)
+    e_mm = db.wall_thickness_from_id_mm(args.material, id_mm, args.series)
+    E = db.youngs_modulus_gpa(args.material) * 1e9
+    pipe = T.Pipeline.from_pipe(length_m=args.length, diameter_mm=id_mm,
+                                wall_thickness_mm=e_mm, youngs_modulus_pa=E,
+                                friction_factor=args.friction, pump_elevation_m=0.0,
+                                reservoir_elevation_m=args.static, reaches=args.reaches)
+    pump = T.PumpInertia(rated_speed_rpm=args.speed_rpm, rated_flow_m3s=args.flow_lps / 1000.0,
+                         rated_head_m=args.head, total_inertia_kgm2=args.inertia,
+                         rated_efficiency=args.efficiency)
+    av = T.AirVessel(gas_volume_m3=args.air_vessel_m3) if args.air_vessel_m3 else None
+    r = T.simulate_pump_trip(pipe, pump, sump_level_m=0.0, reservoir_level_m=args.static,
+                             air_vessel=av, duration_s=args.duration)
+    d = r.as_dict()
+    if args.json:
+        Path(args.json).write_text(_json.dumps(d, indent=2), encoding="utf-8")
+    print(f"pipe        {args.length:.0f} m x {id_mm:.1f} mm ID  a={pipe.wave_speed_m_s:.0f} m/s  "
+          f"Tc={2*args.length/pipe.wave_speed_m_s:.2f} s")
+    print(f"max head    {d['max_head_m']:.1f} m  (x={d['max_head_at_x_m']} m)")
+    print(f"min head    {d['min_head_m']:.1f} m  (x={d['min_head_at_x_m']} m)  "
+          f"min gauge {d['min_gauge_pressure_head_m']:.1f} m")
+    print(f"vapour separation: {'YES' if d['vapour_separation'] else 'no'}")
+    if d.get("air_vessel_max_gas_volume_m3") is not None:
+        print(f"air vessel   {args.air_vessel_m3:.1f} m3 initial -> {d['air_vessel_max_gas_volume_m3']:.1f} m3 max gas")
+    for nt in d["notes"]:
+        print(f"  - {nt}")
+    if args.plot:
+        try:
+            _plot_transient(r, args.plot)
+            print(f"wrote plot   -> {args.plot}")
+        except ImportError:
+            print("!! matplotlib not installed; skipping --plot", file=sys.stderr)
+    return 0
+
+
+def _plot_transient(r, path):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8.5, 6), sharex=False)
+    ax1.plot(r.time_s, r.head_pump_m, label="pump")
+    ax1.plot(r.time_s, r.head_midpoint_m, label="mid-line", alpha=0.7)
+    ax1.set_xlabel("time [s]"); ax1.set_ylabel("head [m]"); ax1.grid(alpha=0.3); ax1.legend(fontsize=8)
+    ax1.set_title("MOC pump-trip transient")
+    ax2.plot(r.node_x_m, r.envelope_max_m, "r-", label="max envelope")
+    ax2.plot(r.node_x_m, r.envelope_min_m, "b-", label="min envelope")
+    ax2.plot(r.node_x_m, r.node_elevation_m, "k--", lw=0.8, label="pipe elevation")
+    ax2.fill_between(r.node_x_m, r.node_elevation_m - 10.1, r.node_elevation_m,
+                     color="orange", alpha=0.15, label="vacuum band")
+    ax2.set_xlabel("distance along main [m]"); ax2.set_ylabel("head [m]")
+    ax2.grid(alpha=0.3); ax2.legend(fontsize=8)
+    fig.tight_layout(); fig.savefig(path, dpi=130); plt.close(fig)
+
+
 def _cmd_excel_template(args: argparse.Namespace) -> int:
     from .excelio import write_input_template
     write_input_template(args.out)
@@ -282,6 +343,26 @@ def build_parser() -> argparse.ArgumentParser:
     sg.add_argument("--speed-rpm", type=float, default=1480.0)
     sg.add_argument("--json", help="write the assessment here")
     sg.set_defaults(func=_cmd_surge)
+
+    tr = sub.add_parser("transient", help="method-of-characteristics pump-trip surge run")
+    tr.add_argument("--length", type=float, required=True, help="rising-main length [m]")
+    tr.add_argument("--material", default="ductile_iron")
+    tr.add_argument("--dn", type=float, help="nominal diameter (pipe DB bore)")
+    tr.add_argument("--diameter-mm", type=float, help="internal diameter [mm]")
+    tr.add_argument("--series", help="SDR name for HDPE/uPVC")
+    tr.add_argument("--flow-lps", type=float, required=True, help="steady flow [l/s]")
+    tr.add_argument("--head", type=float, required=True, help="pump head at duty [m]")
+    tr.add_argument("--static", type=float, required=True, help="static lift [m]")
+    tr.add_argument("--inertia", type=float, required=True, help="pump+motor rotating inertia [kg.m2]")
+    tr.add_argument("--speed-rpm", type=float, default=1480.0)
+    tr.add_argument("--efficiency", type=float, default=0.82)
+    tr.add_argument("--friction", type=float, default=0.017, help="Darcy f for the main")
+    tr.add_argument("--air-vessel-m3", type=float, help="initial gas volume of an air vessel [m3]")
+    tr.add_argument("--reaches", type=int, default=24)
+    tr.add_argument("--duration", type=float, help="sim duration [s] (default ~10 pipe periods)")
+    tr.add_argument("--plot", help="write a head-trace + envelope PNG here")
+    tr.add_argument("--json", help="write the result summary here")
+    tr.set_defaults(func=_cmd_transient)
 
     c = sub.add_parser("curve", help="quick curve from a duty point")
     c.add_argument("--duty-q", type=float, required=True, help="duty flow [l/s]")

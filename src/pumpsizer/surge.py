@@ -179,6 +179,7 @@ class SurgeAssessment:
     recommendations: list[str] = field(default_factory=list)
     air_vessel: dict | None = None
     flywheel: dict | None = None
+    transient: dict | None = None            # filled when method == "moc"
 
     def as_dict(self) -> dict:
         d = {k: (round(v, 3) if isinstance(v, float) else v)

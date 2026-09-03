@@ -54,6 +54,10 @@ pumpsizer curve --duty-q 300 --duty-h 33 --source synthetic --points 3
 pumpsizer surge --length 2500 --material ductile_iron --dn 400 \
     --flow-lps 300 --static 24 --pn 16 --shaft-power-kw 114
 
+# method-of-characteristics transient (pump trip), with/without an air vessel
+pumpsizer transient --length 2500 --dn 400 --flow-lps 300 --head 33 \
+    --static 24 --inertia 5 --air-vessel-m3 20 --plot out/transient.png
+
 # splice the sized pump into a real network and let EPANET solve it
 pumpsizer run examples/potable_water_pumping_station.yaml \
     --into examples/network_skeleton.inp --patch-out out/net.inp --simulate
@@ -148,8 +152,14 @@ efficiency — are plain YAML; edit or point the API at your own via
 * **Phase 4** – `surge` module: wave celerity, pipe period `2L/a`, Joukowsky &
   Michaud slow-closure surge, column-separation / pipe-rating check, and
   energy-balance air-vessel + run-down flywheel pre-sizing; `pumpsizer surge`
-  and a `water_hammer:` project block. ✅  Rule-of-thumb only — a
-  method-of-characteristics transient model is still needed for final design.
+  and a `water_hammer:` project block. ✅
+* **Phase 4b** – `transient` module: 1-D method-of-characteristics pump-trip
+  solver — pipeline discretisation, pump rundown from rotating inertia, check
+  valve on reversal, discrete vapour-cavity model, optional air vessel.
+  `pumpsizer transient` (head trace + pressure-envelope plot) and
+  `water_hammer.method: moc` in a project. ✅  Single-pipe pragmatic model
+  (cavity-collapse spike is damped) — a specialist package is still the right
+  tool for a branched network or final sign-off.
 * **Phase 5** – `excelio` headless Excel bridge (openpyxl, no Excel/xlwings):
   `excel-template` writes a labelled input workbook, `excel` reads it (or the
   original `Pump Sizing.xlsx` via `--legacy`) and writes a multi-sheet results

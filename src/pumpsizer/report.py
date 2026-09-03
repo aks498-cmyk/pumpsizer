@@ -143,7 +143,21 @@ def text_report(res: ProjectResults) -> str:
             L.append(_row("  additional inertia", fw["additional_flywheel_inertia_kgm2"], "kg.m2"))
             L.append(_row("  flywheel mass @ k=%.2fm" % fw["radius_of_gyration_m"],
                           fw["flywheel_mass_kg"], "kg"))
-        L.append("  (rule-of-thumb only - confirm with a method-of-characteristics model)")
+        if getattr(s, "transient", None):
+            tr = s.transient
+            L.append("  MOC transient (pump trip):")
+            L.append(_row("  max head", tr["max_head_m"], f"m at x={tr['max_head_at_x_m']} m"))
+            L.append(_row("  min head", tr["min_head_m"], f"m at x={tr['min_head_at_x_m']} m"))
+            L.append(_row("  min gauge pressure", tr["min_gauge_pressure_head_m"], "m"))
+            L.append(_row("  vapour separation", "YES" if tr["vapour_separation"] else "no", ""))
+            if tr.get("air_vessel_max_gas_volume_m3") is not None:
+                L.append(_row("  air-vessel gas vol (max)", tr["air_vessel_max_gas_volume_m3"], "m3"))
+            if tr.get("exceeds_rating") is not None:
+                L.append(_row("  vs pipe rating", "EXCEEDED" if tr["exceeds_rating"] else "ok", ""))
+            for nt in tr.get("notes", []):
+                L.append(f"    - {nt}")
+        else:
+            L.append("  (rule-of-thumb only - set water_hammer.method: moc for a transient run)")
 
     L.append("\n-- EPANET export ------------------------------------------------")
     L.append(f"(flow units: {res.epanet_export.flow_units}, head: m)\n")
