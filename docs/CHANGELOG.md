@@ -19,6 +19,18 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
   checker can compare them with the printed curve without opening the YAML.
 
 ### Changed
+- **KSB Omega digitiser recovers dropped curves.** The shape gate rejected any
+  impeller whose shut-off/run-out ratio exceeded 2.7 — which on many pages
+  killed the smallest (heavily trimmed, deep run-out) impeller and, by shifting
+  the diameter index, mislabelled or collapsed the rest. The cap is now 4.5
+  with an added "each impeller in the family has a lower shut-off than the last"
+  check. Result: **296 curves from all 74 pages** (was 246 from 73); page 66
+  (had collapsed to one un-labelled entry) and page 75 (was skipped) are back.
+  The new deep-run-out entries are `catalog-check` `WARN` (ratio 3–4.5) — real
+  curves, still `verified: false`.
+- `tools/audit_digitisation.py` — page-level audit against the source PDFs
+  (curves dropped vs H-band strokes, ø-label count mismatch, truncated Qmax),
+  worst-pages-first, to steer the human datasheet pass.
 - `pip install "pumpsizer[xlwings]"` extra (openpyxl + xlwings) for the Excel
   button; `docs/excel_button.md` gains a win32com snippet that embeds the macro
   and places the button, producing a ready-to-click `pumpsizer.xlsm`.

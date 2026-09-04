@@ -27,11 +27,15 @@ back as data rather than eyeballed. For each size page the script:
    (one catalogue entry per ø, its name carrying the diameter);
 4. reads each impeller's **BEP** from its printed efficiency figure (e.g.
    `82.1`) and x-position → `(q_bep_lps, eff_bep_pct)`;
-5. runs sanity checks (Q ascending, H descending, shut-off/runout ratio in
-   1.03–2.7). A page that fails is skipped, not guessed.
+5. runs sanity checks (Q ascending, H descending, shut-off/runout ratio
+   1.03–4.5, each impeller's shut-off below the previous one's). A curve that
+   fails is dropped, not guessed.
 
-Result: **246 curves from 73 of 74 size pages** (one skipped), each with a real
-`curve: {q_lps, h_m}`, `npshr_points` and a BEP.
+Result: **296 curves from all 74 size pages**, each with a real
+`curve: {q_lps, h_m}`, `npshr_points` and a BEP. (The earlier build capped the
+shut-off/runout ratio at 2.7, which dropped the deepest-run-out impeller on
+many pages and mis-indexed the rest; the deep-run-out entries now come through
+as `catalog-check` `WARN`.)
 
 ## Confidence
 
@@ -143,10 +147,11 @@ pumpsizer catalog-check --catalogue my_catalogue/ --show-ok --json qa.json
   (`OK` ≤ 12 % / 18 %, `WARN` beyond, `FAIL` past 25 % / 35 %).
 
 Findings are `OK` / `WARN` / `FAIL`; the command exits non-zero on any `FAIL`
-(`--no-fail` to report only). The shipped catalogues have **no FAILs**; the
-handful of WARNs (a few Omega BEP x-positions landing just past the last curve
-point, one size's 2900 rpm curve ~18 % above `n²`) are the entries to eyeball
-first if you're about to rely on them.
+(`--no-fail` to report only). The shipped catalogues have **no FAILs**, ~33
+WARNs — mostly Omega impellers read deep into run-out (shut-off/run-out ratio
+3–4.5), plus a few BEP x-positions just past the last curve point and one
+size's 2900 rpm curve ~18 % above `n²`. Those are the entries to eyeball first
+if you're about to rely on them.
 
 ## Regenerating
 

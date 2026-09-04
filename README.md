@@ -159,7 +159,7 @@ efficiency — are plain YAML; edit or point the API at your own via
 * **Phase 1** – engine, CLI, EPANET text export, `.inp` splice. ✅
 * **Phase 2** – catalogue data model + loader, selection & ranking, impeller-trim
   and VFD-speed solving, `pumpsizer select`, `pump.source: catalogue`. ✅
-  Bundled catalogues: 5 illustrative pumps + **246 KSB Omega / Omega V 50 Hz
+  Bundled catalogues: 5 illustrative pumps + **296 KSB Omega / Omega V 50 Hz
   curves machine-digitised** from the vector datasheet booklet
   (`ksb_omega_50hz.yaml` via `tools/digitise_ksb_omega.py`: one entry per
   impeller ø, ~30 sizes × 2 speeds, real Q-H + NPSHr + BEP; `verified: false`)

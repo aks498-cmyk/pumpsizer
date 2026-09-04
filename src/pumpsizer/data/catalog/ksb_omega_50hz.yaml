@@ -3,7 +3,7 @@
 # Q vs H, NPSHr points, and a BEP (Q, efficiency).  verified: false - not
 # checked by a person; confirm against the printed datasheet page before use.
 # Regenerate: py tools/digitise_ksb_omega.py
-# 246 curves from 73 size pages, 1 pages skipped.
+# 296 curves from 74 size pages, 0 pages skipped.
 
 pumps:
 - manufacturer: KSB
@@ -228,13 +228,13 @@ pumps:
   q_bep_lps: 39.46
 - manufacturer: KSB
   series: Omega
-  model: 080-210B (2900rpm)
+  model: 080-210B ø200 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 80
   impeller_diameter_mm: 200
-  min_impeller_diameter_mm: 200
-  impeller_options_mm:
+  min_impeller_diameter_mm: 170
+  impeller_options_mm: &id002
   - 215
   - 200
   - 185
@@ -271,13 +271,124 @@ pumps:
   q_bep_lps: 34.99
 - manufacturer: KSB
   series: Omega
+  model: 080-210B ø185 (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 80
+  impeller_diameter_mm: 185
+  min_impeller_diameter_mm: 161
+  impeller_options_mm: *id002
+  digitised: true
+  verified: false
+  datasheet_page: 9
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 185 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 7.66
+    - 15.28
+    - 22.91
+    - 30.53
+    - 38.16
+    - 45.78
+    - 53.41
+    - 61.03
+    h_m:
+    - 56.97
+    - 56.16
+    - 54.35
+    - 51.64
+    - 47.69
+    - 42.23
+    - 36.02
+    - 29.17
+    - 20.92
+- manufacturer: KSB
+  series: Omega
+  model: 080-210B ø170 (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 80
+  impeller_diameter_mm: 170
+  min_impeller_diameter_mm: 148
+  impeller_options_mm: *id002
+  digitised: true
+  verified: false
+  datasheet_page: 9
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 170 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 7.06
+    - 14.08
+    - 21.11
+    - 28.13
+    - 35.15
+    - 42.18
+    - 49.2
+    - 56.23
+    h_m:
+    - 48.88
+    - 48.01
+    - 46.07
+    - 43.36
+    - 39.87
+    - 35.24
+    - 29.78
+    - 23.55
+    - 16.68
+- manufacturer: KSB
+  series: Omega
+  model: 080-210B (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 80
+  impeller_diameter_mm: null
+  min_impeller_diameter_mm: null
+  impeller_options_mm: *id002
+  digitised: true
+  verified: false
+  datasheet_page: 9
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 6.59
+    - 13.15
+    - 19.71
+    - 26.27
+    - 32.83
+    - 39.39
+    - 45.94
+    - 52.5
+    h_m:
+    - 41.25
+    - 40.28
+    - 38.79
+    - 36.91
+    - 34.28
+    - 30.26
+    - 25.59
+    - 20.24
+    - 13.29
+- manufacturer: KSB
+  series: Omega
   model: 080-270A ø275 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 80
   impeller_diameter_mm: 275
   min_impeller_diameter_mm: 215
-  impeller_options_mm: &id002
+  impeller_options_mm: &id003
   - 275
   - 255
   - 235
@@ -320,7 +431,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 255
   min_impeller_diameter_mm: 222
-  impeller_options_mm: *id002
+  impeller_options_mm: *id003
   digitised: true
   verified: false
   datasheet_page: 10
@@ -374,7 +485,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 235
   min_impeller_diameter_mm: 204
-  impeller_options_mm: *id002
+  impeller_options_mm: *id003
   digitised: true
   verified: false
   datasheet_page: 10
@@ -428,7 +539,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 215
   min_impeller_diameter_mm: 187
-  impeller_options_mm: *id002
+  impeller_options_mm: *id003
   digitised: true
   verified: false
   datasheet_page: 10
@@ -482,7 +593,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 275
   min_impeller_diameter_mm: 215
-  impeller_options_mm: &id003
+  impeller_options_mm: &id004
   - 275
   - 255
   - 235
@@ -540,7 +651,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 255
   min_impeller_diameter_mm: 222
-  impeller_options_mm: *id003
+  impeller_options_mm: *id004
   digitised: true
   verified: false
   datasheet_page: 11
@@ -594,7 +705,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 235
   min_impeller_diameter_mm: 204
-  impeller_options_mm: *id003
+  impeller_options_mm: *id004
   digitised: true
   verified: false
   datasheet_page: 11
@@ -648,7 +759,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 215
   min_impeller_diameter_mm: 187
-  impeller_options_mm: *id003
+  impeller_options_mm: *id004
   digitised: true
   verified: false
   datasheet_page: 11
@@ -702,7 +813,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 201
-  impeller_options_mm: &id004
+  impeller_options_mm: &id005
   - 254
   - 236
   - 219
@@ -760,7 +871,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 236
   min_impeller_diameter_mm: 205
-  impeller_options_mm: *id004
+  impeller_options_mm: *id005
   digitised: true
   verified: false
   datasheet_page: 12
@@ -814,7 +925,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 219
   min_impeller_diameter_mm: 191
-  impeller_options_mm: *id004
+  impeller_options_mm: *id005
   digitised: true
   verified: false
   datasheet_page: 12
@@ -868,7 +979,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 201
   min_impeller_diameter_mm: 175
-  impeller_options_mm: *id004
+  impeller_options_mm: *id005
   digitised: true
   verified: false
   datasheet_page: 12
@@ -922,7 +1033,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 236
   min_impeller_diameter_mm: 201
-  impeller_options_mm: &id005
+  impeller_options_mm: &id006
   - 254
   - 236
   - 219
@@ -980,7 +1091,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 219
   min_impeller_diameter_mm: 191
-  impeller_options_mm: *id005
+  impeller_options_mm: *id006
   digitised: true
   verified: false
   datasheet_page: 13
@@ -1034,7 +1145,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 201
   min_impeller_diameter_mm: 175
-  impeller_options_mm: *id005
+  impeller_options_mm: *id006
   digitised: true
   verified: false
   datasheet_page: 13
@@ -1088,7 +1199,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: null
   min_impeller_diameter_mm: null
-  impeller_options_mm: *id005
+  impeller_options_mm: *id006
   digitised: true
   verified: false
   datasheet_page: 13
@@ -1140,7 +1251,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 325
   min_impeller_diameter_mm: 254
-  impeller_options_mm: &id006
+  impeller_options_mm: &id007
   - 325
   - 301
   - 278
@@ -1183,7 +1294,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 301
   min_impeller_diameter_mm: 262
-  impeller_options_mm: *id006
+  impeller_options_mm: *id007
   digitised: true
   verified: false
   datasheet_page: 14
@@ -1222,7 +1333,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 278
   min_impeller_diameter_mm: 242
-  impeller_options_mm: *id006
+  impeller_options_mm: *id007
   digitised: true
   verified: false
   datasheet_page: 14
@@ -1261,7 +1372,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 221
-  impeller_options_mm: *id006
+  impeller_options_mm: *id007
   digitised: true
   verified: false
   datasheet_page: 14
@@ -1300,7 +1411,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 325
   min_impeller_diameter_mm: 254
-  impeller_options_mm: &id007
+  impeller_options_mm: &id008
   - 325
   - 301
   - 278
@@ -1358,7 +1469,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 301
   min_impeller_diameter_mm: 262
-  impeller_options_mm: *id007
+  impeller_options_mm: *id008
   digitised: true
   verified: false
   datasheet_page: 15
@@ -1412,7 +1523,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 278
   min_impeller_diameter_mm: 242
-  impeller_options_mm: *id007
+  impeller_options_mm: *id008
   digitised: true
   verified: false
   datasheet_page: 15
@@ -1466,7 +1577,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 221
-  impeller_options_mm: *id007
+  impeller_options_mm: *id008
   digitised: true
   verified: false
   datasheet_page: 15
@@ -1519,8 +1630,8 @@ pumps:
   poles: 2
   discharge_dn: 125
   impeller_diameter_mm: 245
-  min_impeller_diameter_mm: 228
-  impeller_options_mm: &id008
+  min_impeller_diameter_mm: 193
+  impeller_options_mm: &id009
   - 245
   - 228
   - 210
@@ -1563,7 +1674,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 228
   min_impeller_diameter_mm: 198
-  impeller_options_mm: *id008
+  impeller_options_mm: *id009
   digitised: true
   verified: false
   datasheet_page: 16
@@ -1596,13 +1707,91 @@ pumps:
   q_bep_lps: 140.19
 - manufacturer: KSB
   series: Omega
+  model: 125-230A ø210 (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 125
+  impeller_diameter_mm: 210
+  min_impeller_diameter_mm: 183
+  impeller_options_mm: *id009
+  digitised: true
+  verified: false
+  datasheet_page: 16
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 210 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 21.86
+    - 43.97
+    - 66.08
+    - 88.19
+    - 110.3
+    - 132.41
+    - 154.51
+    - 176.62
+    h_m:
+    - 66.48
+    - 64.39
+    - 61.6
+    - 57.87
+    - 53.0
+    - 47.51
+    - 40.72
+    - 32.51
+    - 23.68
+  eff_bep_pct: 83.2
+  q_bep_lps: 130.24
+- manufacturer: KSB
+  series: Omega
+  model: 125-230A ø193 (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 125
+  impeller_diameter_mm: 193
+  min_impeller_diameter_mm: 168
+  impeller_options_mm: *id009
+  digitised: true
+  verified: false
+  datasheet_page: 16
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 193 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 20.07
+    - 40.37
+    - 60.68
+    - 80.99
+    - 101.3
+    - 121.61
+    - 141.92
+    - 162.23
+    h_m:
+    - 55.69
+    - 54.08
+    - 51.46
+    - 47.89
+    - 43.46
+    - 38.32
+    - 32.25
+    - 25.16
+    - 17.28
+  eff_bep_pct: 77.4
+  q_bep_lps: 122.83
+- manufacturer: KSB
+  series: Omega
   model: 125-230B ø245 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 125
   impeller_diameter_mm: 245
   min_impeller_diameter_mm: 193
-  impeller_options_mm: &id009
+  impeller_options_mm: &id010
   - 245
   - 228
   - 210
@@ -1660,7 +1849,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 228
   min_impeller_diameter_mm: 198
-  impeller_options_mm: *id009
+  impeller_options_mm: *id010
   digitised: true
   verified: false
   datasheet_page: 17
@@ -1714,7 +1903,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 210
   min_impeller_diameter_mm: 183
-  impeller_options_mm: *id009
+  impeller_options_mm: *id010
   digitised: true
   verified: false
   datasheet_page: 17
@@ -1768,7 +1957,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 193
   min_impeller_diameter_mm: 168
-  impeller_options_mm: *id009
+  impeller_options_mm: *id010
   digitised: true
   verified: false
   datasheet_page: 17
@@ -1821,8 +2010,8 @@ pumps:
   poles: 2
   discharge_dn: 125
   impeller_diameter_mm: 301
-  min_impeller_diameter_mm: 254
-  impeller_options_mm: &id010
+  min_impeller_diameter_mm: 232
+  impeller_options_mm: &id011
   - 301
   - 276
   - 254
@@ -1880,7 +2069,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 276
   min_impeller_diameter_mm: 240
-  impeller_options_mm: *id010
+  impeller_options_mm: *id011
   digitised: true
   verified: false
   datasheet_page: 18
@@ -1934,7 +2123,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 221
-  impeller_options_mm: *id010
+  impeller_options_mm: *id011
   digitised: true
   verified: false
   datasheet_page: 18
@@ -1982,13 +2171,67 @@ pumps:
   q_bep_lps: 124.58
 - manufacturer: KSB
   series: Omega
+  model: 125-290A ø232 (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 125
+  impeller_diameter_mm: 232
+  min_impeller_diameter_mm: 202
+  impeller_options_mm: *id011
+  digitised: true
+  verified: false
+  datasheet_page: 18
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 232 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 21.01
+    - 42.25
+    - 63.48
+    - 84.72
+    - 105.96
+    - 127.19
+    - 148.43
+    - 169.66
+    h_m:
+    - 83.53
+    - 81.03
+    - 77.51
+    - 72.6
+    - 66.14
+    - 58.51
+    - 50.07
+    - 40.68
+    - 29.93
+  npshr_points:
+    q_lps:
+    - 56.73
+    - 79.32
+    - 101.9
+    - 124.49
+    - 147.08
+    - 169.66
+    value_m:
+    - 6.84
+    - 6.76
+    - 6.82
+    - 7.27
+    - 8.75
+    - 11.48
+  eff_bep_pct: 78.7
+  q_bep_lps: 114.85
+- manufacturer: KSB
+  series: Omega
   model: 125-290B ø301 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 125
   impeller_diameter_mm: 301
   min_impeller_diameter_mm: 232
-  impeller_options_mm: &id011
+  impeller_options_mm: &id012
   - 301
   - 276
   - 254
@@ -2046,7 +2289,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 276
   min_impeller_diameter_mm: 240
-  impeller_options_mm: *id011
+  impeller_options_mm: *id012
   digitised: true
   verified: false
   datasheet_page: 19
@@ -2100,7 +2343,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 221
-  impeller_options_mm: *id011
+  impeller_options_mm: *id012
   digitised: true
   verified: false
   datasheet_page: 19
@@ -2154,7 +2397,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 232
   min_impeller_diameter_mm: 202
-  impeller_options_mm: *id011
+  impeller_options_mm: *id012
   digitised: true
   verified: false
   datasheet_page: 19
@@ -2208,7 +2451,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 215
   min_impeller_diameter_mm: 170
-  impeller_options_mm: &id012
+  impeller_options_mm: &id013
   - 215
   - 200
   - 185
@@ -2266,7 +2509,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 200
   min_impeller_diameter_mm: 174
-  impeller_options_mm: *id012
+  impeller_options_mm: *id013
   digitised: true
   verified: false
   datasheet_page: 20
@@ -2320,7 +2563,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 185
   min_impeller_diameter_mm: 161
-  impeller_options_mm: *id012
+  impeller_options_mm: *id013
   digitised: true
   verified: false
   datasheet_page: 20
@@ -2374,7 +2617,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 170
   min_impeller_diameter_mm: 148
-  impeller_options_mm: *id012
+  impeller_options_mm: *id013
   digitised: true
   verified: false
   datasheet_page: 20
@@ -2422,13 +2665,13 @@ pumps:
   q_bep_lps: 19.57
 - manufacturer: KSB
   series: Omega
-  model: 080-210B (1450rpm)
+  model: 080-210B ø215 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 80
   impeller_diameter_mm: 215
-  min_impeller_diameter_mm: 215
-  impeller_options_mm:
+  min_impeller_diameter_mm: 170
+  impeller_options_mm: &id014
   - 215
   - 200
   - 185
@@ -2480,13 +2723,175 @@ pumps:
   q_bep_lps: 19.43
 - manufacturer: KSB
   series: Omega
+  model: 080-210B ø200 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 200
+  min_impeller_diameter_mm: 174
+  impeller_options_mm: *id014
+  digitised: true
+  verified: false
+  datasheet_page: 21
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 200 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 3.78
+    - 7.59
+    - 11.4
+    - 15.21
+    - 19.02
+    - 22.83
+    - 26.64
+    - 30.44
+    h_m:
+    - 14.15
+    - 13.96
+    - 13.5
+    - 12.82
+    - 11.84
+    - 10.48
+    - 8.91
+    - 7.2
+    - 5.14
+  npshr_points:
+    q_lps:
+    - 12.26
+    - 15.89
+    - 19.53
+    - 23.17
+    - 26.81
+    - 30.44
+    value_m:
+    - 2.14
+    - 2.15
+    - 2.21
+    - 2.32
+    - 2.58
+    - 3.29
+  eff_bep_pct: 79.5
+  q_bep_lps: 17.98
+- manufacturer: KSB
+  series: Omega
+  model: 080-210B ø185 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 185
+  min_impeller_diameter_mm: 161
+  impeller_options_mm: *id014
+  digitised: true
+  verified: false
+  datasheet_page: 21
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 185 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 3.48
+    - 6.99
+    - 10.5
+    - 14.01
+    - 17.52
+    - 21.03
+    - 24.54
+    - 28.05
+    h_m:
+    - 12.14
+    - 11.92
+    - 11.43
+    - 10.75
+    - 9.88
+    - 8.72
+    - 7.35
+    - 5.83
+    - 4.08
+  npshr_points:
+    q_lps:
+    - 12.2
+    - 15.37
+    - 18.54
+    - 21.71
+    - 24.88
+    - 28.05
+    value_m:
+    - 2.15
+    - 2.16
+    - 2.2
+    - 2.28
+    - 2.44
+    - 2.94
+  eff_bep_pct: 78.1
+  q_bep_lps: 17.15
+- manufacturer: KSB
+  series: Omega
+  model: 080-210B ø170 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 80
+  impeller_diameter_mm: 170
+  min_impeller_diameter_mm: 148
+  impeller_options_mm: *id014
+  digitised: true
+  verified: false
+  datasheet_page: 21
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 170 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 3.25
+    - 6.53
+    - 9.81
+    - 13.09
+    - 16.36
+    - 19.64
+    - 22.92
+    - 26.2
+    h_m:
+    - 10.24
+    - 9.98
+    - 9.62
+    - 9.15
+    - 8.49
+    - 7.49
+    - 6.31
+    - 4.98
+    - 3.24
+  npshr_points:
+    q_lps:
+    - 12.09
+    - 14.91
+    - 17.73
+    - 20.55
+    - 23.38
+    - 26.2
+    value_m:
+    - 2.12
+    - 2.15
+    - 2.2
+    - 2.26
+    - 2.35
+    - 2.66
+  eff_bep_pct: 72.0
+  q_bep_lps: 16.19
+- manufacturer: KSB
+  series: Omega
   model: 080-270A ø275 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 80
   impeller_diameter_mm: 275
   min_impeller_diameter_mm: 215
-  impeller_options_mm: &id013
+  impeller_options_mm: &id015
   - 275
   - 255
   - 235
@@ -2544,7 +2949,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 255
   min_impeller_diameter_mm: 222
-  impeller_options_mm: *id013
+  impeller_options_mm: *id015
   digitised: true
   verified: false
   datasheet_page: 22
@@ -2598,7 +3003,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 235
   min_impeller_diameter_mm: 204
-  impeller_options_mm: *id013
+  impeller_options_mm: *id015
   digitised: true
   verified: false
   datasheet_page: 22
@@ -2652,7 +3057,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 215
   min_impeller_diameter_mm: 187
-  impeller_options_mm: *id013
+  impeller_options_mm: *id015
   digitised: true
   verified: false
   datasheet_page: 22
@@ -2706,7 +3111,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 275
   min_impeller_diameter_mm: 215
-  impeller_options_mm: &id014
+  impeller_options_mm: &id016
   - 275
   - 255
   - 235
@@ -2764,7 +3169,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 255
   min_impeller_diameter_mm: 222
-  impeller_options_mm: *id014
+  impeller_options_mm: *id016
   digitised: true
   verified: false
   datasheet_page: 23
@@ -2818,7 +3223,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 235
   min_impeller_diameter_mm: 204
-  impeller_options_mm: *id014
+  impeller_options_mm: *id016
   digitised: true
   verified: false
   datasheet_page: 23
@@ -2872,7 +3277,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 215
   min_impeller_diameter_mm: 187
-  impeller_options_mm: *id014
+  impeller_options_mm: *id016
   digitised: true
   verified: false
   datasheet_page: 23
@@ -2926,7 +3331,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 345
   min_impeller_diameter_mm: 270
-  impeller_options_mm: &id015
+  impeller_options_mm: &id017
   - 345
   - 320
   - 300
@@ -2969,7 +3374,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 320
   min_impeller_diameter_mm: 278
-  impeller_options_mm: *id015
+  impeller_options_mm: *id017
   digitised: true
   verified: false
   datasheet_page: 24
@@ -3008,7 +3413,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 300
   min_impeller_diameter_mm: 261
-  impeller_options_mm: *id015
+  impeller_options_mm: *id017
   digitised: true
   verified: false
   datasheet_page: 24
@@ -3047,7 +3452,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 270
   min_impeller_diameter_mm: 235
-  impeller_options_mm: *id015
+  impeller_options_mm: *id017
   digitised: true
   verified: false
   datasheet_page: 24
@@ -3086,7 +3491,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 345
   min_impeller_diameter_mm: 270
-  impeller_options_mm: &id016
+  impeller_options_mm: &id018
   - 345
   - 320
   - 295
@@ -3129,7 +3534,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 320
   min_impeller_diameter_mm: 278
-  impeller_options_mm: *id016
+  impeller_options_mm: *id018
   digitised: true
   verified: false
   datasheet_page: 25
@@ -3168,7 +3573,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 295
   min_impeller_diameter_mm: 257
-  impeller_options_mm: *id016
+  impeller_options_mm: *id018
   digitised: true
   verified: false
   datasheet_page: 25
@@ -3207,7 +3612,7 @@ pumps:
   discharge_dn: 80
   impeller_diameter_mm: 270
   min_impeller_diameter_mm: 235
-  impeller_options_mm: *id016
+  impeller_options_mm: *id018
   digitised: true
   verified: false
   datasheet_page: 25
@@ -3246,7 +3651,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 201
-  impeller_options_mm: &id017
+  impeller_options_mm: &id019
   - 254
   - 236
   - 219
@@ -3304,7 +3709,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 236
   min_impeller_diameter_mm: 205
-  impeller_options_mm: *id017
+  impeller_options_mm: *id019
   digitised: true
   verified: false
   datasheet_page: 26
@@ -3358,7 +3763,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 219
   min_impeller_diameter_mm: 191
-  impeller_options_mm: *id017
+  impeller_options_mm: *id019
   digitised: true
   verified: false
   datasheet_page: 26
@@ -3412,7 +3817,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 201
   min_impeller_diameter_mm: 175
-  impeller_options_mm: *id017
+  impeller_options_mm: *id019
   digitised: true
   verified: false
   datasheet_page: 26
@@ -3466,7 +3871,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 201
-  impeller_options_mm: &id018
+  impeller_options_mm: &id020
   - 254
   - 236
   - 219
@@ -3524,7 +3929,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 236
   min_impeller_diameter_mm: 205
-  impeller_options_mm: *id018
+  impeller_options_mm: *id020
   digitised: true
   verified: false
   datasheet_page: 27
@@ -3578,7 +3983,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 219
   min_impeller_diameter_mm: 191
-  impeller_options_mm: *id018
+  impeller_options_mm: *id020
   digitised: true
   verified: false
   datasheet_page: 27
@@ -3632,7 +4037,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 201
   min_impeller_diameter_mm: 175
-  impeller_options_mm: *id018
+  impeller_options_mm: *id020
   digitised: true
   verified: false
   datasheet_page: 27
@@ -3686,7 +4091,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 325
   min_impeller_diameter_mm: 254
-  impeller_options_mm: &id019
+  impeller_options_mm: &id021
   - 325
   - 301
   - 278
@@ -3744,7 +4149,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 301
   min_impeller_diameter_mm: 262
-  impeller_options_mm: *id019
+  impeller_options_mm: *id021
   digitised: true
   verified: false
   datasheet_page: 28
@@ -3798,7 +4203,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 278
   min_impeller_diameter_mm: 242
-  impeller_options_mm: *id019
+  impeller_options_mm: *id021
   digitised: true
   verified: false
   datasheet_page: 28
@@ -3852,7 +4257,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 221
-  impeller_options_mm: *id019
+  impeller_options_mm: *id021
   digitised: true
   verified: false
   datasheet_page: 28
@@ -3906,7 +4311,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 325
   min_impeller_diameter_mm: 254
-  impeller_options_mm: &id020
+  impeller_options_mm: &id022
   - 325
   - 301
   - 278
@@ -3964,7 +4369,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 301
   min_impeller_diameter_mm: 262
-  impeller_options_mm: *id020
+  impeller_options_mm: *id022
   digitised: true
   verified: false
   datasheet_page: 29
@@ -4018,7 +4423,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 278
   min_impeller_diameter_mm: 242
-  impeller_options_mm: *id020
+  impeller_options_mm: *id022
   digitised: true
   verified: false
   datasheet_page: 29
@@ -4072,7 +4477,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 221
-  impeller_options_mm: *id020
+  impeller_options_mm: *id022
   digitised: true
   verified: false
   datasheet_page: 29
@@ -4126,7 +4531,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 408
   min_impeller_diameter_mm: 325
-  impeller_options_mm: &id021
+  impeller_options_mm: &id023
   - 408
   - 378
   - 355
@@ -4169,7 +4574,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 378
   min_impeller_diameter_mm: 329
-  impeller_options_mm: *id021
+  impeller_options_mm: *id023
   digitised: true
   verified: false
   datasheet_page: 30
@@ -4208,7 +4613,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 355
   min_impeller_diameter_mm: 309
-  impeller_options_mm: *id021
+  impeller_options_mm: *id023
   digitised: true
   verified: false
   datasheet_page: 30
@@ -4247,7 +4652,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 325
   min_impeller_diameter_mm: 283
-  impeller_options_mm: *id021
+  impeller_options_mm: *id023
   digitised: true
   verified: false
   datasheet_page: 30
@@ -4286,7 +4691,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 408
   min_impeller_diameter_mm: 325
-  impeller_options_mm: &id022
+  impeller_options_mm: &id024
   - 408
   - 378
   - 355
@@ -4329,7 +4734,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 378
   min_impeller_diameter_mm: 329
-  impeller_options_mm: *id022
+  impeller_options_mm: *id024
   digitised: true
   verified: false
   datasheet_page: 31
@@ -4368,7 +4773,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 355
   min_impeller_diameter_mm: 309
-  impeller_options_mm: *id022
+  impeller_options_mm: *id024
   digitised: true
   verified: false
   datasheet_page: 31
@@ -4407,7 +4812,7 @@ pumps:
   discharge_dn: 100
   impeller_diameter_mm: 325
   min_impeller_diameter_mm: 283
-  impeller_options_mm: *id022
+  impeller_options_mm: *id024
   digitised: true
   verified: false
   datasheet_page: 31
@@ -4445,8 +4850,8 @@ pumps:
   poles: 4
   discharge_dn: 125
   impeller_diameter_mm: 245
-  min_impeller_diameter_mm: 228
-  impeller_options_mm: &id023
+  min_impeller_diameter_mm: 193
+  impeller_options_mm: &id025
   - 245
   - 228
   - 210
@@ -4504,7 +4909,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 228
   min_impeller_diameter_mm: 198
-  impeller_options_mm: *id023
+  impeller_options_mm: *id025
   digitised: true
   verified: false
   datasheet_page: 32
@@ -4552,13 +4957,121 @@ pumps:
   q_bep_lps: 70.1
 - manufacturer: KSB
   series: Omega
+  model: 125-230A ø210 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 210
+  min_impeller_diameter_mm: 183
+  impeller_options_mm: *id025
+  digitised: true
+  verified: false
+  datasheet_page: 32
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 210 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 10.94
+    - 21.99
+    - 33.05
+    - 44.1
+    - 55.15
+    - 66.21
+    - 77.26
+    - 88.31
+    h_m:
+    - 16.62
+    - 16.1
+    - 15.4
+    - 14.47
+    - 13.25
+    - 11.88
+    - 10.18
+    - 8.13
+    - 5.92
+  npshr_points:
+    q_lps:
+    - 31.46
+    - 42.83
+    - 54.2
+    - 65.57
+    - 76.94
+    - 88.31
+    value_m:
+    - 1.72
+    - 1.72
+    - 1.74
+    - 1.83
+    - 2.14
+    - 2.79
+  eff_bep_pct: 83.2
+  q_bep_lps: 65.11
+- manufacturer: KSB
+  series: Omega
+  model: 125-230A ø193 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 193
+  min_impeller_diameter_mm: 168
+  impeller_options_mm: *id025
+  digitised: true
+  verified: false
+  datasheet_page: 32
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 193 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 10.04
+    - 20.19
+    - 30.35
+    - 40.5
+    - 50.65
+    - 60.81
+    - 70.96
+    - 81.11
+    h_m:
+    - 13.92
+    - 13.52
+    - 12.87
+    - 11.97
+    - 10.86
+    - 9.58
+    - 8.06
+    - 6.29
+    - 4.32
+  npshr_points:
+    q_lps:
+    - 28.86
+    - 39.31
+    - 49.76
+    - 60.21
+    - 70.66
+    - 81.11
+    value_m:
+    - 1.78
+    - 1.77
+    - 1.79
+    - 1.84
+    - 2.04
+    - 2.48
+  eff_bep_pct: 77.4
+  q_bep_lps: 61.3
+- manufacturer: KSB
+  series: Omega
   model: 125-230B ø245 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 125
   impeller_diameter_mm: 245
   min_impeller_diameter_mm: 193
-  impeller_options_mm: &id024
+  impeller_options_mm: &id026
   - 245
   - 228
   - 210
@@ -4616,7 +5129,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 228
   min_impeller_diameter_mm: 198
-  impeller_options_mm: *id024
+  impeller_options_mm: *id026
   digitised: true
   verified: false
   datasheet_page: 33
@@ -4670,7 +5183,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 210
   min_impeller_diameter_mm: 183
-  impeller_options_mm: *id024
+  impeller_options_mm: *id026
   digitised: true
   verified: false
   datasheet_page: 33
@@ -4724,7 +5237,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 193
   min_impeller_diameter_mm: 168
-  impeller_options_mm: *id024
+  impeller_options_mm: *id026
   digitised: true
   verified: false
   datasheet_page: 33
@@ -4777,8 +5290,8 @@ pumps:
   poles: 4
   discharge_dn: 125
   impeller_diameter_mm: 301
-  min_impeller_diameter_mm: 254
-  impeller_options_mm: &id025
+  min_impeller_diameter_mm: 232
+  impeller_options_mm: &id027
   - 301
   - 276
   - 254
@@ -4836,7 +5349,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 276
   min_impeller_diameter_mm: 240
-  impeller_options_mm: *id025
+  impeller_options_mm: *id027
   digitised: true
   verified: false
   datasheet_page: 34
@@ -4890,7 +5403,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 221
-  impeller_options_mm: *id025
+  impeller_options_mm: *id027
   digitised: true
   verified: false
   datasheet_page: 34
@@ -4938,13 +5451,67 @@ pumps:
   q_bep_lps: 62.95
 - manufacturer: KSB
   series: Omega
+  model: 125-290A ø232 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 125
+  impeller_diameter_mm: 232
+  min_impeller_diameter_mm: 202
+  impeller_options_mm: *id027
+  digitised: true
+  verified: false
+  datasheet_page: 34
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 232 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 10.5
+    - 21.11
+    - 31.73
+    - 42.34
+    - 52.96
+    - 63.57
+    - 74.18
+    - 84.8
+    h_m:
+    - 20.88
+    - 20.25
+    - 19.37
+    - 18.14
+    - 16.53
+    - 14.62
+    - 12.52
+    - 10.17
+    - 7.48
+  npshr_points:
+    q_lps:
+    - 28.35
+    - 39.64
+    - 50.93
+    - 62.22
+    - 73.51
+    - 84.8
+    value_m:
+    - 1.66
+    - 1.66
+    - 1.68
+    - 1.78
+    - 2.16
+    - 2.91
+  eff_bep_pct: 78.7
+  q_bep_lps: 57.84
+- manufacturer: KSB
+  series: Omega
   model: 125-290B ø301 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 125
   impeller_diameter_mm: 301
   min_impeller_diameter_mm: 232
-  impeller_options_mm: &id026
+  impeller_options_mm: &id028
   - 301
   - 276
   - 254
@@ -5002,7 +5569,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 276
   min_impeller_diameter_mm: 240
-  impeller_options_mm: *id026
+  impeller_options_mm: *id028
   digitised: true
   verified: false
   datasheet_page: 35
@@ -5056,7 +5623,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 254
   min_impeller_diameter_mm: 221
-  impeller_options_mm: *id026
+  impeller_options_mm: *id028
   digitised: true
   verified: false
   datasheet_page: 35
@@ -5110,7 +5677,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 232
   min_impeller_diameter_mm: 202
-  impeller_options_mm: *id026
+  impeller_options_mm: *id028
   digitised: true
   verified: false
   datasheet_page: 35
@@ -5164,7 +5731,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 385
   min_impeller_diameter_mm: 289
-  impeller_options_mm: &id027
+  impeller_options_mm: &id029
   - 385
   - 353
   - 321
@@ -5207,7 +5774,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 353
   min_impeller_diameter_mm: 307
-  impeller_options_mm: *id027
+  impeller_options_mm: *id029
   digitised: true
   verified: false
   datasheet_page: 36
@@ -5246,7 +5813,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 321
   min_impeller_diameter_mm: 279
-  impeller_options_mm: *id027
+  impeller_options_mm: *id029
   digitised: true
   verified: false
   datasheet_page: 36
@@ -5285,7 +5852,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 289
   min_impeller_diameter_mm: 251
-  impeller_options_mm: *id027
+  impeller_options_mm: *id029
   digitised: true
   verified: false
   datasheet_page: 36
@@ -5324,7 +5891,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 385
   min_impeller_diameter_mm: 289
-  impeller_options_mm: &id028
+  impeller_options_mm: &id030
   - 385
   - 353
   - 321
@@ -5382,7 +5949,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 353
   min_impeller_diameter_mm: 307
-  impeller_options_mm: *id028
+  impeller_options_mm: *id030
   digitised: true
   verified: false
   datasheet_page: 37
@@ -5436,7 +6003,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 321
   min_impeller_diameter_mm: 279
-  impeller_options_mm: *id028
+  impeller_options_mm: *id030
   digitised: true
   verified: false
   datasheet_page: 37
@@ -5490,7 +6057,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 289
   min_impeller_diameter_mm: 251
-  impeller_options_mm: *id028
+  impeller_options_mm: *id030
   digitised: true
   verified: false
   datasheet_page: 37
@@ -5544,7 +6111,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 475
   min_impeller_diameter_mm: 381
-  impeller_options_mm: &id029
+  impeller_options_mm: &id031
   - 475
   - 443
   - 412
@@ -5602,7 +6169,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 443
   min_impeller_diameter_mm: 385
-  impeller_options_mm: *id029
+  impeller_options_mm: *id031
   digitised: true
   verified: false
   datasheet_page: 38
@@ -5656,7 +6223,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 412
   min_impeller_diameter_mm: 358
-  impeller_options_mm: *id029
+  impeller_options_mm: *id031
   digitised: true
   verified: false
   datasheet_page: 38
@@ -5710,7 +6277,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 381
   min_impeller_diameter_mm: 331
-  impeller_options_mm: *id029
+  impeller_options_mm: *id031
   digitised: true
   verified: false
   datasheet_page: 38
@@ -5764,7 +6331,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 475
   min_impeller_diameter_mm: 381
-  impeller_options_mm: &id030
+  impeller_options_mm: &id032
   - 475
   - 443
   - 412
@@ -5822,7 +6389,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 443
   min_impeller_diameter_mm: 385
-  impeller_options_mm: *id030
+  impeller_options_mm: *id032
   digitised: true
   verified: false
   datasheet_page: 39
@@ -5876,7 +6443,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 412
   min_impeller_diameter_mm: 358
-  impeller_options_mm: *id030
+  impeller_options_mm: *id032
   digitised: true
   verified: false
   datasheet_page: 39
@@ -5930,7 +6497,7 @@ pumps:
   discharge_dn: 125
   impeller_diameter_mm: 381
   min_impeller_diameter_mm: 331
-  impeller_options_mm: *id030
+  impeller_options_mm: *id032
   digitised: true
   verified: false
   datasheet_page: 39
@@ -5968,8 +6535,8 @@ pumps:
   poles: 4
   discharge_dn: 150
   impeller_diameter_mm: 289
-  min_impeller_diameter_mm: 269
-  impeller_options_mm: &id031
+  min_impeller_diameter_mm: 227
+  impeller_options_mm: &id033
   - 289
   - 269
   - 245
@@ -6027,7 +6594,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 269
   min_impeller_diameter_mm: 234
-  impeller_options_mm: *id031
+  impeller_options_mm: *id033
   digitised: true
   verified: false
   datasheet_page: 40
@@ -6075,13 +6642,121 @@ pumps:
   q_bep_lps: 113.99
 - manufacturer: KSB
   series: Omega
+  model: 150-290A ø245 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 245
+  min_impeller_diameter_mm: 213
+  impeller_options_mm: *id033
+  digitised: true
+  verified: false
+  datasheet_page: 40
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 245 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 18.19
+    - 36.58
+    - 54.97
+    - 73.35
+    - 91.74
+    - 110.12
+    - 128.51
+    - 146.9
+    h_m:
+    - 22.32
+    - 21.67
+    - 20.73
+    - 19.43
+    - 17.77
+    - 15.73
+    - 13.47
+    - 10.96
+    - 7.9
+  npshr_points:
+    q_lps:
+    - 51.19
+    - 69.68
+    - 88.18
+    - 106.68
+    - 125.18
+    - 143.68
+    value_m:
+    - 2.28
+    - 2.28
+    - 2.34
+    - 2.5
+    - 2.96
+    - 3.94
+  eff_bep_pct: 82.3
+  q_bep_lps: 109.34
+- manufacturer: KSB
+  series: Omega
+  model: 150-290A ø227 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 227
+  min_impeller_diameter_mm: 197
+  impeller_options_mm: *id033
+  digitised: true
+  verified: false
+  datasheet_page: 40
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 227 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 16.67
+    - 33.53
+    - 50.39
+    - 67.25
+    - 84.11
+    - 100.97
+    - 117.83
+    - 134.69
+    h_m:
+    - 19.09
+    - 18.52
+    - 17.64
+    - 16.35
+    - 14.68
+    - 12.83
+    - 10.77
+    - 8.36
+    - 5.69
+  npshr_points:
+    q_lps:
+    - 47.76
+    - 65.15
+    - 82.53
+    - 99.92
+    - 117.31
+    - 134.69
+    value_m:
+    - 2.37
+    - 2.4
+    - 2.45
+    - 2.55
+    - 2.93
+    - 3.62
+  eff_bep_pct: 78.7
+  q_bep_lps: 102.32
+- manufacturer: KSB
+  series: Omega
   model: 150-290B ø289 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 150
   impeller_diameter_mm: 289
-  min_impeller_diameter_mm: 245
-  impeller_options_mm: &id032
+  min_impeller_diameter_mm: 227
+  impeller_options_mm: &id034
   - 289
   - 269
   - 245
@@ -6139,7 +6814,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 269
   min_impeller_diameter_mm: 234
-  impeller_options_mm: *id032
+  impeller_options_mm: *id034
   digitised: true
   verified: false
   datasheet_page: 41
@@ -6193,7 +6868,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 245
   min_impeller_diameter_mm: 213
-  impeller_options_mm: *id032
+  impeller_options_mm: *id034
   digitised: true
   verified: false
   datasheet_page: 41
@@ -6241,13 +6916,67 @@ pumps:
   q_bep_lps: 99.49
 - manufacturer: KSB
   series: Omega
+  model: 150-290B ø227 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 227
+  min_impeller_diameter_mm: 197
+  impeller_options_mm: *id034
+  digitised: true
+  verified: false
+  datasheet_page: 41
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 227 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 15.01
+    - 30.18
+    - 45.36
+    - 60.53
+    - 75.7
+    - 90.88
+    - 106.05
+    - 121.22
+    h_m:
+    - 18.9
+    - 18.39
+    - 17.75
+    - 16.85
+    - 15.44
+    - 13.72
+    - 11.73
+    - 9.36
+    - 6.6
+  npshr_points:
+    q_lps:
+    - 44.79
+    - 60.08
+    - 75.36
+    - 90.65
+    - 105.94
+    - 121.22
+    value_m:
+    - 2.28
+    - 2.3
+    - 2.37
+    - 2.54
+    - 2.9
+    - 3.53
+  eff_bep_pct: 81.0
+  q_bep_lps: 93.66
+- manufacturer: KSB
+  series: Omega
   model: 150-290C ø282 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 150
   impeller_diameter_mm: 282
   min_impeller_diameter_mm: 222
-  impeller_options_mm: &id033
+  impeller_options_mm: &id035
   - 282
   - 263
   - 242
@@ -6305,7 +7034,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 263
   min_impeller_diameter_mm: 229
-  impeller_options_mm: *id033
+  impeller_options_mm: *id035
   digitised: true
   verified: false
   datasheet_page: 42
@@ -6359,7 +7088,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 242
   min_impeller_diameter_mm: 211
-  impeller_options_mm: *id033
+  impeller_options_mm: *id035
   digitised: true
   verified: false
   datasheet_page: 42
@@ -6413,7 +7142,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 222
   min_impeller_diameter_mm: 193
-  impeller_options_mm: *id033
+  impeller_options_mm: *id035
   digitised: true
   verified: false
   datasheet_page: 42
@@ -6466,8 +7195,8 @@ pumps:
   poles: 4
   discharge_dn: 150
   impeller_diameter_mm: 355
-  min_impeller_diameter_mm: 299
-  impeller_options_mm: &id034
+  min_impeller_diameter_mm: 274
+  impeller_options_mm: &id036
   - 355
   - 325
   - 299
@@ -6525,7 +7254,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 325
   min_impeller_diameter_mm: 283
-  impeller_options_mm: *id034
+  impeller_options_mm: *id036
   digitised: true
   verified: false
   datasheet_page: 43
@@ -6579,7 +7308,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 299
   min_impeller_diameter_mm: 260
-  impeller_options_mm: *id034
+  impeller_options_mm: *id036
   digitised: true
   verified: false
   datasheet_page: 43
@@ -6627,13 +7356,67 @@ pumps:
   q_bep_lps: 102.93
 - manufacturer: KSB
   series: Omega
+  model: 150-360A ø274 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 274
+  min_impeller_diameter_mm: 238
+  impeller_options_mm: *id036
+  digitised: true
+  verified: false
+  datasheet_page: 43
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 274 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 16.21
+    - 32.6
+    - 49.0
+    - 65.4
+    - 81.8
+    - 98.2
+    - 114.6
+    - 131.0
+    h_m:
+    - 30.7
+    - 29.83
+    - 28.46
+    - 26.6
+    - 24.3
+    - 21.76
+    - 18.78
+    - 15.14
+    - 11.1
+  npshr_points:
+    q_lps:
+    - 46.66
+    - 63.53
+    - 80.4
+    - 97.26
+    - 114.13
+    - 131.0
+    value_m:
+    - 2.43
+    - 2.43
+    - 2.47
+    - 2.56
+    - 2.79
+    - 3.34
+  eff_bep_pct: 79.7
+  q_bep_lps: 94.5
+- manufacturer: KSB
+  series: Omega
   model: 150-360B ø355 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 150
   impeller_diameter_mm: 355
   min_impeller_diameter_mm: 280
-  impeller_options_mm: &id035
+  impeller_options_mm: &id037
   - 355
   - 330
   - 305
@@ -6691,7 +7474,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 330
   min_impeller_diameter_mm: 287
-  impeller_options_mm: *id035
+  impeller_options_mm: *id037
   digitised: true
   verified: false
   datasheet_page: 44
@@ -6745,7 +7528,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 305
   min_impeller_diameter_mm: 265
-  impeller_options_mm: *id035
+  impeller_options_mm: *id037
   digitised: true
   verified: false
   datasheet_page: 44
@@ -6799,7 +7582,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 280
   min_impeller_diameter_mm: 244
-  impeller_options_mm: *id035
+  impeller_options_mm: *id037
   digitised: true
   verified: false
   datasheet_page: 44
@@ -6853,7 +7636,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 454
   min_impeller_diameter_mm: 340
-  impeller_options_mm: &id036
+  impeller_options_mm: &id038
   - 454
   - 416
   - 378
@@ -6896,7 +7679,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 416
   min_impeller_diameter_mm: 362
-  impeller_options_mm: *id036
+  impeller_options_mm: *id038
   digitised: true
   verified: false
   datasheet_page: 45
@@ -6935,7 +7718,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 378
   min_impeller_diameter_mm: 329
-  impeller_options_mm: *id036
+  impeller_options_mm: *id038
   digitised: true
   verified: false
   datasheet_page: 45
@@ -6974,7 +7757,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 340
   min_impeller_diameter_mm: 296
-  impeller_options_mm: *id036
+  impeller_options_mm: *id038
   digitised: true
   verified: false
   datasheet_page: 45
@@ -7012,8 +7795,8 @@ pumps:
   poles: 4
   discharge_dn: 150
   impeller_diameter_mm: 454
-  min_impeller_diameter_mm: 382
-  impeller_options_mm: &id037
+  min_impeller_diameter_mm: 345
+  impeller_options_mm: &id039
   - 454
   - 420
   - 382
@@ -7071,7 +7854,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 420
   min_impeller_diameter_mm: 365
-  impeller_options_mm: *id037
+  impeller_options_mm: *id039
   digitised: true
   verified: false
   datasheet_page: 46
@@ -7125,7 +7908,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 382
   min_impeller_diameter_mm: 332
-  impeller_options_mm: *id037
+  impeller_options_mm: *id039
   digitised: true
   verified: false
   datasheet_page: 46
@@ -7173,13 +7956,67 @@ pumps:
   q_bep_lps: 103.38
 - manufacturer: KSB
   series: Omega
+  model: 150-460B ø345 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 150
+  impeller_diameter_mm: 345
+  min_impeller_diameter_mm: 300
+  impeller_options_mm: *id039
+  digitised: true
+  verified: false
+  datasheet_page: 46
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 345 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 17.46
+    - 34.94
+    - 52.41
+    - 69.88
+    - 87.35
+    - 104.83
+    - 122.3
+    - 139.77
+    h_m:
+    - 44.4
+    - 44.3
+    - 43.87
+    - 42.43
+    - 39.99
+    - 36.35
+    - 31.29
+    - 24.7
+    - 16.34
+  npshr_points:
+    q_lps:
+    - 44.11
+    - 63.24
+    - 82.38
+    - 101.51
+    - 120.64
+    - 139.77
+    value_m:
+    - 2.81
+    - 2.82
+    - 2.98
+    - 3.35
+    - 3.88
+    - 5.19
+  eff_bep_pct: 79.0
+  q_bep_lps: 93.34
+- manufacturer: KSB
+  series: Omega
   model: 150-605A ø560 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 150
   impeller_diameter_mm: 560
   min_impeller_diameter_mm: 449
-  impeller_options_mm: &id038
+  impeller_options_mm: &id040
   - 560
   - 523
   - 486
@@ -7237,7 +8074,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 523
   min_impeller_diameter_mm: 455
-  impeller_options_mm: *id038
+  impeller_options_mm: *id040
   digitised: true
   verified: false
   datasheet_page: 47
@@ -7291,7 +8128,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 486
   min_impeller_diameter_mm: 423
-  impeller_options_mm: *id038
+  impeller_options_mm: *id040
   digitised: true
   verified: false
   datasheet_page: 47
@@ -7345,7 +8182,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 449
   min_impeller_diameter_mm: 391
-  impeller_options_mm: *id038
+  impeller_options_mm: *id040
   digitised: true
   verified: false
   datasheet_page: 47
@@ -7399,7 +8236,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 560
   min_impeller_diameter_mm: 449
-  impeller_options_mm: &id039
+  impeller_options_mm: &id041
   - 560
   - 523
   - 486
@@ -7457,7 +8294,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 523
   min_impeller_diameter_mm: 455
-  impeller_options_mm: *id039
+  impeller_options_mm: *id041
   digitised: true
   verified: false
   datasheet_page: 48
@@ -7511,7 +8348,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 486
   min_impeller_diameter_mm: 423
-  impeller_options_mm: *id039
+  impeller_options_mm: *id041
   digitised: true
   verified: false
   datasheet_page: 48
@@ -7565,7 +8402,7 @@ pumps:
   discharge_dn: 150
   impeller_diameter_mm: 449
   min_impeller_diameter_mm: 391
-  impeller_options_mm: *id039
+  impeller_options_mm: *id041
   digitised: true
   verified: false
   datasheet_page: 48
@@ -7618,8 +8455,8 @@ pumps:
   poles: 4
   discharge_dn: 200
   impeller_diameter_mm: 338
-  min_impeller_diameter_mm: 314
-  impeller_options_mm: &id040
+  min_impeller_diameter_mm: 266
+  impeller_options_mm: &id042
   - 338
   - 314
   - 290
@@ -7677,7 +8514,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 314
   min_impeller_diameter_mm: 273
-  impeller_options_mm: *id040
+  impeller_options_mm: *id042
   digitised: true
   verified: false
   datasheet_page: 49
@@ -7725,13 +8562,121 @@ pumps:
   q_bep_lps: 183.5
 - manufacturer: KSB
   series: Omega
+  model: 200-320A ø290 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 290
+  min_impeller_diameter_mm: 252
+  impeller_options_mm: *id042
+  digitised: true
+  verified: false
+  datasheet_page: 49
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 290 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 28.67
+    - 57.61
+    - 86.54
+    - 115.48
+    - 144.42
+    - 173.36
+    - 202.29
+    - 231.23
+    h_m:
+    - 32.65
+    - 31.75
+    - 30.47
+    - 28.78
+    - 26.59
+    - 23.77
+    - 20.29
+    - 16.27
+    - 11.55
+  npshr_points:
+    q_lps:
+    - 82.43
+    - 112.19
+    - 141.95
+    - 171.71
+    - 201.47
+    - 231.23
+    value_m:
+    - 3.25
+    - 3.25
+    - 3.33
+    - 3.56
+    - 4.17
+    - 5.28
+  eff_bep_pct: 85.2
+  q_bep_lps: 170.74
+- manufacturer: KSB
+  series: Omega
+  model: 200-320A ø266 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 266
+  min_impeller_diameter_mm: 231
+  impeller_options_mm: *id042
+  digitised: true
+  verified: false
+  datasheet_page: 49
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 266 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 26.3
+    - 52.86
+    - 79.43
+    - 106.0
+    - 132.56
+    - 159.13
+    - 185.7
+    - 212.26
+    h_m:
+    - 27.35
+    - 26.51
+    - 25.34
+    - 23.81
+    - 21.83
+    - 19.22
+    - 16.13
+    - 12.6
+    - 8.15
+  npshr_points:
+    q_lps:
+    - 75.62
+    - 102.95
+    - 130.28
+    - 157.61
+    - 184.93
+    - 212.26
+    value_m:
+    - 3.33
+    - 3.36
+    - 3.4
+    - 3.51
+    - 3.97
+    - 4.77
+  eff_bep_pct: 79.2
+  q_bep_lps: 160.74
+- manufacturer: KSB
+  series: Omega
   model: 200-320B ø338 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 200
   impeller_diameter_mm: 338
-  min_impeller_diameter_mm: 290
-  impeller_options_mm: &id041
+  min_impeller_diameter_mm: 266
+  impeller_options_mm: &id043
   - 338
   - 314
   - 290
@@ -7789,7 +8734,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 314
   min_impeller_diameter_mm: 273
-  impeller_options_mm: *id041
+  impeller_options_mm: *id043
   digitised: true
   verified: false
   datasheet_page: 50
@@ -7843,7 +8788,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 290
   min_impeller_diameter_mm: 252
-  impeller_options_mm: *id041
+  impeller_options_mm: *id043
   digitised: true
   verified: false
   datasheet_page: 50
@@ -7891,13 +8836,67 @@ pumps:
   q_bep_lps: 159.32
 - manufacturer: KSB
   series: Omega
+  model: 200-320B ø266 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 266
+  min_impeller_diameter_mm: 231
+  impeller_options_mm: *id043
+  digitised: true
+  verified: false
+  datasheet_page: 50
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 266 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 25.09
+    - 50.43
+    - 75.78
+    - 101.12
+    - 126.47
+    - 151.81
+    - 177.16
+    - 202.5
+    h_m:
+    - 25.87
+    - 25.15
+    - 24.16
+    - 22.86
+    - 21.15
+    - 18.85
+    - 16.02
+    - 12.69
+    - 8.22
+  npshr_points:
+    q_lps:
+    - 72.14
+    - 98.21
+    - 124.28
+    - 150.36
+    - 176.43
+    - 202.5
+    value_m:
+    - 3.08
+    - 3.1
+    - 3.18
+    - 3.33
+    - 3.7
+    - 4.38
+  eff_bep_pct: 81.5
+  q_bep_lps: 145.83
+- manufacturer: KSB
+  series: Omega
   model: 200-320C ø333 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 200
   impeller_diameter_mm: 333
   min_impeller_diameter_mm: 262
-  impeller_options_mm: &id042
+  impeller_options_mm: &id044
   - 333
   - 310
   - 286
@@ -7955,7 +8954,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 310
   min_impeller_diameter_mm: 270
-  impeller_options_mm: *id042
+  impeller_options_mm: *id044
   digitised: true
   verified: false
   datasheet_page: 51
@@ -8009,7 +9008,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 286
   min_impeller_diameter_mm: 249
-  impeller_options_mm: *id042
+  impeller_options_mm: *id044
   digitised: true
   verified: false
   datasheet_page: 51
@@ -8063,7 +9062,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 262
   min_impeller_diameter_mm: 228
-  impeller_options_mm: *id042
+  impeller_options_mm: *id044
   digitised: true
   verified: false
   datasheet_page: 51
@@ -8116,8 +9115,8 @@ pumps:
   poles: 4
   discharge_dn: 200
   impeller_diameter_mm: 415
-  min_impeller_diameter_mm: 350
-  impeller_options_mm: &id043
+  min_impeller_diameter_mm: 320
+  impeller_options_mm: &id045
   - 415
   - 380
   - 350
@@ -8175,7 +9174,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 380
   min_impeller_diameter_mm: 331
-  impeller_options_mm: *id043
+  impeller_options_mm: *id045
   digitised: true
   verified: false
   datasheet_page: 52
@@ -8229,7 +9228,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 350
   min_impeller_diameter_mm: 304
-  impeller_options_mm: *id043
+  impeller_options_mm: *id045
   digitised: true
   verified: false
   datasheet_page: 52
@@ -8277,13 +9276,67 @@ pumps:
   q_bep_lps: 164.72
 - manufacturer: KSB
   series: Omega
+  model: 200-420A ø320 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 200
+  impeller_diameter_mm: 320
+  min_impeller_diameter_mm: 278
+  impeller_options_mm: *id045
+  digitised: true
+  verified: false
+  datasheet_page: 52
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 320 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 25.93
+    - 52.15
+    - 78.37
+    - 104.58
+    - 130.8
+    - 157.02
+    - 183.23
+    - 209.45
+    h_m:
+    - 42.08
+    - 40.9
+    - 39.02
+    - 36.46
+    - 33.34
+    - 29.82
+    - 25.73
+    - 20.83
+    - 15.18
+  npshr_points:
+    q_lps:
+    - 74.6
+    - 101.57
+    - 128.54
+    - 155.51
+    - 182.48
+    - 209.45
+    value_m:
+    - 3.78
+    - 3.77
+    - 3.8
+    - 3.91
+    - 4.24
+    - 4.96
+  eff_bep_pct: 81.1
+  q_bep_lps: 151.26
+- manufacturer: KSB
+  series: Omega
   model: 200-420B ø415 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 200
   impeller_diameter_mm: 415
   min_impeller_diameter_mm: 320
-  impeller_options_mm: &id044
+  impeller_options_mm: &id046
   - 415
   - 380
   - 350
@@ -8341,7 +9394,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 380
   min_impeller_diameter_mm: 331
-  impeller_options_mm: *id044
+  impeller_options_mm: *id046
   digitised: true
   verified: false
   datasheet_page: 53
@@ -8395,7 +9448,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 350
   min_impeller_diameter_mm: 304
-  impeller_options_mm: *id044
+  impeller_options_mm: *id046
   digitised: true
   verified: false
   datasheet_page: 53
@@ -8449,7 +9502,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 320
   min_impeller_diameter_mm: 278
-  impeller_options_mm: *id044
+  impeller_options_mm: *id046
   digitised: true
   verified: false
   datasheet_page: 53
@@ -8503,7 +9556,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 530
   min_impeller_diameter_mm: 398
-  impeller_options_mm: &id045
+  impeller_options_mm: &id047
   - 530
   - 486
   - 442
@@ -8561,7 +9614,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 486
   min_impeller_diameter_mm: 423
-  impeller_options_mm: *id045
+  impeller_options_mm: *id047
   digitised: true
   verified: false
   datasheet_page: 54
@@ -8615,7 +9668,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 442
   min_impeller_diameter_mm: 385
-  impeller_options_mm: *id045
+  impeller_options_mm: *id047
   digitised: true
   verified: false
   datasheet_page: 54
@@ -8669,7 +9722,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 398
   min_impeller_diameter_mm: 346
-  impeller_options_mm: *id045
+  impeller_options_mm: *id047
   digitised: true
   verified: false
   datasheet_page: 54
@@ -8723,7 +9776,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 530
   min_impeller_diameter_mm: 398
-  impeller_options_mm: &id046
+  impeller_options_mm: &id048
   - 530
   - 486
   - 442
@@ -8781,7 +9834,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 486
   min_impeller_diameter_mm: 423
-  impeller_options_mm: *id046
+  impeller_options_mm: *id048
   digitised: true
   verified: false
   datasheet_page: 55
@@ -8835,7 +9888,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 442
   min_impeller_diameter_mm: 385
-  impeller_options_mm: *id046
+  impeller_options_mm: *id048
   digitised: true
   verified: false
   datasheet_page: 55
@@ -8889,7 +9942,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 398
   min_impeller_diameter_mm: 346
-  impeller_options_mm: *id046
+  impeller_options_mm: *id048
   digitised: true
   verified: false
   datasheet_page: 55
@@ -8943,7 +9996,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 655
   min_impeller_diameter_mm: 525
-  impeller_options_mm: &id047
+  impeller_options_mm: &id049
   - 655
   - 611
   - 568
@@ -9001,7 +10054,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 611
   min_impeller_diameter_mm: 532
-  impeller_options_mm: *id047
+  impeller_options_mm: *id049
   digitised: true
   verified: false
   datasheet_page: 56
@@ -9055,7 +10108,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 568
   min_impeller_diameter_mm: 494
-  impeller_options_mm: *id047
+  impeller_options_mm: *id049
   digitised: true
   verified: false
   datasheet_page: 56
@@ -9109,7 +10162,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 525
   min_impeller_diameter_mm: 457
-  impeller_options_mm: *id047
+  impeller_options_mm: *id049
   digitised: true
   verified: false
   datasheet_page: 56
@@ -9163,7 +10216,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 655
   min_impeller_diameter_mm: 525
-  impeller_options_mm: &id048
+  impeller_options_mm: &id050
   - 655
   - 611
   - 568
@@ -9221,7 +10274,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 611
   min_impeller_diameter_mm: 532
-  impeller_options_mm: *id048
+  impeller_options_mm: *id050
   digitised: true
   verified: false
   datasheet_page: 57
@@ -9275,7 +10328,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 568
   min_impeller_diameter_mm: 494
-  impeller_options_mm: *id048
+  impeller_options_mm: *id050
   digitised: true
   verified: false
   datasheet_page: 57
@@ -9329,7 +10382,7 @@ pumps:
   discharge_dn: 200
   impeller_diameter_mm: 525
   min_impeller_diameter_mm: 457
-  impeller_options_mm: *id048
+  impeller_options_mm: *id050
   digitised: true
   verified: false
   datasheet_page: 57
@@ -9382,8 +10435,8 @@ pumps:
   poles: 4
   discharge_dn: 250
   impeller_diameter_mm: 389
-  min_impeller_diameter_mm: 362
-  impeller_options_mm: &id049
+  min_impeller_diameter_mm: 306
+  impeller_options_mm: &id051
   - 389
   - 362
   - 334
@@ -9441,7 +10494,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 362
   min_impeller_diameter_mm: 315
-  impeller_options_mm: *id049
+  impeller_options_mm: *id051
   digitised: true
   verified: false
   datasheet_page: 58
@@ -9489,13 +10542,121 @@ pumps:
   q_bep_lps: 289.32
 - manufacturer: KSB
   series: Omega
+  model: 250-370A ø334 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 334
+  min_impeller_diameter_mm: 291
+  impeller_options_mm: *id051
+  digitised: true
+  verified: false
+  datasheet_page: 58
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 334 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 45.16
+    - 90.77
+    - 136.39
+    - 182.0
+    - 227.61
+    - 273.23
+    - 318.84
+    - 364.45
+    h_m:
+    - 40.81
+    - 39.88
+    - 38.37
+    - 36.2
+    - 33.28
+    - 29.74
+    - 25.52
+    - 20.54
+    - 14.81
+  npshr_points:
+    q_lps:
+    - 129.82
+    - 176.75
+    - 223.67
+    - 270.6
+    - 317.53
+    - 364.45
+    value_m:
+    - 4.36
+    - 4.34
+    - 4.44
+    - 4.73
+    - 5.56
+    - 7.41
+  eff_bep_pct: 83.5
+  q_bep_lps: 265.68
+- manufacturer: KSB
+  series: Omega
+  model: 250-370A ø306 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 306
+  min_impeller_diameter_mm: 266
+  impeller_options_mm: *id051
+  digitised: true
+  verified: false
+  datasheet_page: 58
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 306 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 40.42
+    - 81.29
+    - 122.16
+    - 163.04
+    - 203.91
+    - 244.78
+    - 285.65
+    - 326.53
+    h_m:
+    - 34.81
+    - 33.68
+    - 32.11
+    - 29.97
+    - 27.06
+    - 23.39
+    - 19.32
+    - 14.97
+    - 10.11
+  npshr_points:
+    q_lps:
+    - 116.35
+    - 158.39
+    - 200.42
+    - 242.46
+    - 284.49
+    - 326.53
+    value_m:
+    - 4.46
+    - 4.45
+    - 4.5
+    - 4.67
+    - 5.33
+    - 6.89
+  eff_bep_pct: 79.7
+  q_bep_lps: 249.81
+- manufacturer: KSB
+  series: Omega
   model: 250-370B ø389 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 250
   impeller_diameter_mm: 389
-  min_impeller_diameter_mm: 362
-  impeller_options_mm: &id050
+  min_impeller_diameter_mm: 306
+  impeller_options_mm: &id052
   - 389
   - 362
   - 334
@@ -9553,7 +10714,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 362
   min_impeller_diameter_mm: 315
-  impeller_options_mm: *id050
+  impeller_options_mm: *id052
   digitised: true
   verified: false
   datasheet_page: 59
@@ -9601,13 +10762,119 @@ pumps:
   q_bep_lps: 263.35
 - manufacturer: KSB
   series: Omega
+  model: 250-370B ø334 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 334
+  min_impeller_diameter_mm: 291
+  impeller_options_mm: *id052
+  digitised: true
+  verified: false
+  datasheet_page: 59
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 334 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 43.38
+    - 87.19
+    - 130.99
+    - 174.8
+    - 218.61
+    - 262.41
+    - 306.22
+    - 350.02
+    h_m:
+    - 42.09
+    - 40.55
+    - 38.55
+    - 36.05
+    - 33.01
+    - 29.68
+    - 25.97
+    - 21.33
+    - 15.29
+  npshr_points:
+    q_lps:
+    - 124.78
+    - 169.82
+    - 214.87
+    - 259.92
+    - 304.97
+    - 350.02
+    value_m:
+    - 3.67
+    - 3.64
+    - 3.77
+    - 4.11
+    - 4.97
+    - 6.72
+  eff_bep_pct: 82.7
+  q_bep_lps: 248.63
+- manufacturer: KSB
+  series: Omega
+  model: 250-370B ø306 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 306
+  min_impeller_diameter_mm: 266
+  impeller_options_mm: *id052
+  digitised: true
+  verified: false
+  datasheet_page: 59
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 306 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 40.56
+    - 81.55
+    - 122.54
+    - 163.53
+    - 204.51
+    - 245.5
+    - 286.49
+    - 327.48
+    h_m:
+    - 35.7
+    - 34.48
+    - 32.85
+    - 30.67
+    - 27.8
+    - 24.49
+    - 20.61
+    - 15.99
+    - 10.79
+  npshr_points:
+    q_lps:
+    - 116.67
+    - 158.83
+    - 200.99
+    - 243.15
+    - 285.32
+    - 327.48
+    value_m:
+    - 3.82
+    - 3.8
+    - 3.85
+    - 4.04
+    - 4.86
+    - 6.67
+- manufacturer: KSB
+  series: Omega
   model: 250-370C ø389 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 250
   impeller_diameter_mm: 389
   min_impeller_diameter_mm: 306
-  impeller_options_mm: &id051
+  impeller_options_mm: &id053
   - 389
   - 362
   - 334
@@ -9665,7 +10932,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 362
   min_impeller_diameter_mm: 315
-  impeller_options_mm: *id051
+  impeller_options_mm: *id053
   digitised: true
   verified: false
   datasheet_page: 60
@@ -9719,7 +10986,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 334
   min_impeller_diameter_mm: 291
-  impeller_options_mm: *id051
+  impeller_options_mm: *id053
   digitised: true
   verified: false
   datasheet_page: 60
@@ -9773,7 +11040,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 306
   min_impeller_diameter_mm: 266
-  impeller_options_mm: *id051
+  impeller_options_mm: *id053
   digitised: true
   verified: false
   datasheet_page: 60
@@ -9826,8 +11093,8 @@ pumps:
   poles: 4
   discharge_dn: 250
   impeller_diameter_mm: 478
-  min_impeller_diameter_mm: 403
-  impeller_options_mm: &id052
+  min_impeller_diameter_mm: 369
+  impeller_options_mm: &id054
   - 478
   - 438
   - 403
@@ -9885,7 +11152,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 438
   min_impeller_diameter_mm: 381
-  impeller_options_mm: *id052
+  impeller_options_mm: *id054
   digitised: true
   verified: false
   datasheet_page: 61
@@ -9939,7 +11206,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 403
   min_impeller_diameter_mm: 351
-  impeller_options_mm: *id052
+  impeller_options_mm: *id054
   digitised: true
   verified: false
   datasheet_page: 61
@@ -9987,13 +11254,67 @@ pumps:
   q_bep_lps: 283.64
 - manufacturer: KSB
   series: Omega
+  model: 250-480A ø369 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 369
+  min_impeller_diameter_mm: 321
+  impeller_options_mm: *id054
+  digitised: true
+  verified: false
+  datasheet_page: 61
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 369 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 49.47
+    - 99.39
+    - 149.31
+    - 199.22
+    - 249.14
+    - 299.06
+    - 348.98
+    - 398.89
+    h_m:
+    - 53.19
+    - 51.28
+    - 49.07
+    - 46.34
+    - 42.65
+    - 38.04
+    - 32.18
+    - 25.18
+    - 15.68
+  npshr_points:
+    q_lps:
+    - 128.33
+    - 182.45
+    - 236.56
+    - 290.67
+    - 344.78
+    - 398.9
+    value_m:
+    - 3.81
+    - 3.87
+    - 3.92
+    - 4.07
+    - 4.71
+    - 10.93
+  eff_bep_pct: 81.3
+  q_bep_lps: 261.02
+- manufacturer: KSB
+  series: Omega
   model: 250-480B ø478 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 250
   impeller_diameter_mm: 478
-  min_impeller_diameter_mm: 438
-  impeller_options_mm: &id053
+  min_impeller_diameter_mm: 369
+  impeller_options_mm: &id055
   - 478
   - 438
   - 403
@@ -10051,7 +11372,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 438
   min_impeller_diameter_mm: 381
-  impeller_options_mm: *id053
+  impeller_options_mm: *id055
   digitised: true
   verified: false
   datasheet_page: 62
@@ -10099,13 +11420,121 @@ pumps:
   q_bep_lps: 274.63
 - manufacturer: KSB
   series: Omega
+  model: 250-480B ø403 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 403
+  min_impeller_diameter_mm: 351
+  impeller_options_mm: *id055
+  digitised: true
+  verified: false
+  datasheet_page: 62
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 403 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 44.56
+    - 89.47
+    - 134.39
+    - 179.3
+    - 224.22
+    - 269.13
+    - 314.04
+    - 358.96
+    h_m:
+    - 60.7
+    - 58.03
+    - 54.87
+    - 51.3
+    - 47.27
+    - 42.47
+    - 36.9
+    - 30.4
+    - 21.7
+  npshr_points:
+    q_lps:
+    - 123.4
+    - 170.51
+    - 217.62
+    - 264.73
+    - 311.85
+    - 358.96
+    value_m:
+    - 2.5
+    - 2.61
+    - 2.72
+    - 3.02
+    - 4.63
+    - 9.99
+  eff_bep_pct: 82.3
+  q_bep_lps: 248.59
+- manufacturer: KSB
+  series: Omega
+  model: 250-480B ø369 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 250
+  impeller_diameter_mm: 369
+  min_impeller_diameter_mm: 321
+  impeller_options_mm: *id055
+  digitised: true
+  verified: false
+  datasheet_page: 62
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 369 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 41.56
+    - 83.48
+    - 125.4
+    - 167.32
+    - 209.24
+    - 251.16
+    - 293.08
+    - 335.0
+    h_m:
+    - 50.99
+    - 48.86
+    - 46.48
+    - 43.72
+    - 40.19
+    - 35.88
+    - 30.94
+    - 24.67
+    - 16.7
+  npshr_points:
+    q_lps:
+    - 111.42
+    - 156.13
+    - 200.85
+    - 245.57
+    - 290.28
+    - 335.0
+    value_m:
+    - 2.67
+    - 2.64
+    - 2.68
+    - 3.0
+    - 4.19
+    - 7.93
+  eff_bep_pct: 80.1
+  q_bep_lps: 237.27
+- manufacturer: KSB
+  series: Omega
   model: 250-600A ø610 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 250
   impeller_diameter_mm: 610
   min_impeller_diameter_mm: 475
-  impeller_options_mm: &id054
+  impeller_options_mm: &id056
   - 610
   - 568
   - 520
@@ -10163,7 +11592,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 568
   min_impeller_diameter_mm: 494
-  impeller_options_mm: *id054
+  impeller_options_mm: *id056
   digitised: true
   verified: false
   datasheet_page: 63
@@ -10217,7 +11646,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 520
   min_impeller_diameter_mm: 452
-  impeller_options_mm: *id054
+  impeller_options_mm: *id056
   digitised: true
   verified: false
   datasheet_page: 63
@@ -10271,7 +11700,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 475
   min_impeller_diameter_mm: 413
-  impeller_options_mm: *id054
+  impeller_options_mm: *id056
   digitised: true
   verified: false
   datasheet_page: 63
@@ -10325,7 +11754,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 610
   min_impeller_diameter_mm: 475
-  impeller_options_mm: &id055
+  impeller_options_mm: &id057
   - 610
   - 568
   - 520
@@ -10368,7 +11797,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 568
   min_impeller_diameter_mm: 494
-  impeller_options_mm: *id055
+  impeller_options_mm: *id057
   digitised: true
   verified: false
   datasheet_page: 64
@@ -10407,7 +11836,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 520
   min_impeller_diameter_mm: 452
-  impeller_options_mm: *id055
+  impeller_options_mm: *id057
   digitised: true
   verified: false
   datasheet_page: 64
@@ -10446,7 +11875,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 475
   min_impeller_diameter_mm: 413
-  impeller_options_mm: *id055
+  impeller_options_mm: *id057
   digitised: true
   verified: false
   datasheet_page: 64
@@ -10485,7 +11914,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 764
   min_impeller_diameter_mm: 612
-  impeller_options_mm: &id056
+  impeller_options_mm: &id058
   - 764
   - 713
   - 663
@@ -10543,7 +11972,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 713
   min_impeller_diameter_mm: 620
-  impeller_options_mm: *id056
+  impeller_options_mm: *id058
   digitised: true
   verified: false
   datasheet_page: 65
@@ -10597,7 +12026,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 663
   min_impeller_diameter_mm: 577
-  impeller_options_mm: *id056
+  impeller_options_mm: *id058
   digitised: true
   verified: false
   datasheet_page: 65
@@ -10651,7 +12080,7 @@ pumps:
   discharge_dn: 250
   impeller_diameter_mm: 612
   min_impeller_diameter_mm: 532
-  impeller_options_mm: *id056
+  impeller_options_mm: *id058
   digitised: true
   verified: false
   datasheet_page: 65
@@ -10699,13 +12128,13 @@ pumps:
   q_bep_lps: 277.1
 - manufacturer: KSB
   series: Omega
-  model: 300-300A (1450rpm)
+  model: 300-300A ø330 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 300
   impeller_diameter_mm: 330
-  min_impeller_diameter_mm: 330
-  impeller_options_mm:
+  min_impeller_diameter_mm: 287
+  impeller_options_mm: &id059
   - 330
   - 315
   - 302
@@ -10758,13 +12187,175 @@ pumps:
   q_bep_lps: 313.85
 - manufacturer: KSB
   series: Omega
+  model: 300-300A ø315 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 315
+  min_impeller_diameter_mm: 274
+  impeller_options_mm: *id059
+  digitised: true
+  verified: false
+  datasheet_page: 66
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 315 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 50.33
+    - 101.12
+    - 151.91
+    - 202.69
+    - 253.48
+    - 304.27
+    - 355.06
+    - 405.84
+    h_m:
+    - 33.6
+    - 32.94
+    - 31.56
+    - 29.42
+    - 26.64
+    - 23.47
+    - 19.9
+    - 15.83
+    - 11.29
+  npshr_points:
+    q_lps:
+    - 146.54
+    - 199.29
+    - 252.03
+    - 304.77
+    - 357.51
+    - 410.26
+    value_m:
+    - 4.36
+    - 4.4
+    - 4.52
+    - 4.76
+    - 5.66
+    - 7.81
+  eff_bep_pct: 85.0
+  q_bep_lps: 306.24
+- manufacturer: KSB
+  series: Omega
+  model: 300-300A ø302 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 302
+  min_impeller_diameter_mm: 263
+  impeller_options_mm: *id059
+  digitised: true
+  verified: false
+  datasheet_page: 66
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 302 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 48.64
+    - 97.73
+    - 146.82
+    - 195.91
+    - 245.0
+    - 294.1
+    - 343.19
+    - 392.28
+    h_m:
+    - 31.03
+    - 30.16
+    - 28.72
+    - 26.64
+    - 23.9
+    - 20.79
+    - 17.31
+    - 13.32
+    - 8.94
+  npshr_points:
+    q_lps:
+    - 141.44
+    - 192.5
+    - 243.57
+    - 294.63
+    - 345.69
+    - 396.76
+    value_m:
+    - 4.55
+    - 4.58
+    - 4.68
+    - 4.88
+    - 5.63
+    - 7.6
+  eff_bep_pct: 82.9
+  q_bep_lps: 293.87
+- manufacturer: KSB
+  series: Omega
+  model: 300-300A ø287 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 287
+  min_impeller_diameter_mm: 250
+  impeller_options_mm: *id059
+  digitised: true
+  verified: false
+  datasheet_page: 66
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 287 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 46.97
+    - 94.4
+    - 141.82
+    - 189.25
+    - 236.67
+    - 284.1
+    - 331.52
+    - 378.95
+    h_m:
+    - 27.63
+    - 26.74
+    - 25.35
+    - 23.41
+    - 20.86
+    - 17.88
+    - 14.51
+    - 10.74
+    - 6.61
+  npshr_points:
+    q_lps:
+    - 134.33
+    - 183.25
+    - 232.18
+    - 281.1
+    - 330.02
+    - 378.95
+    value_m:
+    - 4.75
+    - 4.8
+    - 4.87
+    - 5.02
+    - 5.58
+    - 7.24
+  eff_bep_pct: 80.0
+  q_bep_lps: 286.0
+- manufacturer: KSB
+  series: Omega
   model: 300-300B ø330 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 300
   impeller_diameter_mm: 330
-  min_impeller_diameter_mm: 315
-  impeller_options_mm: &id057
+  min_impeller_diameter_mm: 287
+  impeller_options_mm: &id060
   - 330
   - 315
   - 302
@@ -10823,7 +12414,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 315
   min_impeller_diameter_mm: 274
-  impeller_options_mm: *id057
+  impeller_options_mm: *id060
   digitised: true
   verified: false
   datasheet_page: 67
@@ -10871,13 +12462,119 @@ pumps:
   q_bep_lps: 254.5
 - manufacturer: KSB
   series: Omega
+  model: 300-300B ø302 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 302
+  min_impeller_diameter_mm: 263
+  impeller_options_mm: *id060
+  digitised: true
+  verified: false
+  datasheet_page: 67
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 302 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 41.2
+    - 82.8
+    - 124.4
+    - 166.0
+    - 207.59
+    - 249.19
+    - 290.79
+    - 332.38
+    h_m:
+    - 29.62
+    - 28.91
+    - 27.63
+    - 25.8
+    - 23.51
+    - 20.77
+    - 17.68
+    - 14.27
+    - 10.45
+  npshr_points:
+    q_lps:
+    - 120.73
+    - 163.44
+    - 206.15
+    - 248.86
+    - 291.57
+    - 334.28
+    value_m:
+    - 3.23
+    - 3.3
+    - 3.41
+    - 3.62
+    - 5.04
+    - 8.84
+  eff_bep_pct: 77.6
+  q_bep_lps: 228.58
+- manufacturer: KSB
+  series: Omega
+  model: 300-300B ø287 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 287
+  min_impeller_diameter_mm: 250
+  impeller_options_mm: *id060
+  digitised: true
+  verified: false
+  datasheet_page: 67
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 287 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 40.55
+    - 81.5
+    - 122.44
+    - 163.38
+    - 204.33
+    - 245.27
+    - 286.21
+    - 327.16
+    h_m:
+    - 27.17
+    - 26.28
+    - 24.91
+    - 23.07
+    - 20.77
+    - 18.03
+    - 14.97
+    - 11.62
+    - 7.87
+  npshr_points:
+    q_lps:
+    - 116.43
+    - 158.57
+    - 200.72
+    - 242.87
+    - 285.01
+    - 327.16
+    value_m:
+    - 3.36
+    - 3.42
+    - 3.52
+    - 3.72
+    - 4.94
+    - 8.32
+- manufacturer: KSB
+  series: Omega
   model: 300-435A ø450 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 300
   impeller_diameter_mm: 450
-  min_impeller_diameter_mm: 386
-  impeller_options_mm: &id058
+  min_impeller_diameter_mm: 354
+  impeller_options_mm: &id061
   - 450
   - 418
   - 386
@@ -10920,7 +12617,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 418
   min_impeller_diameter_mm: 364
-  impeller_options_mm: *id058
+  impeller_options_mm: *id061
   digitised: true
   verified: false
   datasheet_page: 68
@@ -10959,7 +12656,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 386
   min_impeller_diameter_mm: 336
-  impeller_options_mm: *id058
+  impeller_options_mm: *id061
   digitised: true
   verified: false
   datasheet_page: 68
@@ -10992,13 +12689,52 @@ pumps:
   q_bep_lps: 419.83
 - manufacturer: KSB
   series: Omega
+  model: 300-435A ø354 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 354
+  min_impeller_diameter_mm: 308
+  impeller_options_mm: *id061
+  digitised: true
+  verified: false
+  datasheet_page: 68
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 354 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 66.47
+    - 133.77
+    - 201.07
+    - 268.37
+    - 335.67
+    - 402.97
+    - 470.26
+    - 537.56
+    h_m:
+    - 46.06
+    - 45.1
+    - 43.24
+    - 40.36
+    - 36.55
+    - 32.04
+    - 26.87
+    - 21.02
+    - 14.49
+  eff_bep_pct: 79.5
+  q_bep_lps: 401.67
+- manufacturer: KSB
+  series: Omega
   model: 300-435B ø450 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 300
   impeller_diameter_mm: 450
-  min_impeller_diameter_mm: 418
-  impeller_options_mm: &id059
+  min_impeller_diameter_mm: 354
+  impeller_options_mm: &id062
   - 450
   - 418
   - 386
@@ -11056,7 +12792,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 418
   min_impeller_diameter_mm: 364
-  impeller_options_mm: *id059
+  impeller_options_mm: *id062
   digitised: true
   verified: false
   datasheet_page: 69
@@ -11104,13 +12840,121 @@ pumps:
   q_bep_lps: 443.49
 - manufacturer: KSB
   series: Omega
+  model: 300-435B ø386 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 386
+  min_impeller_diameter_mm: 336
+  impeller_options_mm: *id062
+  digitised: true
+  verified: false
+  datasheet_page: 69
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 386 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 70.1
+    - 140.96
+    - 211.82
+    - 282.68
+    - 353.55
+    - 424.41
+    - 495.27
+    - 566.14
+    h_m:
+    - 54.98
+    - 53.55
+    - 51.25
+    - 48.37
+    - 44.98
+    - 40.54
+    - 34.89
+    - 28.19
+    - 19.99
+  npshr_points:
+    q_lps:
+    - 197.45
+    - 271.19
+    - 344.92
+    - 418.66
+    - 492.4
+    - 566.14
+    value_m:
+    - 4.8
+    - 4.86
+    - 5.04
+    - 5.45
+    - 6.81
+    - 10.02
+  eff_bep_pct: 85.4
+  q_bep_lps: 398.64
+- manufacturer: KSB
+  series: Omega
+  model: 300-435B ø354 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 354
+  min_impeller_diameter_mm: 308
+  impeller_options_mm: *id062
+  digitised: true
+  verified: false
+  datasheet_page: 69
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 354 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 65.28
+    - 131.32
+    - 197.36
+    - 263.4
+    - 329.45
+    - 395.49
+    - 461.53
+    - 527.57
+    h_m:
+    - 46.73
+    - 44.89
+    - 42.44
+    - 39.66
+    - 36.61
+    - 32.94
+    - 28.2
+    - 22.45
+    - 15.74
+  npshr_points:
+    q_lps:
+    - 183.93
+    - 252.66
+    - 321.39
+    - 390.11
+    - 458.84
+    - 527.57
+    value_m:
+    - 5.13
+    - 5.12
+    - 5.2
+    - 5.45
+    - 6.39
+    - 8.83
+  eff_bep_pct: 83.1
+  q_bep_lps: 389.76
+- manufacturer: KSB
+  series: Omega
   model: 300-435C ø448 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 300
   impeller_diameter_mm: 448
   min_impeller_diameter_mm: 352
-  impeller_options_mm: &id060
+  impeller_options_mm: &id063
   - 448
   - 417
   - 385
@@ -11153,7 +12997,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 417
   min_impeller_diameter_mm: 363
-  impeller_options_mm: *id060
+  impeller_options_mm: *id063
   digitised: true
   verified: false
   datasheet_page: 70
@@ -11192,7 +13036,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 385
   min_impeller_diameter_mm: 335
-  impeller_options_mm: *id060
+  impeller_options_mm: *id063
   digitised: true
   verified: false
   datasheet_page: 70
@@ -11231,7 +13075,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 352
   min_impeller_diameter_mm: 306
-  impeller_options_mm: *id060
+  impeller_options_mm: *id063
   digitised: true
   verified: false
   datasheet_page: 70
@@ -11270,7 +13114,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 553
   min_impeller_diameter_mm: 426
-  impeller_options_mm: &id061
+  impeller_options_mm: &id064
   - 553
   - 506
   - 466
@@ -11328,7 +13172,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 506
   min_impeller_diameter_mm: 440
-  impeller_options_mm: *id061
+  impeller_options_mm: *id064
   digitised: true
   verified: false
   datasheet_page: 71
@@ -11382,7 +13226,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 466
   min_impeller_diameter_mm: 405
-  impeller_options_mm: *id061
+  impeller_options_mm: *id064
   digitised: true
   verified: false
   datasheet_page: 71
@@ -11436,7 +13280,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 426
   min_impeller_diameter_mm: 371
-  impeller_options_mm: *id061
+  impeller_options_mm: *id064
   digitised: true
   verified: false
   datasheet_page: 71
@@ -11490,7 +13334,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 553
   min_impeller_diameter_mm: 426
-  impeller_options_mm: &id062
+  impeller_options_mm: &id065
   - 553
   - 506
   - 466
@@ -11548,7 +13392,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 506
   min_impeller_diameter_mm: 440
-  impeller_options_mm: *id062
+  impeller_options_mm: *id065
   digitised: true
   verified: false
   datasheet_page: 72
@@ -11602,7 +13446,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 466
   min_impeller_diameter_mm: 405
-  impeller_options_mm: *id062
+  impeller_options_mm: *id065
   digitised: true
   verified: false
   datasheet_page: 72
@@ -11656,7 +13500,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 426
   min_impeller_diameter_mm: 371
-  impeller_options_mm: *id062
+  impeller_options_mm: *id065
   digitised: true
   verified: false
   datasheet_page: 72
@@ -11710,7 +13554,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 705
   min_impeller_diameter_mm: 550
-  impeller_options_mm: &id063
+  impeller_options_mm: &id066
   - 705
   - 655
   - 600
@@ -11753,7 +13597,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 655
   min_impeller_diameter_mm: 570
-  impeller_options_mm: *id063
+  impeller_options_mm: *id066
   digitised: true
   verified: false
   datasheet_page: 73
@@ -11792,7 +13636,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 600
   min_impeller_diameter_mm: 522
-  impeller_options_mm: *id063
+  impeller_options_mm: *id066
   digitised: true
   verified: false
   datasheet_page: 73
@@ -11831,7 +13675,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 550
   min_impeller_diameter_mm: 478
-  impeller_options_mm: *id063
+  impeller_options_mm: *id066
   digitised: true
   verified: false
   datasheet_page: 73
@@ -11870,7 +13714,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: null
   min_impeller_diameter_mm: null
-  impeller_options_mm: *id063
+  impeller_options_mm: *id066
   digitised: true
   verified: false
   datasheet_page: 73
@@ -11907,7 +13751,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 655
   min_impeller_diameter_mm: 550
-  impeller_options_mm: &id064
+  impeller_options_mm: &id067
   - 705
   - 655
   - 600
@@ -11965,7 +13809,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 600
   min_impeller_diameter_mm: 522
-  impeller_options_mm: *id064
+  impeller_options_mm: *id067
   digitised: true
   verified: false
   datasheet_page: 74
@@ -12019,7 +13863,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: 550
   min_impeller_diameter_mm: 478
-  impeller_options_mm: *id064
+  impeller_options_mm: *id067
   digitised: true
   verified: false
   datasheet_page: 74
@@ -12071,7 +13915,7 @@ pumps:
   discharge_dn: 300
   impeller_diameter_mm: null
   min_impeller_diameter_mm: null
-  impeller_options_mm: *id064
+  impeller_options_mm: *id067
   digitised: true
   verified: false
   datasheet_page: 74
@@ -12117,13 +13961,164 @@ pumps:
     - 8.01
 - manufacturer: KSB
   series: Omega
-  model: 350-360B (1450rpm)
+  model: 350-360A ø382 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 350
   impeller_diameter_mm: 382
-  min_impeller_diameter_mm: 382
-  impeller_options_mm:
+  min_impeller_diameter_mm: 332
+  impeller_options_mm: &id068
+  - 382
+  - 350
+  - 332
+  - 308
+  digitised: true
+  verified: false
+  datasheet_page: 75
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 382 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 83.08
+    - 166.96
+    - 250.84
+    - 334.72
+    - 418.59
+    - 502.47
+    - 586.35
+    - 670.23
+    h_m:
+    - 47.54
+    - 47.16
+    - 45.78
+    - 43.39
+    - 40.04
+    - 35.67
+    - 30.4
+    - 24.25
+    - 16.79
+  npshr_points:
+    q_lps:
+    - 119.01
+    - 229.25
+    - 339.49
+    - 449.74
+    - 559.98
+    - 670.23
+    value_m:
+    - 5.87
+    - 5.91
+    - 5.91
+    - 6.3
+    - 7.62
+    - 11.55
+  eff_bep_pct: 86.0
+  q_bep_lps: 489.34
+- manufacturer: KSB
+  series: Omega
+  model: 350-360A ø350 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 350
+  min_impeller_diameter_mm: 304
+  impeller_options_mm: *id068
+  digitised: true
+  verified: false
+  datasheet_page: 75
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 350 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 78.78
+    - 158.35
+    - 237.92
+    - 317.49
+    - 397.06
+    - 476.63
+    - 556.21
+    - 635.78
+    h_m:
+    - 39.63
+    - 39.43
+    - 38.2
+    - 35.95
+    - 32.75
+    - 28.71
+    - 23.85
+    - 18.04
+    - 10.97
+  eff_bep_pct: 83.4
+  q_bep_lps: 474.81
+- manufacturer: KSB
+  series: Omega
+  model: 350-360A ø332 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 332
+  min_impeller_diameter_mm: 289
+  impeller_options_mm: *id068
+  digitised: true
+  verified: false
+  datasheet_page: 75
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 332 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 76.53
+    - 153.85
+    - 231.17
+    - 308.49
+    - 385.81
+    - 463.13
+    - 540.45
+    - 617.77
+    h_m:
+    - 35.29
+    - 35.1
+    - 33.85
+    - 31.67
+    - 28.68
+    - 24.96
+    - 20.38
+    - 14.85
+    - 8.29
+  npshr_points:
+    q_lps:
+    - 112.78
+    - 217.53
+    - 322.27
+    - 427.01
+    - 531.76
+    - 636.5
+    value_m:
+    - 6.22
+    - 6.19
+    - 6.25
+    - 6.56
+    - 7.73
+    - 11.48
+  eff_bep_pct: 82.1
+  q_bep_lps: 464.9
+- manufacturer: KSB
+  series: Omega
+  model: 350-360B ø382 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 382
+  min_impeller_diameter_mm: 308
+  impeller_options_mm: &id069
   - 382
   - 350
   - 332
@@ -12160,13 +14155,130 @@ pumps:
   q_bep_lps: 399.25
 - manufacturer: KSB
   series: Omega
-  model: 350-430A (1450rpm)
+  model: 350-360B ø350 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 350
+  min_impeller_diameter_mm: 304
+  impeller_options_mm: *id069
+  digitised: true
+  verified: false
+  datasheet_page: 76
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 350 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 63.17
+    - 127.17
+    - 191.17
+    - 255.16
+    - 319.16
+    - 383.16
+    - 447.15
+    - 511.15
+    h_m:
+    - 39.2
+    - 38.3
+    - 36.33
+    - 33.8
+    - 30.98
+    - 27.75
+    - 23.8
+    - 19.19
+    - 14.16
+  eff_bep_pct: 83.6
+  q_bep_lps: 374.51
+- manufacturer: KSB
+  series: Omega
+  model: 350-360B ø332 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 332
+  min_impeller_diameter_mm: 289
+  impeller_options_mm: *id069
+  digitised: true
+  verified: false
+  datasheet_page: 76
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 332 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 61.33
+    - 123.49
+    - 185.65
+    - 247.81
+    - 309.96
+    - 372.12
+    - 434.28
+    - 496.44
+    h_m:
+    - 35.47
+    - 34.47
+    - 32.51
+    - 30.05
+    - 27.32
+    - 24.56
+    - 20.89
+    - 16.32
+    - 11.73
+  eff_bep_pct: 82.3
+  q_bep_lps: 368.05
+- manufacturer: KSB
+  series: Omega
+  model: 350-360B ø308 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 308
+  min_impeller_diameter_mm: 268
+  impeller_options_mm: *id069
+  digitised: true
+  verified: false
+  datasheet_page: 76
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 308 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 58.56
+    - 117.95
+    - 177.33
+    - 236.72
+    - 296.1
+    - 355.49
+    - 414.87
+    - 474.26
+    h_m:
+    - 30.28
+    - 29.21
+    - 27.53
+    - 25.37
+    - 22.76
+    - 19.58
+    - 15.84
+    - 11.78
+    - 7.44
+  eff_bep_pct: 78.2
+  q_bep_lps: 333.38
+- manufacturer: KSB
+  series: Omega
+  model: 350-430A ø440 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 350
   impeller_diameter_mm: 440
-  min_impeller_diameter_mm: 440
-  impeller_options_mm:
+  min_impeller_diameter_mm: 355
+  impeller_options_mm: &id070
   - 440
   - 402
   - 382
@@ -12203,13 +14315,130 @@ pumps:
   q_bep_lps: 763.34
 - manufacturer: KSB
   series: Omega
-  model: 350-430B (1450rpm)
+  model: 350-430A ø402 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 402
+  min_impeller_diameter_mm: 350
+  impeller_options_mm: *id070
+  digitised: true
+  verified: false
+  datasheet_page: 77
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 402 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 118.05
+    - 237.32
+    - 356.59
+    - 475.86
+    - 595.12
+    - 714.39
+    - 833.66
+    - 952.93
+    h_m:
+    - 54.37
+    - 51.64
+    - 48.61
+    - 45.31
+    - 41.72
+    - 37.78
+    - 33.03
+    - 27.11
+    - 19.63
+  eff_bep_pct: 83.3
+  q_bep_lps: 730.69
+- manufacturer: KSB
+  series: Omega
+  model: 350-430A ø382 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 382
+  min_impeller_diameter_mm: 332
+  impeller_options_mm: *id070
+  digitised: true
+  verified: false
+  datasheet_page: 77
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 382 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 114.61
+    - 230.43
+    - 346.26
+    - 462.09
+    - 577.91
+    - 693.74
+    - 809.57
+    - 925.39
+    h_m:
+    - 48.75
+    - 46.12
+    - 43.28
+    - 40.2
+    - 36.74
+    - 32.79
+    - 28.08
+    - 22.59
+    - 15.76
+  eff_bep_pct: 82.0
+  q_bep_lps: 718.16
+- manufacturer: KSB
+  series: Omega
+  model: 350-430A ø355 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 355
+  min_impeller_diameter_mm: 309
+  impeller_options_mm: *id070
+  digitised: true
+  verified: false
+  datasheet_page: 77
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 355 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 112.36
+    - 225.94
+    - 339.52
+    - 453.11
+    - 566.69
+    - 680.27
+    - 793.85
+    - 907.43
+    h_m:
+    - 41.76
+    - 39.55
+    - 36.53
+    - 33.25
+    - 29.89
+    - 26.17
+    - 21.49
+    - 16.07
+    - 9.76
+  eff_bep_pct: 79.0
+  q_bep_lps: 690.78
+- manufacturer: KSB
+  series: Omega
+  model: 350-430B ø440 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 350
   impeller_diameter_mm: 440
-  min_impeller_diameter_mm: 440
-  impeller_options_mm:
+  min_impeller_diameter_mm: 355
+  impeller_options_mm: &id071
   - 440
   - 402
   - 382
@@ -12246,13 +14475,130 @@ pumps:
   q_bep_lps: 637.33
 - manufacturer: KSB
   series: Omega
+  model: 350-430B ø402 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 402
+  min_impeller_diameter_mm: 350
+  impeller_options_mm: *id071
+  digitised: true
+  verified: false
+  datasheet_page: 78
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 402 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 99.57
+    - 200.11
+    - 300.65
+    - 401.19
+    - 501.73
+    - 602.27
+    - 702.81
+    - 803.35
+    h_m:
+    - 53.48
+    - 52.2
+    - 49.49
+    - 46.07
+    - 42.26
+    - 37.57
+    - 32.11
+    - 26.07
+    - 19.32
+  eff_bep_pct: 84.2
+  q_bep_lps: 585.32
+- manufacturer: KSB
+  series: Omega
+  model: 350-430B ø382 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 382
+  min_impeller_diameter_mm: 332
+  impeller_options_mm: *id071
+  digitised: true
+  verified: false
+  datasheet_page: 78
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 382 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 97.01
+    - 194.98
+    - 292.95
+    - 390.92
+    - 488.89
+    - 586.86
+    - 684.83
+    - 782.8
+    h_m:
+    - 48.67
+    - 47.23
+    - 44.57
+    - 41.21
+    - 37.42
+    - 32.88
+    - 27.75
+    - 22.22
+    - 16.03
+  eff_bep_pct: 82.5
+  q_bep_lps: 562.46
+- manufacturer: KSB
+  series: Omega
+  model: 350-430B ø355 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 355
+  min_impeller_diameter_mm: 309
+  impeller_options_mm: *id071
+  digitised: true
+  verified: false
+  datasheet_page: 78
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 355 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 92.64
+    - 186.24
+    - 279.84
+    - 373.44
+    - 467.04
+    - 560.64
+    - 654.24
+    - 747.84
+    h_m:
+    - 41.43
+    - 40.03
+    - 37.69
+    - 34.66
+    - 31.1
+    - 26.72
+    - 21.62
+    - 16.15
+    - 10.23
+  eff_bep_pct: 79.2
+  q_bep_lps: 518.81
+- manufacturer: KSB
+  series: Omega
   model: 350-510A ø518 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 350
   impeller_diameter_mm: 518
-  min_impeller_diameter_mm: 445
-  impeller_options_mm: &id065
+  min_impeller_diameter_mm: 408
+  impeller_options_mm: &id072
   - 518
   - 482
   - 445
@@ -12310,7 +14656,7 @@ pumps:
   discharge_dn: 350
   impeller_diameter_mm: 482
   min_impeller_diameter_mm: 419
-  impeller_options_mm: *id065
+  impeller_options_mm: *id072
   digitised: true
   verified: false
   datasheet_page: 79
@@ -12364,7 +14710,7 @@ pumps:
   discharge_dn: 350
   impeller_diameter_mm: 445
   min_impeller_diameter_mm: 387
-  impeller_options_mm: *id065
+  impeller_options_mm: *id072
   digitised: true
   verified: false
   datasheet_page: 79
@@ -12412,13 +14758,67 @@ pumps:
   q_bep_lps: 629.67
 - manufacturer: KSB
   series: Omega
+  model: 350-510A ø408 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 408
+  min_impeller_diameter_mm: 355
+  impeller_options_mm: *id072
+  digitised: true
+  verified: false
+  datasheet_page: 79
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 408 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 98.86
+    - 198.95
+    - 299.05
+    - 399.15
+    - 499.24
+    - 599.34
+    - 699.44
+    - 799.53
+    h_m:
+    - 58.16
+    - 56.59
+    - 54.1
+    - 50.64
+    - 46.21
+    - 40.82
+    - 34.73
+    - 28.0
+    - 20.13
+  npshr_points:
+    q_lps:
+    - 290.74
+    - 395.89
+    - 501.03
+    - 606.18
+    - 711.32
+    - 816.47
+    value_m:
+    - 7.74
+    - 7.8
+    - 7.93
+    - 8.24
+    - 9.26
+    - 11.24
+  eff_bep_pct: 81.3
+  q_bep_lps: 556.53
+- manufacturer: KSB
+  series: Omega
   model: 350-510B ø518 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 350
   impeller_diameter_mm: 518
-  min_impeller_diameter_mm: 445
-  impeller_options_mm: &id066
+  min_impeller_diameter_mm: 408
+  impeller_options_mm: &id073
   - 518
   - 482
   - 445
@@ -12476,7 +14876,7 @@ pumps:
   discharge_dn: 350
   impeller_diameter_mm: 482
   min_impeller_diameter_mm: 419
-  impeller_options_mm: *id066
+  impeller_options_mm: *id073
   digitised: true
   verified: false
   datasheet_page: 80
@@ -12530,7 +14930,7 @@ pumps:
   discharge_dn: 350
   impeller_diameter_mm: 445
   min_impeller_diameter_mm: 387
-  impeller_options_mm: *id066
+  impeller_options_mm: *id073
   digitised: true
   verified: false
   datasheet_page: 80
@@ -12578,13 +14978,67 @@ pumps:
   q_bep_lps: 615.41
 - manufacturer: KSB
   series: Omega
+  model: 350-510B ø408 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 350
+  impeller_diameter_mm: 408
+  min_impeller_diameter_mm: 355
+  impeller_options_mm: *id073
+  digitised: true
+  verified: false
+  datasheet_page: 80
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 408 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 98.69
+    - 198.54
+    - 298.4
+    - 398.25
+    - 498.1
+    - 597.95
+    - 697.8
+    - 797.66
+    h_m:
+    - 60.19
+    - 59.29
+    - 56.84
+    - 53.3
+    - 48.94
+    - 43.67
+    - 37.08
+    - 29.19
+    - 20.19
+  npshr_points:
+    q_lps:
+    - 278.38
+    - 382.23
+    - 486.09
+    - 589.94
+    - 693.8
+    - 797.66
+    value_m:
+    - 7.45
+    - 7.51
+    - 7.66
+    - 7.97
+    - 8.71
+    - 10.05
+  eff_bep_pct: 83.0
+  q_bep_lps: 582.85
+- manufacturer: KSB
+  series: Omega
   model: 350-510C ø518 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 350
   impeller_diameter_mm: 518
   min_impeller_diameter_mm: 407
-  impeller_options_mm: &id067
+  impeller_options_mm: &id074
   - 518
   - 482
   - 445
@@ -12642,7 +15096,7 @@ pumps:
   discharge_dn: 350
   impeller_diameter_mm: 482
   min_impeller_diameter_mm: 419
-  impeller_options_mm: *id067
+  impeller_options_mm: *id074
   digitised: true
   verified: false
   datasheet_page: 81
@@ -12696,7 +15150,7 @@ pumps:
   discharge_dn: 350
   impeller_diameter_mm: 445
   min_impeller_diameter_mm: 387
-  impeller_options_mm: *id067
+  impeller_options_mm: *id074
   digitised: true
   verified: false
   datasheet_page: 81
@@ -12750,7 +15204,7 @@ pumps:
   discharge_dn: 350
   impeller_diameter_mm: 407
   min_impeller_diameter_mm: 354
-  impeller_options_mm: *id067
+  impeller_options_mm: *id074
   digitised: true
   verified: false
   datasheet_page: 81
