@@ -37,10 +37,13 @@ and `README.txt` (this, condensed).
 
 4. **Import the macro.** Developer ▸ Visual Basic ▸ File ▸ Import File… ▸
    `pumpsizer.bas`. You should see a module named `pumpsizer` with one sub,
-   `RunPumpsizer`.
+   `RunPumpsizer`. It calls `RunPython` via `Application.Run "xlwings.xlam!…"`,
+   so the workbook needs **no** Tools ▸ References entry for xlwings — just the
+   loaded add-in from step 2.
 
 5. **Add the button.** On the Input sheet: Developer ▸ Insert ▸ Form Control ▸
-   Button. Draw it, and in the "Assign Macro" dialog pick `RunPumpsizer`.
+   Button. Draw it, and in the "Assign Macro" dialog pick `RunPumpsizer`. The
+   first click is slow (~30 s) while Python and SciPy load; later runs are quick.
 
 ### Shortcut: a ready-made `.xlsm`
 
@@ -65,12 +68,15 @@ the user just enables macros and clicks.
 ## Using it
 
 1. Fill the **Input** sheet (and the `Segments` / `Fittings` sheets if present).
-2. Click the button.
+2. Click the button. (First click ~30 s; nothing shows until it finishes.)
 3. The engine writes `<workbook-name>-results.xlsx` next to the workbook and
-   brings it to the front — Summary, Curves, EPANET, Selection, Surge, Report
-   sheets, exactly as `pumpsizer excel` produces headless.
+   brings it to the front — Summary, Curves, EPANET, Surge, Report sheets,
+   exactly as `pumpsizer excel` produces headless.
 4. A status line lands in **`Input!F1`**, e.g.
-   `ran 2026-09-04 18:20: 305.4 l/s @ 33.1 m, eff 86%  ->  station-results.xlsx`.
+   `ran 2026-09-04 17:22: 255.8 l/s @ 30.7 m, eff 84%  ->  pumpsizer-results.xlsx`.
+
+Verified end-to-end on a Windows + Excel machine: the button runs the full
+`Project.run()` pipeline and writes the results workbook.
 
 The button calls `pumpsizer.xlwings_addin.run()`, which just saves the live
 workbook and hands the file to the same `excelio.run_workbook` the CLI uses —
@@ -81,7 +87,8 @@ clean `Input` sheet ⇒ legacy) both work.
 
 | Symptom | Fix |
 |---|---|
-| `RunPython` not defined | xlwings add-in not installed / Excel not restarted (step 2). |
+| `Compile error: Sub or Function not defined` on `RunPython` | Old macro that called `RunPython` bare — re-import the current `pumpsizer.bas` (it uses `Application.Run "xlwings.xlam!RunPython"`), or add xlwings under Tools ▸ References. |
+| Button does nothing, no results file | xlwings add-in not loaded (step 2 / restart Excel), or the file opened in LibreOffice/another editor instead of Excel — open it with Excel explicitly. |
 | `No module named pumpsizer` | `pip install` ran in a different Python than xlwings uses. Set `Interpreter_Win` in the xlwings ribbon, or `PYTHONPATH` via `xlwings config`. |
 | `MsgBox: pumpsizer failed: …` | The engine raised — run `pumpsizer excel <file>.xlsm` in a terminal to see the full traceback. |
 | Results file "in use" | Close a previously opened `*-results.xlsx` before re-running. |

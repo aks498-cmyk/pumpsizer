@@ -10,6 +10,14 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
+### Fixed
+- Excel button: the macro now calls `RunPython` through
+  `Application.Run "xlwings.xlam!RunPython"` instead of a bare `RunPython`,
+  which needs a per-workbook Tools ▸ References entry the generated `.xlsm`
+  didn't carry (it failed with *Compile error: Sub or Function not defined*).
+  Verified end-to-end on Windows + Excel: the button runs the full pipeline and
+  writes `<workbook>-results.xlsx`. `docs/excel_button.md` updated.
+
 ## [0.3.1] — 2026-09-04
 
 Catalogue and tooling: a fuller Omega set, a datasheet-audit tool, and the

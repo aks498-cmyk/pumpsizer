@@ -34,15 +34,18 @@ Attribute VB_Name = "pumpsizer"
 ' Setup (once per machine):
 '   1. Install Python + the engine:  pip install "pumpsizer[xlwings]"
 '   2. Install the xlwings add-in:    xlwings addin install
-'      (gives this workbook the RunPython function used below)
+'      (this loads xlwings.xlam, whose RunPython we call below)
 '   3. In Excel: Developer > Visual Basic > File > Import File... > this .bas
 '   4. On the Input sheet add a Form Control button and assign RunPumpsizer.
 '
+' RunPython is called through Application.Run so this workbook needs no
+' Tools > References entry for xlwings - only the loaded add-in.
 ' See docs/excel_button.md for the full guide.
 
 Sub RunPumpsizer()
     On Error GoTo Fail
-    RunPython "import pumpsizer.xlwings_addin as m; m.run()"
+    Application.Run "xlwings.xlam!RunPython", _
+        "import pumpsizer.xlwings_addin as m; m.run()"
     Exit Sub
 Fail:
     MsgBox "pumpsizer failed: " & Err.Description, vbExclamation, "pumpsizer"

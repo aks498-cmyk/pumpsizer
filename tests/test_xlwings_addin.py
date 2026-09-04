@@ -68,7 +68,10 @@ def test_is_legacy_detection(tmp_path):
 
 def test_button_bas_is_wired():
     assert "Sub RunPumpsizer()" in BUTTON_BAS
-    assert 'RunPython "import pumpsizer.xlwings_addin as m; m.run()"' in BUTTON_BAS
+    # RunPython is reached via Application.Run so the workbook needs no
+    # Tools > References entry for xlwings
+    assert 'Application.Run "xlwings.xlam!RunPython"' in BUTTON_BAS
+    assert "import pumpsizer.xlwings_addin as m; m.run()" in BUTTON_BAS
 
 
 def test_run_drives_the_engine_and_writes_results(tmp_path):
