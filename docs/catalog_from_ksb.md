@@ -97,11 +97,19 @@ those pages). Entries more than 6% off carry a `NOTE:` in the YAML and a
 `table9_delta_pct` field. The 2900 / 1450 rpm per-stage `H₀` ratio is 3.9–4.1
 (ideal 4.0).
 
+**Spot-check.** `tools/verify_ksb_multitec.py` renders four pages and overlays
+the stitched H-Q polyline (`docs/ksb_multitec_verification.png`): the digitised
+points sit on the printed per-stage curves for both impellers, with no visible
+seam where the fragments were rejoined.
+
+![Multitec digitisation overlay](ksb_multitec_verification.png)
+
 ## Regenerating
 
 ```bash
 py tools/digitise_ksb_omega.py    path/to/dow-omega-data.pdf
 py tools/digitise_ksb_multitec.py path/to/dow-multitec-data.pdf
+py tools/verify_ksb_multitec.py   path/to/dow-multitec-data.pdf   # overlay PNG
 ```
 
 Re-run after an updated booklet; then re-verify the entries you rely on.

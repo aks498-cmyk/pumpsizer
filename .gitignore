@@ -12,4 +12,5 @@ venv/
 !docs/*.pdf
 !docs/social-preview.png
 !docs/ksb_omega_verification.png
+!docs/ksb_multitec_verification.png
 out/

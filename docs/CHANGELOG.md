@@ -25,6 +25,9 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
   maximum head: within ~4% for DN32–DN125, ±10–15% for the two DN150 sizes
   (whose H axis reads less cleanly — those entries carry a `NOTE:` in the YAML
   and `table9_delta_pct`). 2900/1450 rpm per-stage `H₀` ratio 3.9–4.1.
+- `tools/verify_ksb_multitec.py` renders four datasheet pages with the stitched
+  H-Q polyline overlaid (`docs/ksb_multitec_verification.png`) — the digitised
+  points sit on the printed per-stage curves for both impellers.
 
 ### Changed
 - **KSB Omega catalogue is now machine-digitised, not envelope-only.**
