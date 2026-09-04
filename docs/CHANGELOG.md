@@ -34,6 +34,13 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
   speed and impeller-diameter families. Findings are `OK`/`WARN`/`FAIL`; exits
   non-zero on a `FAIL`. The bundled catalogues report 0 FAIL.
 
+### Changed (tooling)
+- CI now runs `ruff check` + `ruff format --check` (on `src tests tools`) as a
+  separate job before the test matrix; `ruff` is in the `dev` extra and the
+  `ruff` `src` list includes `tools`. `make lint` / `make format` cover `tools`
+  too; the stale `make catalog` target now calls the two digitisers, and
+  `make catalog-check` is new.
+
 ### Changed
 - **KSB Omega catalogue is now machine-digitised, not envelope-only.**
   `tools/digitise_ksb_omega.py` reads the vector datasheet PDF: it calibrates

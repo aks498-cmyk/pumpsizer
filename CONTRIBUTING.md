@@ -27,15 +27,17 @@ Optional extras if you don't want the full `[dev]` set:
 ## Running things
 
 ```bash
-py -m pytest -q                     # 70 tests, ~10 s
+py -m pytest -q                     # test suite, ~40 s
+py -m ruff check src tests tools    # lint  (CI runs this + `ruff format --check`)
 py -m pumpsizer.cli --help          # or: pumpsizer --help  (after install)
 py -m pumpsizer.cli run examples/potable_water_pumping_station.yaml
+py -m pumpsizer.cli catalog-check   # QA the digitised KSB catalogues
 ```
 
-There's a `Makefile` with shortcuts (`make dev`, `make test`, `make hook`,
-`make run`, `make plots`, `make catalog`, `make clean`) — `make` is optional,
-each target is just a one-liner. Run `make help` for the list. On non-Windows:
-`make test PYTHON=python3`.
+There's a `Makefile` with shortcuts (`make dev`, `make test`, `make lint`,
+`make format`, `make hook`, `make run`, `make plots`, `make catalog-check`,
+`make clean`) — `make` is optional, each target is just a one-liner. Run
+`make help` for the list. On non-Windows: `make test PYTHON=python3`.
 
 The EPANET-solver tests `skipif` when `epyt` can't import, so a partial
 install still gives a green suite.
@@ -70,14 +72,17 @@ tools/                                 build_ksb_omega_catalog.py (regenerates a
 - Catalogue entries digitised from a datasheet must set `verified: true` only
   after a second check; envelope-only entries stay `verified: false`
   (see `docs/catalog_from_ksb.md`).
-- Match the surrounding style; no formatter is enforced, but ~100-col lines and
-  stdlib + numpy/scipy idioms fit the codebase.
+- `ruff` is the formatter and linter (`ruff format`, then `ruff check`);
+  config is in `pyproject.toml` (100-col, `E/F/W/I/UP/B`). CI enforces both.
+- Stick to stdlib + numpy/scipy idioms; match the surrounding style.
 
 ## Before you push
 
 - `py -m pytest -q` is green (the hook enforces this locally).
+- `py -m ruff check src tests tools` and `ruff format --check` are clean.
 - New behaviour has a test; changed numbers have a comment saying why.
-- CI runs the suite on Python 3.10–3.13 for every push and PR to `master`.
+- CI runs ruff + the suite on Python 3.10–3.13 for every push and PR to `master`.
+- Digitiser or catalogue change: `pumpsizer catalog-check` reports 0 FAIL.
 - Update `docs/CHANGELOG.md` (Unreleased section) for anything user-facing.
 - Commit messages: imperative subject, a short body explaining *why* for
   anything non-obvious.

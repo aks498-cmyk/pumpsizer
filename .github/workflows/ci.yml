@@ -7,6 +7,20 @@ on:
     branches: [master]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install --upgrade pip ruff
+      - name: ruff check
+        run: python -m ruff check src tests tools
+      - name: ruff format --check
+        run: python -m ruff format --check src tests tools
+
   test:
     runs-on: ubuntu-latest
     strategy:

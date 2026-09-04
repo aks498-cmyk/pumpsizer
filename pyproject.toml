@@ -20,7 +20,7 @@ dependencies = [
 plot = ["matplotlib>=3.7"]
 excel = ["openpyxl>=3.1"]
 epanet = ["epyt>=1.2"]
-dev = ["pytest>=7.4", "matplotlib>=3.7", "openpyxl>=3.1", "epyt>=1.2"]
+dev = ["pytest>=7.4", "ruff>=0.6", "matplotlib>=3.7", "openpyxl>=3.1", "epyt>=1.2"]
 
 [project.scripts]
 pumpsizer = "pumpsizer.cli:main"
@@ -37,7 +37,7 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py310"
-src = ["src", "tests"]
+src = ["src", "tests", "tools"]
 
 [tool.ruff.lint]
 # E/F/W pycodestyle+pyflakes, I import order, UP pyupgrade, B bugbear.

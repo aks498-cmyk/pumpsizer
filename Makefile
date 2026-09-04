@@ -5,7 +5,7 @@ EXAMPLE := examples/potable_water_pumping_station.yaml
 OUT     := out
 
 .DEFAULT_GOAL := help
-.PHONY: help install dev test test-cov lint format hook run report plots catalog ci clean
+.PHONY: help install dev test test-cov lint format hook run report plots catalog catalog-check ci clean
 
 help:  ## List targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | sort | \
@@ -23,12 +23,13 @@ test:  ## Run the test suite
 test-cov:  ## Run tests with coverage (needs: pip install pytest-cov)
 	$(PYTHON) -m pytest -q --cov=pumpsizer --cov-report=term-missing
 
-lint:  ## Static check with ruff (needs: pip install ruff)
-	$(PYTHON) -m ruff check src tests
+lint:  ## Static check + format check with ruff
+	$(PYTHON) -m ruff check src tests tools
+	$(PYTHON) -m ruff format --check src tests tools
 
-format:  ## Auto-format with ruff (needs: pip install ruff)
-	$(PYTHON) -m ruff format src tests
-	$(PYTHON) -m ruff check --fix src tests
+format:  ## Auto-format with ruff
+	$(PYTHON) -m ruff format src tests tools
+	$(PYTHON) -m ruff check --fix src tests tools
 
 hook:  ## Install the pre-push test hook into this clone
 	cp scripts/git-hooks/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
@@ -46,10 +47,16 @@ plots:  ## Regenerate the example plots (performance, transient, staging) to $(O
 	$(PYTHON) -m pumpsizer.cli transient --length 2500 --dn 400 --flow-lps 300 --head 33 --static 24 --inertia 5 --air-vessel-m3 20 --plot $(OUT)/transient.png
 	$(PYTHON) -m pumpsizer.cli stage $(EXAMPLE) --plot $(OUT)/staging.png
 
-catalog:  ## Regenerate data/catalog/ksb_omega_50hz.yaml from the KSB PDF
-	$(PYTHON) tools/build_ksb_omega_catalog.py
+catalog:  ## Regenerate the digitised KSB catalogues (set KSB=path/to/pdf/dir)
+	$(PYTHON) tools/digitise_ksb_omega.py    $(KSB)/dow-omega-data.pdf
+	$(PYTHON) tools/digitise_ksb_multitec.py $(KSB)/dow-multitec-data.pdf
 
-ci:  ## What CI runs: dev install + tests
+catalog-check:  ## QA the bundled digitised catalogues
+	$(PYTHON) -m pumpsizer.cli catalog-check
+
+ci:  ## What CI runs: lint + dev install + tests
+	$(PYTHON) -m ruff check src tests tools
+	$(PYTHON) -m ruff format --check src tests tools
 	$(PYTHON) -m pip install -e ".[dev]"
 	$(PYTHON) -m pytest -q
 
