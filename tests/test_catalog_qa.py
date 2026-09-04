@@ -1,7 +1,14 @@
+import csv
 from pathlib import Path
 
 from pumpsizer.catalog import Catalog, PumpModel
-from pumpsizer.catalog_qa import check_catalog, summarise
+from pumpsizer.catalog_qa import (
+    check_catalog,
+    summarise,
+    verification_rows,
+    verification_status,
+    write_checklist,
+)
 
 _ROOT = Path(__file__).resolve().parents[1]
 
@@ -56,3 +63,40 @@ def test_qa_multistage_per_stage_consistency():
     assert not [f for f in findings if f.level == "FAIL"]
     s = summarise(findings)
     assert s["OK"] + s["WARN"] + s["FAIL"] == len(findings)
+
+
+def test_verification_status_and_checklist(tmp_path):
+    cat = Catalog.bundled()
+    st = verification_status(cat)
+    assert st["TOTAL"]["to_check"] > 250  # all digitised entries start unverified
+    assert st["TOTAL"]["verified"] == 0
+    # illustrative (non-digitised) entries are neither verified nor "to check"
+    assert st["WS"]["other"] >= 4
+
+    rows = verification_rows(cat, check_catalog(cat))
+    assert len(rows) == st["TOTAL"]["to_check"]
+    assert set(rows[0]) >= {"model", "datasheet_page", "shutoff_head_m", "verdict"}
+    assert all(r["verdict"] == "" for r in rows)  # blank for the human to fill
+
+    out = tmp_path / "chk.csv"
+    n = write_checklist(cat, out, check_catalog(cat))
+    with out.open(encoding="utf-8") as fh:
+        got = list(csv.DictReader(fh))
+    assert len(got) == n == len(rows)
+    assert "checked_by" in got[0] and "qa" in got[0]
+
+
+def test_verified_entry_drops_off_the_checklist():
+    m = PumpModel(
+        manufacturer="KSB",
+        series="Omega",
+        model="x",
+        reference_speed_rpm=1450,
+        q_lps=[0, 100, 200],
+        h_m=[30, 27, 20],
+        digitised=True,
+        verified=True,
+    )
+    cat = Catalog([m])
+    assert verification_rows(cat) == []
+    assert verification_status(cat)["Omega"] == {"verified": 1, "to_check": 0, "other": 0}

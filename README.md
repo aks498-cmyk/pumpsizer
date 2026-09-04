@@ -62,6 +62,7 @@ pumpsizer curve --duty-q 300 --duty-h 33 --source synthetic --points 3
 # QA the digitised catalogue (curve shape, BEP, per-stage & affinity checks)
 pumpsizer catalog-check                       # bundled KSB Omega + Multitec
 pumpsizer catalog-check --catalogue my_catalogue/ --show-ok
+pumpsizer catalog-verify --emit checklist.csv # to-do list for the datasheet check
 
 # rule-of-thumb water-hammer check + air-vessel / flywheel pre-size
 pumpsizer surge --length 2500 --material ductile_iron --dn 400 \

@@ -33,6 +33,11 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
   consistency and the Table 9 cross-check, and `n²` / `D²` affinity between
   speed and impeller-diameter families. Findings are `OK`/`WARN`/`FAIL`; exits
   non-zero on a `FAIL`. The bundled catalogues report 0 FAIL.
+- **`pumpsizer catalog-verify`** — status of the human "against the paper
+  datasheet" pass (verified vs. still-to-check, by series) and `--emit
+  checklist.csv`, a row per unverified entry with its key digitised numbers,
+  `datasheet_page` and blank verdict/checked-by columns to work through.
+  `tools/verify_ksb_multitec.py` gains `--pages a,b,c` to overlay any pages.
 
 - **xlwings "Run" button** — `pumpsizer excel-addin --out <dir>` writes
   `pumpsizer.bas` (the button macro), a fresh input template and setup notes.

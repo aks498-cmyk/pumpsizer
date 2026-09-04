@@ -6,13 +6,18 @@ printed per-stage head curve, the stitch + axis calibration is right.
 
 Output: docs/ksb_multitec_verification.png
 
-    py tools/verify_ksb_multitec.py [path/to/dow-multitec-data.pdf]
+    py tools/verify_ksb_multitec.py [path/to/dow-multitec-data.pdf] [--pages 14,22,46,52]
+
+``--pages`` overlays any set of datasheet pages (handy while checking an entry
+against the paper booklet); with no ``--pages`` it writes the fixed 4-page
+``docs/ksb_multitec_verification.png``.
 
 Needs: pdfplumber, matplotlib, numpy.
 """
 
 from __future__ import annotations
 
+import math
 import sys
 from pathlib import Path
 
@@ -73,17 +78,27 @@ def _h_curves(page):
 
 
 def main():
-    pdf_path = sys.argv[1] if len(sys.argv) > 1 else "KSB/dow-multitec-data.pdf"
+    args = [a for a in sys.argv[1:]]
+    pages, out = PAGES, OUT
+    if "--pages" in args:
+        i = args.index("--pages")
+        pages = [int(x) for x in args.pop(i + 1).split(",")]
+        args.pop(i)
+        out = OUT.with_name("ksb_multitec_pages_" + "_".join(map(str, pages)) + ".png")
+    pdf_path = args[0] if args else "KSB/dow-multitec-data.pdf"
+
     pdf = pdfplumber.open(pdf_path)
     scale = RES / 72.0
-    fig, axes = plt.subplots(2, 2, figsize=(13, 15))
-    for ax, pno in zip(axes.flat, PAGES):
+    ncol = 2 if len(pages) > 1 else 1
+    nrow = math.ceil(len(pages) / ncol)
+    fig, axes = plt.subplots(nrow, ncol, figsize=(6.5 * ncol, 7.5 * nrow), squeeze=False)
+    for ax in axes.flat:
+        ax.axis("off")
+    for ax, pno in zip(axes.flat, pages):
         page = pdf.pages[pno - 1]
         chains, title = _h_curves(page)
-        im = page.to_image(resolution=RES).original
-        ax.imshow(im)
+        ax.imshow(page.to_image(resolution=RES).original)
         ax.set_title(title or f"p.{pno} (no curve found)", fontsize=10)
-        ax.axis("off")
         for ch, colour in zip(chains or [], ("#e6194B", "#4363d8")):
             xs = [p[0] * scale for p in ch]
             ys = [p[1] * scale for p in ch]
@@ -93,8 +108,8 @@ def main():
         fontsize=12,
     )
     fig.tight_layout(rect=(0, 0, 1, 0.98))
-    fig.savefig(OUT, dpi=110)
-    print(f"wrote {OUT}")
+    fig.savefig(out, dpi=110)
+    print(f"wrote {out}")
 
 
 if __name__ == "__main__":

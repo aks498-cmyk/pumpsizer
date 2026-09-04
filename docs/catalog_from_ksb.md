@@ -67,6 +67,25 @@ and 2900 rpm pages and `H ∝ D²` between impeller steps.
 There is one entry per impeller diameter on the page (`model: "<size> ø<dia>"`);
 the two diameters printed on a Multitec page likewise become two entries.
 
+### Working through the whole catalogue
+
+`pumpsizer catalog-verify` shows how many entries are still `verified: false`,
+by series. `--emit checklist.csv` writes one row per unverified entry with its
+`datasheet_page`, digitised shut-off head, BEP `(Q, η)`, NPSHr at BEP and the
+worst `catalog-check` level, plus empty `verdict` / `checked_by` /
+`checked_date` / `notes` columns:
+
+```bash
+pumpsizer catalog-verify                       # status by series
+pumpsizer catalog-verify --emit checklist.csv  # the to-do list
+```
+
+Work down the CSV with the booklet open — `tools/verify_ksb_multitec.py
+<pdf> --pages 38,40` (or the Omega overlay) renders any page with the
+digitised polyline on top. Mark each row `ok` / `corrected` / `reject`, then
+set `verified: true` on the `ok` entries in the YAML (a one-word edit; the
+tool deliberately doesn't rewrite the generated files for you).
+
 ## Multitec — multistage
 
 `ksb_multitec_50hz.yaml` comes from `dow-multitec-data.pdf` the same way, with

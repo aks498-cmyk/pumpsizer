@@ -13,6 +13,11 @@ runs the sanity tests a person would otherwise do by eye:
 
 Findings are ``OK`` / ``WARN`` / ``FAIL``.  ``pumpsizer catalog-check`` prints
 them and exits non-zero if anything is ``FAIL``.
+
+``verification_status`` / ``write_checklist`` back ``pumpsizer catalog-verify``:
+the machine checks above can't replace a person comparing an entry with the
+printed datasheet, so this emits the to-do list for that pass and tracks how
+much of it is done (``verified: true``).
 """
 
 from __future__ import annotations
@@ -217,3 +222,102 @@ def format_report(cat: Catalog, findings: list[Finding], *, show_ok: bool = Fals
     s = summarise(findings)
     lines.append(f"\n{s['FAIL']} FAIL   {s['WARN']} WARN   {s['OK']} OK-notes")
     return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# verification tracking - a checklist for the human "against the paper
+# datasheet" pass that flips ``verified: false`` -> ``true``.
+# ---------------------------------------------------------------------------
+_CHECKLIST_COLS = (
+    "verified",
+    "manufacturer",
+    "series",
+    "model",
+    "datasheet_page",
+    "shutoff_head_m",
+    "q_bep_lps",
+    "eff_bep_pct",
+    "npshr_at_bep_m",
+    "qa",  # worst QA level for this model, if any
+    "verdict",  # <- fill: ok | corrected | reject
+    "checked_by",  # <- fill
+    "checked_date",  # <- fill
+    "notes",  # <- fill
+)
+
+
+def _npshr_at_bep(m: PumpModel) -> float | str:
+    try:
+        c = m.to_pump_curve()
+        qb, _, _ = c.bep()
+        v = float(c.npshr(qb))
+        return round(v, 2) if v == v else ""
+    except Exception:
+        return ""
+
+
+def verification_rows(cat: Catalog, findings: list[Finding] | None = None) -> list[dict]:
+    """One checklist row per digitised, not-yet-verified model."""
+    worst: dict[str, str] = {}
+    for f in findings or []:
+        if f.model not in worst or _LEVELS.index(f.level) > _LEVELS.index(worst[f.model]):
+            worst[f.model] = f.level
+    rows = []
+    for m in cat:
+        if m.verified or not getattr(m, "digitised", False):
+            continue
+        try:
+            so = round(float(m.to_pump_curve().head(0.0)), 1)
+        except Exception:
+            so = ""
+        rows.append(
+            {
+                "verified": m.verified,
+                "manufacturer": m.manufacturer,
+                "series": m.series,
+                "model": m.model,
+                "datasheet_page": m.datasheet_page or "",
+                "shutoff_head_m": so,
+                "q_bep_lps": m.q_bep_lps or "",
+                "eff_bep_pct": m.eff_bep_pct or "",
+                "npshr_at_bep_m": _npshr_at_bep(m),
+                "qa": worst.get(m.key, ""),
+                "verdict": "",
+                "checked_by": "",
+                "checked_date": "",
+                "notes": "",
+            }
+        )
+    return rows
+
+
+def write_checklist(cat: Catalog, path, findings: list[Finding] | None = None) -> int:
+    """Write the verification checklist as CSV; returns the row count."""
+    import csv
+    from pathlib import Path
+
+    rows = verification_rows(cat, findings)
+    with Path(path).open("w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(_CHECKLIST_COLS))
+        w.writeheader()
+        w.writerows(rows)
+    return len(rows)
+
+
+def verification_status(cat: Catalog) -> dict[str, dict[str, int]]:
+    """{series: {verified, digitised_unverified, other}} plus a 'TOTAL' key."""
+    out: dict[str, dict[str, int]] = {}
+    for m in cat:
+        b = out.setdefault(m.series, {"verified": 0, "to_check": 0, "other": 0})
+        if m.verified:
+            b["verified"] += 1
+        elif getattr(m, "digitised", False):
+            b["to_check"] += 1
+        else:
+            b["other"] += 1
+    tot = {"verified": 0, "to_check": 0, "other": 0}
+    for b in out.values():
+        for k in tot:
+            tot[k] += b[k]
+    out["TOTAL"] = tot
+    return out

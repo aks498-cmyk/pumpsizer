@@ -469,6 +469,24 @@ def _cmd_catalog_check(args: argparse.Namespace) -> int:
     return 1 if summarise(findings)["FAIL"] and not args.no_fail else 0
 
 
+def _cmd_catalog_verify(args: argparse.Namespace) -> int:
+    from .catalog import Catalog
+    from .catalog_qa import check_catalog, verification_status, write_checklist
+
+    cat = Catalog.from_path(args.catalogue) if args.catalogue else Catalog.bundled()
+    if args.emit:
+        n = write_checklist(cat, args.emit, check_catalog(cat))
+        print(f"wrote {n} rows to check -> {args.emit}")
+        print("fill verdict / checked_by / checked_date / notes against the paper")
+        print("datasheet, then set `verified: true` on the OK entries in the YAML.")
+        return 0
+    st = verification_status(cat)
+    print(f"{'series':<16}{'verified':>10}{'to check':>10}{'other':>8}")
+    for series, b in sorted(st.items(), key=lambda kv: (kv[0] == "TOTAL", kv[0])):
+        print(f"{series:<16}{b['verified']:>10}{b['to_check']:>10}{b['other']:>8}")
+    return 0
+
+
 _SCHEMA = (Path(__file__).parent / "data").parent  # placeholder; real file below
 
 
@@ -598,6 +616,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--no-fail", action="store_true", help="always exit 0 (report only, don't gate)"
     )
     cc.set_defaults(func=_cmd_catalog_check)
+
+    cv = sub.add_parser(
+        "catalog-verify", help="verification status / checklist for digitised entries"
+    )
+    cv.add_argument("--catalogue", help="catalogue file or directory (default: bundled)")
+    cv.add_argument("--emit", help="write a CSV checklist of the entries still to verify")
+    cv.set_defaults(func=_cmd_catalog_verify)
 
     et = sub.add_parser("excel-template", help="write a blank input workbook (openpyxl)")
     et.add_argument("out", help="output .xlsx path")
