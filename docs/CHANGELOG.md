@@ -34,6 +34,14 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
   speed and impeller-diameter families. Findings are `OK`/`WARN`/`FAIL`; exits
   non-zero on a `FAIL`. The bundled catalogues report 0 FAIL.
 
+- **xlwings "Run" button** — `pumpsizer excel-addin --out <dir>` writes
+  `pumpsizer.bas` (the button macro), a fresh input template and setup notes.
+  `pumpsizer.xlwings_addin.run()` (what the button calls) saves the live
+  workbook and hands the file to the existing headless `excelio.run_workbook`,
+  then opens the `*-results.xlsx` and writes a status line to `Input!F1`.
+  Template vs. legacy `Pump Sizing.xlsx` is auto-detected. Needs Python +
+  `xlwings` on the machine with Excel; full guide in `docs/excel_button.md`.
+
 ### Changed (tooling)
 - CI now runs `ruff check` + `ruff format --check` (on `src tests tools`) as a
   separate job before the test matrix; `ruff` is in the `dev` extra and the

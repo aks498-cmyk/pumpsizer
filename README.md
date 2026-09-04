@@ -87,6 +87,7 @@ pumpsizer verify out/net.inp --pump-id PMP1 \
 pumpsizer excel-template my_inputs.xlsx        # blank labelled input workbook
 pumpsizer excel my_inputs.xlsx --out result.xlsx
 pumpsizer excel "Pump Sizing.xlsx" --legacy --out result.xlsx   # original layout
+pumpsizer excel-addin --out excel_button/      # xlwings "Run" button kit (see docs)
 
 # print the annotated project schema
 pumpsizer schema
@@ -191,15 +192,19 @@ efficiency — are plain YAML; edit or point the API at your own via
   `excel-template` writes a labelled input workbook, `excel` reads it (or the
   original `Pump Sizing.xlsx` via `--legacy`) and writes a multi-sheet results
   workbook (Summary / Curves / EPANET / Selection / Surge / Report). ✅
+  `excel-addin` writes the xlwings "Run" button kit (`pumpsizer.bas` + input
+  template + setup notes); `xlwings_addin.run()` is what the button calls —
+  it saves the live workbook and hands it to the same headless path. Needs
+  Python + `xlwings` on the machine that clicks the button; see
+  [`docs/excel_button.md`](docs/excel_button.md). ✅
 * **Phase 6** – `staging` module: 24-h demand pattern + delivery-tank dynamics
   + a staging controller (VFD common-speed, or fixed-speed lead/lag on
   staggered tank levels). Reports daily energy, per-pump starts / run-hours,
   efficiency stats, BEP-window compliance, unmet-demand steps. `pumpsizer
   stage` (+ demand / pumps / tank-level plot) and a `staging:` project block. ✅
-* **Next** – optional xlwings "Run" button inside the workbook itself (needs
-  Python alongside Excel on each machine); real vendor curves digitised into
-  the catalogue beyond KSB Omega / Multitec; verifying the digitised entries
-  you rely on.
+* **Next** – human verification of the digitised catalogue entries against the
+  paper datasheets (flip `verified: true` as they're checked); more vendor
+  curves beyond KSB Omega / Multitec if needed.
 
 ## Contributing
 

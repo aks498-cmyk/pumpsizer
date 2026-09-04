@@ -63,6 +63,7 @@ print(res.operating_point.as_dict())
 
 - [Workbook mapping](workbook_mapping.html) — how the schema maps onto the source spreadsheet, and the corrections made
 - [Building a catalogue from a KSB booklet](catalog_from_ksb.html) — how the curves were digitised and how to verify them
+- [The Excel "Run" button](excel_button.html) — driving the engine from a button in the workbook (xlwings)
 - [`catalog_template.yaml`](catalog_template.yaml) — catalogue file template
 - [Contributing](https://github.com/aks498-cmyk/pumpsizer/blob/master/CONTRIBUTING.md)
 

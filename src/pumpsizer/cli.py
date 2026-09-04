@@ -335,6 +335,31 @@ def _cmd_excel_template(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_excel_addin(args: argparse.Namespace) -> int:
+    from .excelio import write_input_template
+    from .xlwings_addin import BUTTON_BAS
+
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / "pumpsizer.bas").write_text(BUTTON_BAS, encoding="utf-8")
+    write_input_template(out / "pumpsizer_inputs.xlsx")
+    (out / "README.txt").write_text(
+        "pumpsizer Excel button - one-time setup\n"
+        "======================================\n\n"
+        '1. pip install "pumpsizer[excel]" xlwings\n'
+        "2. xlwings addin install            (adds RunPython to Excel)\n"
+        "3. Open pumpsizer_inputs.xlsx, save it as .xlsm (macro-enabled).\n"
+        "4. Developer > Visual Basic > File > Import File... > pumpsizer.bas\n"
+        "5. On the Input sheet, add a Form Control button -> assign RunPumpsizer.\n"
+        "6. Fill the Input sheet, click the button. Results open in\n"
+        "   <workbook>-results.xlsx and a status line lands in Input!F1.\n\n"
+        "Full guide: docs/excel_button.md\n",
+        encoding="utf-8",
+    )
+    print(f"wrote pumpsizer.bas, pumpsizer_inputs.xlsx, README.txt -> {out}/")
+    return 0
+
+
 def _cmd_excel(args: argparse.Namespace) -> int:
     from .excelio import run_workbook
 
@@ -577,6 +602,12 @@ def build_parser() -> argparse.ArgumentParser:
     et = sub.add_parser("excel-template", help="write a blank input workbook (openpyxl)")
     et.add_argument("out", help="output .xlsx path")
     et.set_defaults(func=_cmd_excel_template)
+
+    ea = sub.add_parser(
+        "excel-addin", help="write the xlwings 'Run' button (.bas + template + README)"
+    )
+    ea.add_argument("--out", default="excel_button", help="output directory")
+    ea.set_defaults(func=_cmd_excel_addin)
 
     ex = sub.add_parser("excel", help="run a project from an .xlsx and write a results .xlsx")
     ex.add_argument("workbook", help="input .xlsx (template-shaped, or --legacy)")

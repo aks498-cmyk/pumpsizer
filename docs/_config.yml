@@ -13,6 +13,7 @@ show_downloads: false
 include:
   - workbook_mapping.md
   - catalog_from_ksb.md
+  - excel_button.md
 exclude:
   - social-preview.jpg
 
@@ -26,6 +27,8 @@ nav:
     url: workbook_mapping.html
   - title: Catalogue guide
     url: catalog_from_ksb.html
+  - title: Excel button
+    url: excel_button.html
   - title: Changelog
     url: CHANGELOG.html
   - title: GitHub
