@@ -68,8 +68,8 @@ def test_qa_multistage_per_stage_consistency():
 def test_verification_status_and_checklist(tmp_path):
     cat = Catalog.bundled()
     st = verification_status(cat)
-    assert st["TOTAL"]["to_check"] > 250  # all digitised entries start unverified
-    assert st["TOTAL"]["verified"] == 0
+    assert st["TOTAL"]["to_check"] > 200  # most digitised entries still unchecked
+    assert st["TOTAL"]["verified"] > 0  # some Omega pages checked vs the datasheet
     # illustrative (non-digitised) entries are neither verified nor "to check"
     assert st["WS"]["other"] >= 4
 

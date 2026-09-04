@@ -37,6 +37,11 @@ DEC_RE = re.compile(r"[3-9][0-9][.,][0-9]$")
 OD_RE = re.compile(r"ø\s?(\d{2,3})")
 N_SAMPLES = 9
 
+# Datasheet pages whose every digitised impeller has been checked, curve by
+# curve, against the printed page (overlay + numbers) - see
+# docs/omega_verification_log.md.  Entries on these pages ship verified: true.
+VERIFIED_PAGES = frozenset({8, 9, 12, 13, 15, 26, 46, 58, 71})
+
 
 def _f(s):
     return float(str(s).replace(",", "."))
@@ -263,13 +268,23 @@ def main():
                 "min_impeller_diameter_mm": min_dia,
                 "impeller_options_mm": r["impeller_options_mm"],
                 "digitised": True,
-                "verified": False,
+                "verified": r["datasheet_page"] in VERIFIED_PAGES,
                 "datasheet_page": r["datasheet_page"],
                 "source": "KSB Omega / Omega V 50 Hz Characteristic Curves Booklet "
                 "(15.02.2016); curve read from the vector PDF"
-                + (f", impeller {dia} mm" if dia else ""),
-                "notes": "machine-digitised from the datasheet curve; confirm against the "
-                "printed page before design use",
+                + (f", impeller {dia} mm" if dia else "")
+                + (
+                    "; H-Q checked against the printed page"
+                    if r["datasheet_page"] in VERIFIED_PAGES
+                    else ""
+                ),
+                "notes": (
+                    "machine-digitised; H-Q overlay-checked against the datasheet page "
+                    "(docs/omega_verification_log.md)"
+                    if r["datasheet_page"] in VERIFIED_PAGES
+                    else "machine-digitised from the datasheet curve; confirm against the "
+                    "printed page before design use"
+                ),
                 "curve": {"q_lps": imp["q_lps"], "h_m": imp["h_m"]},
             }
             if imp["npshr"]:

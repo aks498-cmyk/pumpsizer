@@ -95,9 +95,11 @@ def test_ksb_omega_digitised_catalogue():
     p = Path(__file__).resolve().parents[1] / "src/pumpsizer/data/catalog/ksb_omega_50hz.yaml"
     cat = Catalog.from_path(p)
     assert len(cat) > 50
-    m = cat.models[0]
-    assert m.digitised and not m.verified and m.datasheet_page
-    # real digitised curve: descending head, rising-ish NPSHr, BEP efficiency
+    assert all(m.digitised and m.datasheet_page for m in cat)
+    # a spread of pages is verified against the datasheet, the rest is not
+    assert any(m.verified for m in cat) and any(not m.verified for m in cat)
+    m = next(m for m in cat if not m.verified)
+    # real digitised curve: descending head, BEP efficiency
     assert m.q_lps and m.h_m and m.h_m[0] > m.h_m[-1] > 0
     curve = m.to_pump_curve()
     qb, hb, eb = curve.bep()
@@ -107,11 +109,11 @@ def test_ksb_omega_digitised_catalogue():
     crit = SelectionCriteria.from_duty(300, 33, npsh_available_m=9.0)
     ranked = select(cat, crit, top=5)
     assert ranked and ranked[0].feasible
-    # digitised entries are flagged for confirmation and lightly penalised
-    assert any("machine-digitised" in r for r in ranked[0].reasons)
-    assert ranked[0].score < 0.98
-    # a DN300/350 pump for ~1000 m3/h @ 33 m
+    # a DN250+ pump for ~1000 m3/h @ 33 m
     assert ranked[0].model.discharge_dn >= 250
+    # an unverified digitised hit is flagged for confirmation and penalised
+    unver = next(r for r in ranked if not r.model.verified)
+    assert any("machine-digitised" in x for x in unver.reasons) and unver.score < 0.98
 
 
 def test_ksb_multitec_digitised_catalogue():

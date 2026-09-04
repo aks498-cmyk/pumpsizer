@@ -20,12 +20,11 @@ pumps:
   - 185
   - 170
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 8
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 215 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 215 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -74,12 +73,11 @@ pumps:
   min_impeller_diameter_mm: 174
   impeller_options_mm: *id001
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 8
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 200 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 200 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -128,12 +126,11 @@ pumps:
   min_impeller_diameter_mm: 161
   impeller_options_mm: *id001
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 8
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 185 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 185 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -182,12 +179,11 @@ pumps:
   min_impeller_diameter_mm: 148
   impeller_options_mm: *id001
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 8
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 170 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 170 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -240,12 +236,11 @@ pumps:
   - 185
   - 170
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 9
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 215 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 215 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -279,12 +274,11 @@ pumps:
   min_impeller_diameter_mm: 174
   impeller_options_mm: *id002
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 9
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 200 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 200 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -318,12 +312,11 @@ pumps:
   min_impeller_diameter_mm: 161
   impeller_options_mm: *id002
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 9
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 185 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 185 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -355,12 +348,11 @@ pumps:
   min_impeller_diameter_mm: 148
   impeller_options_mm: *id002
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 9
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 170 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 170 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -821,12 +813,11 @@ pumps:
   - 219
   - 201
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 12
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 254 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 254 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -875,12 +866,11 @@ pumps:
   min_impeller_diameter_mm: 205
   impeller_options_mm: *id005
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 12
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 236 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 236 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -929,12 +919,11 @@ pumps:
   min_impeller_diameter_mm: 191
   impeller_options_mm: *id005
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 12
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 219 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 219 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -983,12 +972,11 @@ pumps:
   min_impeller_diameter_mm: 175
   impeller_options_mm: *id005
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 12
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 201 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 201 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -1041,12 +1029,11 @@ pumps:
   - 219
   - 201
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 13
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 254 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 254 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -1080,12 +1067,11 @@ pumps:
   min_impeller_diameter_mm: 205
   impeller_options_mm: *id006
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 13
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 236 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 236 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -1134,12 +1120,11 @@ pumps:
   min_impeller_diameter_mm: 191
   impeller_options_mm: *id006
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 13
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 219 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 219 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -1188,12 +1173,11 @@ pumps:
   min_impeller_diameter_mm: 175
   impeller_options_mm: *id006
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 13
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 201 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 201 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -1406,12 +1390,11 @@ pumps:
   - 278
   - 254
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 15
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 325 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 325 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -1460,12 +1443,11 @@ pumps:
   min_impeller_diameter_mm: 262
   impeller_options_mm: *id008
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 15
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 301 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 301 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -1514,12 +1496,11 @@ pumps:
   min_impeller_diameter_mm: 242
   impeller_options_mm: *id008
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 15
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 278 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 278 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -1568,12 +1549,11 @@ pumps:
   min_impeller_diameter_mm: 221
   impeller_options_mm: *id008
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 15
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 254 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 254 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -3586,12 +3566,11 @@ pumps:
   - 219
   - 201
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 26
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 254 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 254 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -3640,12 +3619,11 @@ pumps:
   min_impeller_diameter_mm: 205
   impeller_options_mm: *id019
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 26
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 236 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 236 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -3694,12 +3672,11 @@ pumps:
   min_impeller_diameter_mm: 191
   impeller_options_mm: *id019
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 26
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 219 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 219 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -3748,12 +3725,11 @@ pumps:
   min_impeller_diameter_mm: 175
   impeller_options_mm: *id019
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 26
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 201 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 201 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -7731,12 +7707,11 @@ pumps:
   - 382
   - 345
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 46
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 454 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 454 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -7785,12 +7760,11 @@ pumps:
   min_impeller_diameter_mm: 365
   impeller_options_mm: *id039
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 46
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 420 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 420 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -7839,12 +7813,11 @@ pumps:
   min_impeller_diameter_mm: 332
   impeller_options_mm: *id039
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 46
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 382 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 382 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -7893,12 +7866,11 @@ pumps:
   min_impeller_diameter_mm: 300
   impeller_options_mm: *id039
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 46
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 345 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 345 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -10371,12 +10343,11 @@ pumps:
   - 334
   - 306
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 58
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 389 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 389 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -10425,12 +10396,11 @@ pumps:
   min_impeller_diameter_mm: 315
   impeller_options_mm: *id051
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 58
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 362 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 362 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -10479,12 +10449,11 @@ pumps:
   min_impeller_diameter_mm: 291
   impeller_options_mm: *id051
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 58
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 334 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 334 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -10533,12 +10502,11 @@ pumps:
   min_impeller_diameter_mm: 266
   impeller_options_mm: *id051
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 58
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 306 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 306 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -13049,12 +13017,11 @@ pumps:
   - 466
   - 426
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 71
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 553 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 553 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -13103,12 +13070,11 @@ pumps:
   min_impeller_diameter_mm: 440
   impeller_options_mm: *id064
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 71
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 506 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 506 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -13157,12 +13123,11 @@ pumps:
   min_impeller_diameter_mm: 405
   impeller_options_mm: *id064
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 71
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 466 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 466 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
@@ -13211,12 +13176,11 @@ pumps:
   min_impeller_diameter_mm: 371
   impeller_options_mm: *id064
   digitised: true
-  verified: false
+  verified: true
   datasheet_page: 71
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 426 mm
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
+    read from the vector PDF, impeller 426 mm; H-Q checked against the printed page
+  notes: machine-digitised; H-Q overlay-checked against the datasheet page (docs/omega_verification_log.md)
   curve:
     q_lps:
     - 0.0
