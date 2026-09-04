@@ -178,14 +178,10 @@ def digitise_page(page):
         q = [float(x) for x, _ in qh]
         h = [float(y) for _, y in qh]
         ratio = h[0] / max(h[-1], 0.1)
-        # a small (heavily reduced) impeller read out to deep run-out can show a
-        # shut-off/run-out ratio well above 2.7 - only reject the clearly broken
-        prev_h0 = impellers[-1]["h_m"][0] if impellers else float("inf")
         if not (
             all(b >= a - 1e-6 for a, b in zip(q, q[1:]))
             and h[0] > h[-1]
-            and 1.03 <= ratio <= 4.5
-            and h[0] < prev_h0 + 1e-6  # in impeller-family order (largest first)
+            and 1.03 <= ratio <= 2.7
             and q[-1] > 0
         ):
             continue
