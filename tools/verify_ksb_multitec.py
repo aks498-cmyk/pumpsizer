@@ -29,6 +29,7 @@ import numpy as np  # noqa: E402
 import pdfplumber  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _verify_common import print_catalogue_rows  # noqa: E402
 from digitise_ksb_multitec import HEAD, _q_axis, _stitch  # noqa: E402
 
 OUT = Path(__file__).resolve().parents[1] / "docs/ksb_multitec_verification.png"
@@ -110,6 +111,7 @@ def main():
     fig.tight_layout(rect=(0, 0, 1, 0.98))
     fig.savefig(out, dpi=110)
     print(f"wrote {out}")
+    print_catalogue_rows("src/pumpsizer/data/catalog/ksb_multitec_50hz.yaml", pages)
 
 
 if __name__ == "__main__":

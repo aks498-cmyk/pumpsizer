@@ -14,6 +14,9 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 - `tools/verify_ksb_omega.py` — the Omega counterpart of the Multitec overlay
   tool (`--pages a,b,c` to check any datasheet pages while verifying a
   shortlisted pump); it also regenerates `docs/ksb_omega_verification.png`.
+- Both `verify_ksb_*.py` tools now also print the digitised numbers (H₀, H end,
+  Q range, BEP, NPSHr range, stages, Table 9 Δ) for the rendered pages, so a
+  checker can compare them with the printed curve without opening the YAML.
 
 ### Changed
 - `pip install "pumpsizer[xlwings]"` extra (openpyxl + xlwings) for the Excel
