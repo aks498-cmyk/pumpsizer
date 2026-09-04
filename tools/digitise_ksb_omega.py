@@ -10,12 +10,12 @@ Each size page has three charts stacked on a shared Q axis:  H (top),
 NPSH (middle), P (bottom).  We locate the chart bands from the repeated
 "Q [m3/h]" / "Q [l/s]" tick rows, calibrate each value axis from the
 left-margin numeric ticks inside its band, then map the curve polylines
-(largest impeller) to data.
+of **every impeller diameter** on the page to data.
 
-Output: src/pumpsizer/data/catalog/ksb_omega_50hz.yaml with real `curve:`
-blocks (Q vs H) + NPSHr points + a BEP (Q, efficiency).  Entries stay
-`verified: false` (machine-read) but `digitised: true`; a page whose
-calibration fails sanity checks is skipped.
+Output: src/pumpsizer/data/catalog/ksb_omega_50hz.yaml - one entry per impeller
+diameter, each with a real ``curve:`` (Q vs H) + NPSHr points + a BEP
+(Q, efficiency).  Entries stay ``verified: false`` (machine-read) but
+``digitised: true``; a page whose calibration fails sanity checks is skipped.
 
 Needs: pdfplumber, pyyaml, numpy.
 """
@@ -149,56 +149,66 @@ def digitise_page(page):
         return out
 
     heads.sort(key=lambda pts: min(pts, key=lambda p: p[0])[1])  # highest shut-off first
-    big = heads[0]
+    npshs.sort(key=lambda pts: -max(p[0] for p in pts))  # widest first (biggest impeller)
     ha, hb = h_ax
-    qh = [((qa * x + qb) / 3.6, ha * top + hb) for x, top in _resample(big, N_SAMPLES)]
-    qh = [(round(q, 2), round(h, 2)) for q, h in qh if h > 0]
-    if len(qh) < 5:
-        out["fail"] = "head curve too short"
-        return out
-    qh[0] = (0.0, qh[0][1])
-
-    npshr = []
-    if npshs and np_ax:
-        na, nb = np_ax
-        npshs.sort(key=lambda pts: -max(p[0] for p in pts))
-        cand = [
-            (round((qa * x + qb) / 3.6, 2), round(na * top + nb, 2))
-            for x, top in _resample(npshs[0], 6)
-        ]
-        vals = [v for _, v in cand]
-        if all(0.3 <= v <= 20 for v in vals) and vals[-1] >= vals[0] - 0.3:
-            npshr = cand
-
-    effs = [(_f(w["text"]), (w["x0"] + w["x1"]) / 2) for w in words if DEC_RE.fullmatch(w["text"])]
-    eff_bep = q_bep = None
-    if effs:
-        e, ex = max(effs)
-        if 45 < e < 96:
-            eff_bep = round(e, 1)
-            q_bep = round((qa * ex + qb) / 3.6, 2)
-
-    q = [float(x) for x, _ in qh]
-    h = [float(y) for _, y in qh]
-    ratio = h[0] / max(h[-1], 0.1)
-    ok = (
-        all(b >= a - 1e-6 for a, b in zip(q, q[1:]))
-        and h[0] > h[-1]
-        and 1.03 <= ratio <= 2.7
-        and q[-1] > 0
-    )
     di = sorted({int(x) for x in OD_RE.findall(text)}, reverse=True)
+    effs = sorted(
+        ((_f(w["text"]), (w["x0"] + w["x1"]) / 2) for w in words if DEC_RE.fullmatch(w["text"])),
+        reverse=True,
+    )
+
+    def _npshr_for(k):
+        if not (np_ax and k < len(npshs)):
+            return None
+        na, nb = np_ax
+        cand = [
+            (float(round((qa * x + qb) / 3.6, 2)), float(round(na * top + nb, 2)))
+            for x, top in _resample(npshs[k], 6)
+        ]
+        vv = [v for _, v in cand]
+        return cand if (all(0.3 <= v <= 20 for v in vv) and vv[-1] >= vv[0] - 0.3) else None
+
+    impellers = []
+    for k, hpts in enumerate(heads):
+        qh = [((qa * x + qb) / 3.6, ha * top + hb) for x, top in _resample(hpts, N_SAMPLES)]
+        qh = [(round(qv, 2), round(hv, 2)) for qv, hv in qh if hv > 0]
+        if len(qh) < 5:
+            continue
+        qh[0] = (0.0, qh[0][1])
+        q = [float(x) for x, _ in qh]
+        h = [float(y) for _, y in qh]
+        ratio = h[0] / max(h[-1], 0.1)
+        if not (
+            all(b >= a - 1e-6 for a, b in zip(q, q[1:]))
+            and h[0] > h[-1]
+            and 1.03 <= ratio <= 2.7
+            and q[-1] > 0
+        ):
+            continue
+        eff_bep = q_bep = None
+        if k < len(effs) and 45 < effs[k][0] < 96:
+            eff_bep = float(round(effs[k][0], 1))
+            q_bep = float(round((qa * effs[k][1] + qb) / 3.6, 2))
+        impellers.append(
+            {
+                "diameter_mm": int(di[k]) if k < len(di) else None,
+                "q_lps": q,
+                "h_m": h,
+                "npshr": _npshr_for(k),
+                "eff_bep": eff_bep,
+                "q_bep_lps": q_bep,
+                "shutoff_runout_ratio": round(float(ratio), 3),
+            }
+        )
+
+    if not impellers:
+        out["fail"] = "no usable impeller curves"
+        return out
+
     out.update(
-        impeller_diameter_mm=max(di) if di else None,
-        min_impeller_diameter_mm=min(di) if di else None,
+        impellers=impellers,
         impeller_options_mm=di or None,
-        q_lps=q,
-        h_m=h,
-        npshr=[(float(a), float(b)) for a, b in npshr] or None,
-        eff_bep=float(eff_bep) if eff_bep else None,
-        q_bep_lps=float(q_bep) if q_bep else None,
-        shutoff_runout_ratio=round(float(ratio), 3),
-        digitised_ok=bool(ok),
+        digitised_ok=True,
     )
     return out
 
@@ -206,7 +216,7 @@ def digitise_page(page):
 def main():
     pdf_path = sys.argv[1] if len(sys.argv) > 1 else "KSB/dow-omega-data.pdf"
     pdf = pdfplumber.open(pdf_path)
-    entries, fails = [], []
+    entries, fails, pages_ok = [], [], 0
     for page in pdf.pages:
         r = digitise_page(page)
         if r is None:
@@ -214,43 +224,53 @@ def main():
         if r.get("fail") or not r.get("digitised_ok"):
             fails.append((r["size"], r["rpm"], r.get("fail") or "sanity"))
             continue
+        pages_ok += 1
         dn = int(r["size"].split("-")[0])
-        e = {
-            "manufacturer": "KSB",
-            "series": "Omega",
-            "model": f"{r['size']} ({r['rpm']}rpm)",
-            "reference_speed_rpm": r["rpm"],
-            "poles": 2 if r["rpm"] > 2000 else 4,
-            "discharge_dn": dn,
-            "impeller_diameter_mm": r["impeller_diameter_mm"],
-            "min_impeller_diameter_mm": r["min_impeller_diameter_mm"],
-            "impeller_options_mm": r["impeller_options_mm"],
-            "digitised": True,
-            "verified": False,
-            "datasheet_page": r["datasheet_page"],
-            "source": "KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); "
-            "curve read from the vector PDF, largest impeller",
-            "notes": "machine-digitised from the datasheet curve; confirm against the "
-            "printed page before design use",
-            "curve": {"q_lps": r["q_lps"], "h_m": r["h_m"]},
-        }
-        if r["npshr"]:
-            e["npshr_points"] = {
-                "q_lps": [q for q, _ in r["npshr"]],
-                "value_m": [v for _, v in r["npshr"]],
+        imps = r["impellers"]
+        for k, imp in enumerate(imps):
+            dia = imp["diameter_mm"]
+            tag = f" ø{dia}" if (dia and len(imps) > 1) else ""
+            # the top impeller trims across the whole stock range; a smaller
+            # stock impeller trims ~15% to bridge the gap to the next size
+            smallest = min((i["diameter_mm"] for i in imps if i["diameter_mm"]), default=dia)
+            min_dia = smallest if k == 0 else (round(0.87 * dia) if dia else None)
+            e = {
+                "manufacturer": "KSB",
+                "series": "Omega",
+                "model": f"{r['size']}{tag} ({r['rpm']}rpm)",
+                "reference_speed_rpm": r["rpm"],
+                "poles": 2 if r["rpm"] > 2000 else 4,
+                "discharge_dn": dn,
+                "impeller_diameter_mm": dia,
+                "min_impeller_diameter_mm": min_dia,
+                "impeller_options_mm": r["impeller_options_mm"],
+                "digitised": True,
+                "verified": False,
+                "datasheet_page": r["datasheet_page"],
+                "source": "KSB Omega / Omega V 50 Hz Characteristic Curves Booklet "
+                "(15.02.2016); curve read from the vector PDF"
+                + (f", impeller {dia} mm" if dia else ""),
+                "notes": "machine-digitised from the datasheet curve; confirm against the "
+                "printed page before design use",
+                "curve": {"q_lps": imp["q_lps"], "h_m": imp["h_m"]},
             }
-        if r["eff_bep"] and r["q_bep_lps"]:
-            e["eff_bep_pct"] = r["eff_bep"]
-            e["q_bep_lps"] = r["q_bep_lps"]
-        entries.append(e)
+            if imp["npshr"]:
+                e["npshr_points"] = {
+                    "q_lps": [q for q, _ in imp["npshr"]],
+                    "value_m": [v for _, v in imp["npshr"]],
+                }
+            if imp["eff_bep"] and imp["q_bep_lps"]:
+                e["eff_bep_pct"] = float(imp["eff_bep"])
+                e["q_bep_lps"] = float(imp["q_bep_lps"])
+            entries.append(e)
 
     hdr = (
         "# KSB Omega / Omega V, 50 Hz - axially split volute casing pumps for water supply.\n"
-        "# Curves machine-digitised from the vector PDF (largest impeller per size):\n"
+        "# Curves machine-digitised from the vector PDF, one entry per impeller diameter:\n"
         "# Q vs H, NPSHr points, and a BEP (Q, efficiency).  verified: false - not\n"
         "# checked by a person; confirm against the printed datasheet page before use.\n"
         "# Regenerate: py tools/digitise_ksb_omega.py\n"
-        f"# {len(entries)} sizes digitised, {len(fails)} skipped.\n\n"
+        f"# {len(entries)} curves from {pages_ok} size pages, {len(fails)} pages skipped.\n\n"
     )
     with open(OUT, "w", encoding="utf-8") as fh:
         fh.write(hdr)
