@@ -178,7 +178,9 @@ def digitise_page(page):
             for x, top in _resample(npshs[k], 6)
         ]
         vv = [v for _, v in cand]
-        return cand if (all(0.3 <= v <= 20 for v in vv) and vv[-1] >= vv[0] - 0.3) else None
+        # a real NPSHr curve rises toward run-out; a flat trace is a border line
+        ok = all(0.3 <= v <= 20 for v in vv) and vv[-1] > vv[0] and max(vv) - min(vv) >= 0.5
+        return cand if ok else None
 
     impellers = []
     for k, hpts in enumerate(heads):

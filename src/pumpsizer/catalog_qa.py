@@ -88,6 +88,10 @@ def _shape_findings(m: PumpModel) -> list[Finding]:
                 out.append(Finding("WARN", key, "npshr", "NPSHr point outside 0.1-25 m"))
             if v[-1] < v[0] - 0.5:
                 out.append(Finding("WARN", key, "npshr", "NPSHr falls with flow"))
+            elif v.max() - v.min() < 0.4:
+                out.append(
+                    Finding("WARN", key, "npshr", f"NPSHr flat ~{v.mean():.1f} m (border line?)")
+                )
     return out
 
 

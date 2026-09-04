@@ -237,7 +237,8 @@ def digitise_page(page, limits):
                 for x, top in _resample(npshs[k], 6)
             ]
             vv = [v for _, v in cand]
-            if all(0.2 <= v <= 20 for v in vv) and vv[-1] >= vv[0] - 0.3:
+            # a real NPSHr curve rises toward run-out; a flat trace is a border
+            if all(0.2 <= v <= 20 for v in vv) and vv[-1] > vv[0] and max(vv) - min(vv) >= 0.5:
                 npshr = cand
         eff_bep = q_bep = None
         if k < len(effs) and 45 < effs[k][0] < 92:
