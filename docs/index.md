@@ -48,6 +48,7 @@ pumpsizer run examples/potable_water_pumping_station.yaml --plot out/perf.png
 pumpsizer select --duty-q 300 --duty-h 33 --npsha 9
 pumpsizer transient --length 2500 --dn 400 --flow-lps 300 --head 33 --static 24 --inertia 5 --air-vessel-m3 20
 pumpsizer stage examples/potable_water_pumping_station.yaml --mode vfd
+pumpsizer catalog-check # QA the digitised KSB catalogues
 pumpsizer schema        # annotated project file
 ```
 

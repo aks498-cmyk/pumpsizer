@@ -40,6 +40,8 @@ class PumpModel:
     stages: int = 1
     stages_max: int | None = None  # multistage: max stack (no balancing drum)
     per_stage_head_m: list[float] | None = None  # H per stage vs q_lps
+    table9_hmax_total_m: float | None = None  # KSB Multitec Table 9 max head (QA)
+    table9_delta_pct: float | None = None  # digitised shut-off vs Table 9 (QA)
     poles: int = 2
     min_speed_ratio: float = 1.0  # < 1 if VFD-rated
     max_speed_ratio: float = 1.0

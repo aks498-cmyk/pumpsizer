@@ -28,6 +28,11 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 - `tools/verify_ksb_multitec.py` renders four datasheet pages with the stitched
   H-Q polyline overlaid (`docs/ksb_multitec_verification.png`) — the digitised
   points sit on the printed per-stage curves for both impellers.
+- **`pumpsizer catalog-check`** + `pumpsizer.catalog_qa` — machine QA for a
+  catalogue: curve-shape and BEP/NPSHr sanity, multistage `per_stage × stages`
+  consistency and the Table 9 cross-check, and `n²` / `D²` affinity between
+  speed and impeller-diameter families. Findings are `OK`/`WARN`/`FAIL`; exits
+  non-zero on a `FAIL`. The bundled catalogues report 0 FAIL.
 
 ### Changed
 - **KSB Omega catalogue is now machine-digitised, not envelope-only.**

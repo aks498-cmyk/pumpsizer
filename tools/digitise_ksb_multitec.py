@@ -323,16 +323,18 @@ def main():
                 "scale the head down pro rata. Confirm against the datasheet.",
                 "curve": {"q_lps": imp["q_lps"], "h_m": h_total},
             }
-            if delta is not None:
+            # Table 9's h_max is the full-diameter, primary-hydraulic figure -
+            # only attach the cross-check where it actually applies (k == 0,
+            # ".1" hydraulic).
+            if delta is not None and k == 0 and not secondary:
                 e["table9_hmax_total_m"] = tbl
-                if k == 0:
-                    e["table9_delta_pct"] = round(delta, 1)
-                    if abs(delta) > 6 and not secondary:
-                        e["notes"] += (
-                            f" NOTE: digitised shut-off head is {delta:+.0f}% vs Table 9 "
-                            f"({tbl} m) - the H axis on this page reads uncertainly; "
-                            "check against the printed curve before design use."
-                        )
+                e["table9_delta_pct"] = round(delta, 1)
+                if abs(delta) > 6:
+                    e["notes"] += (
+                        f" NOTE: digitised shut-off head is {delta:+.0f}% vs Table 9 "
+                        f"({tbl} m) - the H axis on this page reads uncertainly; "
+                        "check against the printed curve before design use."
+                    )
             if imp["npshr"]:
                 e["npshr_points"] = {
                     "q_lps": [q for q, _ in imp["npshr"]],

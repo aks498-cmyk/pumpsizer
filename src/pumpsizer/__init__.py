@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from . import epanet, solver, staging, surge, transient
 from .catalog import Catalog, PumpModel
+from .catalog_qa import check_catalog
 from .constants import RHO_WATER_DEFAULT, G
 from .energy import annual_energy_cost, annual_energy_kwh, life_cycle_cost
 from .fittings import FittingCatalog, minor_loss_k
@@ -58,6 +59,7 @@ __all__ = [
     "__version__",
     "annual_energy_cost",
     "annual_energy_kwh",
+    "check_catalog",
     "darcy_weisbach_hf",
     "epanet",
     "evaluate",

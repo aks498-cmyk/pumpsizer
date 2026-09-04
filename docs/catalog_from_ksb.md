@@ -104,6 +104,29 @@ seam where the fragments were rejoined.
 
 ![Multitec digitisation overlay](ksb_multitec_verification.png)
 
+## Machine QA — `pumpsizer catalog-check`
+
+```bash
+pumpsizer catalog-check                 # bundled KSB Omega + Multitec
+pumpsizer catalog-check --catalogue my_catalogue/ --show-ok --json qa.json
+```
+
+`pumpsizer.catalog_qa.check_catalog` runs, for every entry:
+
+* **shape** — Q ascending, H descending, shut-off/run-out ratio 1.03–3.0, BEP
+  flow inside the curve, NPSHr in 0.1–25 m and not falling with flow;
+* **multistage** — `curve.h_m` equals `per_stage_head_m × stages_max`, and (KSB
+  Multitec) that shut-off is within 12 % of Table 9's `hmax`;
+* **affinity** — where one pump appears at two speeds or two impeller
+  diameters, the per-stage shut-off heads scale as `n²` / `D²`
+  (`OK` ≤ 12 % / 18 %, `WARN` beyond, `FAIL` past 25 % / 35 %).
+
+Findings are `OK` / `WARN` / `FAIL`; the command exits non-zero on any `FAIL`
+(`--no-fail` to report only). The shipped catalogues have **no FAILs**; the
+handful of WARNs (a few Omega BEP x-positions landing just past the last curve
+point, one size's 2900 rpm curve ~18 % above `n²`) are the entries to eyeball
+first if you're about to rely on them.
+
 ## Regenerating
 
 ```bash

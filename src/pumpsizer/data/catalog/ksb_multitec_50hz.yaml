@@ -105,7 +105,6 @@ pumps:
     - 31.5
     - 27.21
     - 21.83
-  table9_hmax_total_m: 52
   eff_bep_pct: 60.5
   q_bep_lps: 2.2
 - manufacturer: KSB
@@ -206,7 +205,6 @@ pumps:
     - 61.78
     - 53.89
     - 44.08
-  table9_hmax_total_m: 105
   eff_bep_pct: 60.9
   q_bep_lps: 4.43
 - manufacturer: KSB
@@ -307,7 +305,6 @@ pumps:
     - 49.77
     - 44.47
     - 37.75
-  table9_hmax_total_m: 79
   eff_bep_pct: 63.9
   q_bep_lps: 3.73
 - manufacturer: KSB
@@ -423,7 +420,6 @@ pumps:
     - 99.53
     - 88.97
     - 75.46
-  table9_hmax_total_m: 158
   npshr_points:
     q_lps:
     - 0.83
@@ -539,7 +535,6 @@ pumps:
     - 50.41
     - 44.4
     - 36.99
-  table9_hmax_total_m: 81
   eff_bep_pct: 69.3
   q_bep_lps: 5.24
 - manufacturer: KSB
@@ -640,7 +635,6 @@ pumps:
     - 103.64
     - 92.78
     - 78.99
-  table9_hmax_total_m: 162
   eff_bep_pct: 68.4
   q_bep_lps: 11.03
 - manufacturer: KSB
@@ -690,7 +684,6 @@ pumps:
     - 101.44
     - 89.08
     - 74.37
-  table9_hmax_total_m: 162
   eff_bep_pct: 72.5
   q_bep_lps: 10.45
 - manufacturer: KSB
@@ -791,7 +784,6 @@ pumps:
     - 43.49
     - 36.09
     - 26.57
-  table9_hmax_total_m: 75
   eff_bep_pct: 71.4
   q_bep_lps: 8.23
 - manufacturer: KSB
@@ -892,7 +884,6 @@ pumps:
     - 86.57
     - 73.64
     - 57.99
-  table9_hmax_total_m: 151
   eff_bep_pct: 69.5
   q_bep_lps: 16.5
 - manufacturer: KSB
@@ -993,7 +984,6 @@ pumps:
     - 59.17
     - 52.07
     - 43.45
-  table9_hmax_total_m: 100
   eff_bep_pct: 73.6
   q_bep_lps: 10.58
 - manufacturer: KSB
@@ -1094,7 +1084,6 @@ pumps:
     - 79.35
     - 70.2
     - 58.85
-  table9_hmax_total_m: 133
   eff_bep_pct: 76.5
   q_bep_lps: 26.6
 - manufacturer: KSB
@@ -1195,7 +1184,6 @@ pumps:
     - 71.15
     - 60.77
     - 47.69
-  table9_hmax_total_m: 120
   eff_bep_pct: 67.8
   q_bep_lps: 14.71
 - manufacturer: KSB
@@ -1296,7 +1284,6 @@ pumps:
     - 102.63
     - 93.12
     - 82.07
-  table9_hmax_total_m: 165
   eff_bep_pct: 75.5
   q_bep_lps: 32.99
 - manufacturer: KSB
@@ -1412,7 +1399,6 @@ pumps:
     - 74.6
     - 64.32
     - 53.42
-  table9_hmax_total_m: 131
   eff_bep_pct: 77.8
   q_bep_lps: 22.58
 - manufacturer: KSB
@@ -1513,7 +1499,6 @@ pumps:
     - 104.77
     - 91.28
     - 73.18
-  table9_hmax_total_m: 174
   eff_bep_pct: 76.3
   q_bep_lps: 45.9
 - manufacturer: KSB
@@ -1629,7 +1614,6 @@ pumps:
     - 80.5
     - 71.67
     - 60.39
-  table9_hmax_total_m: 135
   npshr_points:
     q_lps:
     - 5.59
@@ -1694,8 +1678,6 @@ pumps:
     - 72.2
     - 60.97
     - 45.94
-  table9_hmax_total_m: 135
-  table9_delta_pct: -25.3
   npshr_points:
     q_lps:
     - 5.59
@@ -1760,7 +1742,6 @@ pumps:
     - 54.23
     - 45.73
     - 34.94
-  table9_hmax_total_m: 135
   npshr_points:
     q_lps:
     - 5.59
@@ -1876,7 +1857,6 @@ pumps:
     - 83.6
     - 74.11
     - 61.07
-  table9_hmax_total_m: 127
   eff_bep_pct: 74.8
   q_bep_lps: 30.68
 - manufacturer: KSB
@@ -1926,8 +1906,6 @@ pumps:
     - 76.9
     - 68.51
     - 58.24
-  table9_hmax_total_m: 127
-  table9_delta_pct: -17.9
   eff_bep_pct: 79.4
   q_bep_lps: 33.85
 - manufacturer: KSB
@@ -1977,7 +1955,6 @@ pumps:
     - 58.5
     - 52.28
     - 44.84
-  table9_hmax_total_m: 127
   eff_bep_pct: 77.5
   q_bep_lps: 30.49
 - manufacturer: KSB
@@ -2080,7 +2057,6 @@ pumps:
     - 67.59
     - 61.03
     - 52.78
-  table9_hmax_total_m: 95
   eff_bep_pct: 76.5
   q_bep_lps: 73.2
 - manufacturer: KSB
@@ -2130,8 +2106,6 @@ pumps:
     - 64.24
     - 56.08
     - 44.96
-  table9_hmax_total_m: 95
-  table9_delta_pct: -15.5
   eff_bep_pct: 80.3
   q_bep_lps: 67.64
 - manufacturer: KSB
@@ -2181,7 +2155,6 @@ pumps:
     - 48.74
     - 42.51
     - 34.2
-  table9_hmax_total_m: 95
   eff_bep_pct: 78.2
   q_bep_lps: 60.55
 - manufacturer: KSB
@@ -2284,7 +2257,6 @@ pumps:
     - 66.02
     - 58.36
     - 48.33
-  table9_hmax_total_m: 95
   eff_bep_pct: 78.3
   q_bep_lps: 86.55
 - manufacturer: KSB
@@ -2334,8 +2306,6 @@ pumps:
     - 56.39
     - 47.02
     - 34.34
-  table9_hmax_total_m: 95
-  table9_delta_pct: -15.3
   eff_bep_pct: 81.6
   q_bep_lps: 94.55
 - manufacturer: KSB
@@ -2385,6 +2355,5 @@ pumps:
     - 44.01
     - 37.23
     - 28.47
-  table9_hmax_total_m: 95
   eff_bep_pct: 79.7
   q_bep_lps: 85.57

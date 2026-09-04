@@ -59,6 +59,10 @@ pumpsizer select --project examples/potable_water_pumping_station.yaml \
 # one-off curve + EPANET block from a duty point
 pumpsizer curve --duty-q 300 --duty-h 33 --source synthetic --points 3
 
+# QA the digitised catalogue (curve shape, BEP, per-stage & affinity checks)
+pumpsizer catalog-check                       # bundled KSB Omega + Multitec
+pumpsizer catalog-check --catalogue my_catalogue/ --show-ok
+
 # rule-of-thumb water-hammer check + air-vessel / flywheel pre-size
 pumpsizer surge --length 2500 --material ductile_iron --dn 400 \
     --flow-lps 300 --static 24 --pn 16 --shaft-power-kw 114
@@ -163,7 +167,9 @@ efficiency — are plain YAML; edit or point the API at your own via
   the shortest stack that clears the duty head — see
   `examples/high_head_booster_ksb_multitec.yaml`).
   Selection flags each digitised hit with "confirm against datasheet p.N" and a
-  score penalty. See `docs/catalog_from_ksb.md`.
+  score penalty. `pumpsizer catalog-check` runs the machine QA (curve shape,
+  BEP-in-range, per-stage `H₀ × stages_max`, and `n²` / `D²` affinity between
+  speed and impeller-diameter families). See `docs/catalog_from_ksb.md`.
 * **Phase 3** – `inpfile.InpModel` structured `.inp` reader/writer; `.inp`
   splice (curve + pump + energy, keeps the existing pump's end nodes); `solver`
   bridge to the EPANET 2.2 engine via `epyt`; `pumpsizer verify` and

@@ -429,6 +429,21 @@ def _cmd_curve(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_catalog_check(args: argparse.Namespace) -> int:
+    from .catalog import Catalog
+    from .catalog_qa import check_catalog, format_report, summarise
+
+    cat = Catalog.from_path(args.catalogue) if args.catalogue else Catalog.bundled()
+    findings = check_catalog(cat)
+    if args.json:
+        Path(args.json).write_text(
+            json.dumps([f.__dict__ for f in findings], indent=2), encoding="utf-8"
+        )
+        print(f"wrote {args.json}")
+    print(format_report(cat, findings, show_ok=args.show_ok))
+    return 1 if summarise(findings)["FAIL"] and not args.no_fail else 0
+
+
 _SCHEMA = (Path(__file__).parent / "data").parent  # placeholder; real file below
 
 
@@ -549,6 +564,15 @@ def build_parser() -> argparse.ArgumentParser:
 
     s = sub.add_parser("schema", help="print an example project file")
     s.set_defaults(func=_cmd_schema)
+
+    cc = sub.add_parser("catalog-check", help="QA the (digitised) pump catalogue")
+    cc.add_argument("--catalogue", help="catalogue file or directory (default: bundled)")
+    cc.add_argument("--json", help="write findings here")
+    cc.add_argument("--show-ok", action="store_true", help="also print OK-level notes")
+    cc.add_argument(
+        "--no-fail", action="store_true", help="always exit 0 (report only, don't gate)"
+    )
+    cc.set_defaults(func=_cmd_catalog_check)
 
     et = sub.add_parser("excel-template", help="write a blank input workbook (openpyxl)")
     et.add_argument("out", help="output .xlsx path")
