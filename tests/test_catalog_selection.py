@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 
 from pumpsizer.catalog import Catalog, PumpModel
@@ -6,11 +8,9 @@ from pumpsizer.project import Project
 from pumpsizer.selection import SelectionCriteria, evaluate, select
 from pumpsizer.system import MinorLoss, SystemCurve
 
-EXAMPLE = (
-    __import__("pathlib").Path(__file__).resolve().parents[1]
-    / "examples"
-    / "potable_water_pumping_station.yaml"
-)
+_ROOT = Path(__file__).resolve().parents[1]
+EXAMPLE = _ROOT / "examples" / "potable_water_pumping_station.yaml"
+ILLUSTRATIVE = _ROOT / "src/pumpsizer/data/catalog/_example_water_pumps.yaml"
 
 
 def _system(static=24.0):
@@ -40,11 +40,19 @@ def test_model_to_pump_curve_roundtrip():
 
 
 def test_selection_prefers_bep_matched_pump():
-    cat = Catalog.bundled()
+    cat = Catalog.from_path(ILLUSTRATIVE)  # small controlled set
     crit = SelectionCriteria.from_duty(300, 33, system_curve=_system(), npsh_available_m=9.0)
     ranked = select(cat, crit)
     assert ranked, "expected at least one feasible pump"
     assert "300-34" in ranked[0].model.key  # the BEP-matched one wins
+
+
+def test_illustrative_pumps_are_penalised_vs_real_data():
+    cat = Catalog.bundled()  # digitised KSB Omega + illustrative
+    crit = SelectionCriteria.from_duty(300, 33, system_curve=_system(), npsh_available_m=9.0)
+    top = select(cat, crit, top=5)
+    assert "illustrative" not in top[0].model.tags  # a real KSB pump wins
+    assert "KSB" in top[0].model.manufacturer
 
 
 def test_oversized_pump_gets_trimmed():

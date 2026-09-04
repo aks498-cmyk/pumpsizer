@@ -583,8 +583,8 @@ class Project:
         cat = Catalog.from_path(cat_path) if cat_path else Catalog.bundled()
         if cat_path is None:
             warnings.append(
-                "pump.source=catalogue but no catalogue_path given; "
-                "using the bundled ILLUSTRATIVE catalogue"
+                "pump.source=catalogue but no catalogue_path given; using the bundled "
+                f"catalogue ({len(cat)} models: digitised KSB Omega + a few illustrative)"
             )
         sel = _get(d, "pump.selection", {}) or {}
         crit = SelectionCriteria(

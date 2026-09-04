@@ -22,6 +22,14 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 - `catalog.PumpModel` reads `curve:` / `npshr_points:` / `eff_bep_pct:`;
   `selection` flags digitised candidates ("confirm against datasheet p.N",
   ×0.94 score) distinctly from unverified envelope entries.
+- The 5 illustrative catalogue pumps are tagged `illustrative` and ×0.5 in
+  selection, so `pump.source: catalogue` with no path (which loads the bundled
+  digitised KSB Omega curves + the illustrative ones) never returns a synthetic
+  pump over real data.
+- `examples/potable_water_pumping_station_ksb.yaml` — the worked station with
+  the pump chosen from the digitised KSB catalogue; end-to-end test added.
+- Digitised H-Q points spot-checked against 4 rendered datasheet pages
+  (`docs/ksb_omega_verification.png`); they sit on the printed curves.
 - Removed the old envelope-only builder (`tools/build_ksb_omega_catalog.py`).
 
 ## [0.2.0] — 2026-09-04
