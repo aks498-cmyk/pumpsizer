@@ -113,3 +113,19 @@ def test_project_catalogue_source_runs():
     assert res.selection is not None and len(res.selection) >= 4
     assert res.operating_point.flow_lps > 200
     assert any("selected" in w for w in res.warnings)
+
+
+def test_ksb_catalogue_example_end_to_end():
+    """The KSB-Omega-driven example runs the whole pipeline on real curves."""
+    from pathlib import Path
+
+    ex = Path(__file__).resolve().parents[1] / "examples" / "potable_water_pumping_station_ksb.yaml"
+    res = Project.from_yaml(ex).run()
+    op = res.operating_point
+    assert res.selection and res.selection[0].feasible
+    assert "KSB Omega" in res.pump.name
+    assert 250 < op.flow_lps < 360
+    assert 24 < op.head_m < 45
+    assert 70 < op.efficiency_pct < 92  # real digitised efficiency
+    assert res.npsh.npsh_required_m and res.npsh.npsh_required_m > 1.0
+    assert res.motor.rated_kw in (110, 132, 160, 200)

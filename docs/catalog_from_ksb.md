@@ -35,6 +35,15 @@ percent on H, a bit more on NPSH (its axis has fewer ticks). It is a
 "curve machine-digitised — confirm against datasheet p.N" and applies a small
 score penalty so a hand-verified pump always ranks above it.
 
+**Spot check.** The digitised H-Q points were overlaid on the rendered
+datasheet pages 8, 26, 46 and 71 (all four impellers each) — they sit on the
+printed curves within plotting tolerance:
+
+![digitised curves overlaid on the datasheet](ksb_omega_verification.png)
+
+The affinity families also agree: for a given size, `H ∝ n²` between the 1450
+and 2900 rpm pages and `H ∝ D²` between impeller steps.
+
 ## Verifying / correcting an entry you intend to use
 
 1. Open the booklet page in `datasheet_page`.

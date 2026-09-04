@@ -1,0 +1,118 @@
+# Same station as potable_water_pumping_station.yaml, but the pump is chosen
+# from the digitised KSB Omega catalogue instead of a synthetic curve.
+# Run:  pumpsizer run examples/potable_water_pumping_station_ksb.yaml
+
+project:
+  name: Potable Water Pumping Station (KSB Omega selection)
+  description: Clear-water transfer, sump to service reservoir via rising main.
+fluid:
+  temperature_c: 30
+  altitude_m: 0
+pipe:
+  material: ductile_iron
+  series: null
+  headloss_method: DW
+flow:
+  total_demand_lps: 300
+  duty_pumps: 1
+  standby_pumps: 1
+segments:
+- name: suction_header
+  group: suction
+  length_m: 25
+  dn: 700
+- name: pump_suction
+  group: suction
+  length_m: 10
+  dn: 700
+- name: pump_discharge
+  group: discharge
+  length_m: 15
+  dn: 400
+- name: rising_main
+  group: discharge
+  length_m: 500
+  dn: 400
+fitting_reference:
+  suction: pump_suction
+  discharge: pump_discharge
+fittings:
+  suction:
+    entrance_bellmouth: 1
+    reducer: 1
+    gate_valve: 4
+    bend_90: 4
+    tee: 1
+  discharge:
+    tee: 1
+    enlarger: 1
+    bend_45: 4
+    bend_90: 4
+    bend_22_5: 6
+    gate_valve: 1
+    butterfly_valve: 1
+    non_return_valve: 1
+    exit_sharp: 1
+levels:
+  reservoir_hwl_m: 32
+  reservoir_bwl_m: 25
+  sump_hwl_m: 15
+  sump_bwl_m: 8
+  pump_centreline_m: 8
+velocity_limits:
+  suction_max_m_s: 1.0
+  discharge_max_m_s: 2.5
+autosize_diameter: false
+suction:
+  npsh_safety_margin_m: 0.5
+pump:
+  source: catalogue
+  catalogue_path: src/pumpsizer/data/catalog/ksb_omega_50hz.yaml
+  selection:
+    allow_trim: true
+    allow_vfd: true
+control:
+  arrangement: single
+  vfd: false
+  vfd_min_speed_pct: 70
+  vfd_target_flow_lps: null
+motor:
+  poles: 2
+  ie_class: IE3
+  rating_margin_pct: 15
+  sizing_basis: operating_point
+water_hammer:
+  enabled: true
+  method: rule_of_thumb
+  closure_time_s: null
+  pressure_class_pn: 16
+  allowable_max_head_m: 150
+  restraint: 1.0
+staging:
+  enabled: true
+  mode: vfd
+  pattern_kind: peak
+  pattern_base_lps: 300
+  pattern_step_hours: 1
+  days: 1
+  vfd_min_speed_pct: 65
+  max_starts_per_hour: 10
+  n_pumps_available: 2
+  tank:
+    plan_area_m2: 250
+    level_min_m: 25
+    level_max_m: 32
+energy:
+  hours_per_day: 20
+  tariff_per_kwh: 0.12
+  demand_charge_per_kw_month: 0
+  life_cycle_years: 20
+  discount_rate: 0.08
+  capital_cost: 0
+epanet:
+  flow_units: LPS
+  pump_id: PMP1
+  from_node: SUMP
+  to_node: PUMP_OUT
+  head_points: 3
+  efficiency_points: 7
