@@ -10,6 +10,17 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
+### Added
+- **Lubi 6-inch borehole catalogue** (`lubi_6inch_50hz.yaml`, 16 series) —
+  `tools/digitise_lubi_6inch.py` reads the stacked-stage H-Q family from the
+  vector PDF (one line per catalogued stage count, 10–55), averages it to a
+  per-stage curve and stores it Multitec-style (`per_stage_head_m` +
+  `stages_max`), so `selection` picks a stage count. Q axis from the l/sec /
+  m³/h ticks, H axis in metres from the left margin, stage counts read from the
+  glyph strip. BEP where a plausible peak reads (6 of 16); NPSHr not yet
+  digitised. Overlay-checked on J6 / J16H — the reconstructed max-stack curve
+  sits on the printed one.
+
 ## [0.3.2] — 2026-09-04
 
 ### Fixed

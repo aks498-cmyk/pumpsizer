@@ -47,9 +47,10 @@ plots:  ## Regenerate the example plots (performance, transient, staging) to $(O
 	$(PYTHON) -m pumpsizer.cli transient --length 2500 --dn 400 --flow-lps 300 --head 33 --static 24 --inertia 5 --air-vessel-m3 20 --plot $(OUT)/transient.png
 	$(PYTHON) -m pumpsizer.cli stage $(EXAMPLE) --plot $(OUT)/staging.png
 
-catalog:  ## Regenerate the digitised KSB catalogues (set KSB=path/to/pdf/dir)
+catalog:  ## Regenerate the digitised catalogues (set KSB= and LUBI= pdf dirs)
 	$(PYTHON) tools/digitise_ksb_omega.py    $(KSB)/dow-omega-data.pdf
 	$(PYTHON) tools/digitise_ksb_multitec.py $(KSB)/dow-multitec-data.pdf
+	$(PYTHON) tools/digitise_lubi_6inch.py   $(LUBI)/6-Inch-SS-50-Hz-Catalogue.pdf
 
 catalog-check:  ## QA the bundled digitised catalogues
 	$(PYTHON) -m pumpsizer.cli catalog-check

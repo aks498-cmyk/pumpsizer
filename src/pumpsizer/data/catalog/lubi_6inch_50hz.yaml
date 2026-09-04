@@ -1,0 +1,1052 @@
+# Lubi 6-inch stainless submersible bore-well pumps, 50 Hz.
+# Stacked-stage H-Q families machine-digitised from the vector PDF; one
+# entry per series with per_stage_head_m + stages_max (Multitec-style).
+# verified: false - confirm against the printed datasheet before use.
+# Regenerate: py tools/digitise_lubi_6inch.py
+# 16 series, 34 pages skipped.
+
+pumps:
+- manufacturer: Lubi
+  series: J12
+  model: J12 (10-25 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 25
+  stages_max: 25
+  catalogued_stage_counts:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  per_stage_head_m:
+  - 10.521
+  - 10.165
+  - 9.716
+  - 9.202
+  - 8.552
+  - 7.69
+  - 6.45
+  - 4.777
+  digitised: true
+  verified: false
+  datasheet_page: 13
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.65
+    - 1.29
+    - 1.94
+    - 2.58
+    - 3.23
+    - 3.87
+    - 4.52
+    h_m:
+    - 263.03
+    - 254.12
+    - 242.9
+    - 230.05
+    - 213.8
+    - 192.25
+    - 161.25
+    - 119.42
+- manufacturer: Lubi
+  series: J13H
+  model: J13H (26-50 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 50
+  stages_max: 50
+  catalogued_stage_counts:
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 41
+  - 42
+  - 43
+  - 44
+  - 45
+  - 46
+  - 47
+  - 48
+  - 49
+  - 50
+  per_stage_head_m:
+  - 14.519
+  - 14.48
+  - 14.333
+  - 14.111
+  - 13.719
+  - 13.144
+  - 12.298
+  - 11.158
+  - 9.518
+  digitised: true
+  verified: false
+  datasheet_page: 35
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.53
+    - 1.06
+    - 1.59
+    - 2.12
+    - 2.66
+    - 3.19
+    - 3.72
+    - 4.25
+    h_m:
+    - 725.95
+    - 724.0
+    - 716.65
+    - 705.55
+    - 685.95
+    - 657.2
+    - 614.9
+    - 557.9
+    - 475.9
+- manufacturer: Lubi
+  series: J16H
+  model: J16H (25-49 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 49
+  stages_max: 49
+  catalogued_stage_counts:
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 41
+  - 42
+  - 43
+  - 44
+  - 45
+  - 46
+  - 47
+  - 48
+  - 49
+  per_stage_head_m:
+  - 15.444
+  - 15.259
+  - 14.916
+  - 14.46
+  - 13.79
+  - 12.821
+  - 11.588
+  - 9.916
+  - 7.564
+  digitised: true
+  verified: false
+  datasheet_page: 39
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.69
+    - 1.37
+    - 2.06
+    - 2.75
+    - 3.44
+    - 4.12
+    - 4.81
+    - 5.5
+    h_m:
+    - 756.76
+    - 747.69
+    - 730.88
+    - 708.54
+    - 675.71
+    - 628.23
+    - 567.81
+    - 485.88
+    - 370.64
+  eff_bep_pct: 66.4
+  q_bep_lps: 4.32
+- manufacturer: Lubi
+  series: J17
+  model: J17 (10-23 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 23
+  stages_max: 23
+  catalogued_stage_counts:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  per_stage_head_m:
+  - 13.555
+  - 13.459
+  - 13.212
+  - 12.793
+  - 12.161
+  - 11.244
+  - 9.771
+  - 7.628
+  - 5.197
+  digitised: true
+  verified: false
+  datasheet_page: 17
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.63
+    - 1.25
+    - 1.88
+    - 2.5
+    - 3.13
+    - 3.75
+    - 4.38
+    - 5.0
+    h_m:
+    - 311.76
+    - 309.56
+    - 303.88
+    - 294.24
+    - 279.7
+    - 258.61
+    - 224.73
+    - 175.44
+    - 119.53
+- manufacturer: Lubi
+  series: J17A
+  model: J17A (10-25 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 25
+  stages_max: 25
+  catalogued_stage_counts:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  per_stage_head_m:
+  - 11.276
+  - 11.184
+  - 10.895
+  - 10.496
+  - 9.857
+  - 8.723
+  - 7.156
+  - 5.017
+  digitised: true
+  verified: false
+  datasheet_page: 21
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.91
+    - 1.81
+    - 2.72
+    - 3.62
+    - 4.53
+    - 5.44
+    - 6.34
+    h_m:
+    - 281.9
+    - 279.6
+    - 272.38
+    - 262.4
+    - 246.42
+    - 218.08
+    - 178.9
+    - 125.43
+- manufacturer: Lubi
+  series: J18H
+  model: J18H (24-42 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 42
+  stages_max: 42
+  catalogued_stage_counts:
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 41
+  - 42
+  per_stage_head_m:
+  - 15.688
+  - 15.447
+  - 15.109
+  - 14.723
+  - 14.236
+  - 13.561
+  - 12.69
+  - 11.459
+  - 9.689
+  digitised: true
+  verified: false
+  datasheet_page: 43
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.79
+    - 1.58
+    - 2.37
+    - 3.17
+    - 3.96
+    - 4.75
+    - 5.54
+    - 6.33
+    h_m:
+    - 658.9
+    - 648.77
+    - 634.58
+    - 618.37
+    - 597.91
+    - 569.56
+    - 532.98
+    - 481.28
+    - 406.94
+  eff_bep_pct: 71.4
+  q_bep_lps: 5.43
+- manufacturer: Lubi
+  series: J20
+  model: J20 (10-28 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 28
+  stages_max: 28
+  catalogued_stage_counts:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  per_stage_head_m:
+  - 10.773
+  - 10.524
+  - 10.178
+  - 9.781
+  - 9.267
+  - 8.574
+  - 7.585
+  - 6.126
+  - 3.524
+  digitised: true
+  verified: false
+  datasheet_page: 25
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 1.01
+    - 2.02
+    - 3.03
+    - 4.04
+    - 5.05
+    - 6.06
+    - 7.07
+    - 8.08
+    h_m:
+    - 301.64
+    - 294.67
+    - 284.98
+    - 273.87
+    - 259.48
+    - 240.07
+    - 212.38
+    - 171.53
+    - 98.67
+- manufacturer: Lubi
+  series: J24
+  model: J24 (10-24 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 24
+  stages_max: 24
+  catalogued_stage_counts:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  per_stage_head_m:
+  - 12.788
+  - 12.408
+  - 11.914
+  - 11.377
+  - 10.789
+  - 10.042
+  - 8.864
+  - 6.746
+  - 3.388
+  digitised: true
+  verified: false
+  datasheet_page: 29
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 1.22
+    - 2.44
+    - 3.66
+    - 4.88
+    - 6.09
+    - 7.31
+    - 8.53
+    - 9.75
+    h_m:
+    - 306.91
+    - 297.79
+    - 285.94
+    - 273.05
+    - 258.94
+    - 241.01
+    - 212.74
+    - 161.9
+    - 81.31
+- manufacturer: Lubi
+  series: J6
+  model: J6 (24-41 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 41
+  stages_max: 41
+  catalogued_stage_counts:
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 41
+  per_stage_head_m:
+  - 10.115
+  - 9.664
+  - 9.137
+  - 8.518
+  - 7.823
+  - 6.985
+  - 5.961
+  - 4.697
+  - 3.014
+  digitised: true
+  verified: false
+  datasheet_page: 7
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.42
+    - 0.83
+    - 1.25
+    - 1.67
+    - 2.08
+    - 2.5
+    - 2.92
+    - 3.33
+    h_m:
+    - 414.72
+    - 396.22
+    - 374.62
+    - 349.24
+    - 320.74
+    - 286.38
+    - 244.4
+    - 192.58
+    - 123.57
+  eff_bep_pct: 54.5
+  q_bep_lps: 1.91
+- manufacturer: Lubi
+  series: J9
+  model: J9 (25-40 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 40
+  stages_max: 40
+  catalogued_stage_counts:
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  per_stage_head_m:
+  - 10.142
+  - 9.798
+  - 9.367
+  - 8.819
+  - 8.041
+  - 6.937
+  - 5.331
+  - 3.206
+  digitised: true
+  verified: false
+  datasheet_page: 11
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.55
+    - 1.1
+    - 1.66
+    - 2.21
+    - 2.76
+    - 3.31
+    - 3.87
+    h_m:
+    - 405.68
+    - 391.92
+    - 374.68
+    - 352.76
+    - 321.64
+    - 277.48
+    - 213.24
+    - 128.24
+  eff_bep_pct: 58.6
+  q_bep_lps: 2.84
+- manufacturer: Lubi
+  series: W10
+  model: W10 (23-43 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 43
+  stages_max: 43
+  catalogued_stage_counts:
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 41
+  - 42
+  - 43
+  per_stage_head_m:
+  - 10.812
+  - 10.716
+  - 10.439
+  - 9.856
+  - 8.96
+  - 8.049
+  - 7.182
+  - 6.211
+  - 4.562
+  digitised: true
+  verified: false
+  datasheet_page: 47
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.64
+    - 1.27
+    - 1.91
+    - 2.54
+    - 3.18
+    - 3.81
+    - 4.45
+    - 5.08
+    h_m:
+    - 464.92
+    - 460.79
+    - 448.88
+    - 423.81
+    - 385.28
+    - 346.11
+    - 308.83
+    - 267.07
+    - 196.17
+  eff_bep_pct: 63.3
+  q_bep_lps: 3.63
+- manufacturer: Lubi
+  series: W15
+  model: W15 (23-43 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 43
+  stages_max: 43
+  catalogued_stage_counts:
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 41
+  - 42
+  - 43
+  per_stage_head_m:
+  - 10.844
+  - 10.684
+  - 10.491
+  - 10.229
+  - 9.785
+  - 9.061
+  - 8.281
+  - 7.396
+  - 6.202
+  digitised: true
+  verified: false
+  datasheet_page: 51
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.63
+    - 1.25
+    - 1.88
+    - 2.5
+    - 3.13
+    - 3.75
+    - 4.38
+    - 5.0
+    h_m:
+    - 466.29
+    - 459.41
+    - 451.11
+    - 439.85
+    - 420.75
+    - 389.62
+    - 356.08
+    - 318.03
+    - 266.69
+- manufacturer: Lubi
+  series: W17
+  model: W17 (22-55 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 55
+  stages_max: 55
+  catalogued_stage_counts:
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 43
+  - 45
+  - 48
+  - 51
+  - 53
+  - 55
+  per_stage_head_m:
+  - 12.099
+  - 12.067
+  - 11.972
+  - 11.646
+  - 11.026
+  - 10.104
+  - 8.899
+  - 7.406
+  - 5.61
+  digitised: true
+  verified: false
+  datasheet_page: 55
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 0.77
+    - 1.54
+    - 2.3
+    - 3.07
+    - 3.84
+    - 4.61
+    - 5.38
+    - 6.15
+    h_m:
+    - 665.45
+    - 663.69
+    - 658.46
+    - 640.53
+    - 606.43
+    - 555.72
+    - 489.44
+    - 407.33
+    - 308.55
+- manufacturer: Lubi
+  series: W30
+  model: W30 (21-43 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 43
+  stages_max: 43
+  catalogued_stage_counts:
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 39
+  - 43
+  per_stage_head_m:
+  - 12.589
+  - 12.577
+  - 12.061
+  - 11.343
+  - 10.597
+  - 9.783
+  - 8.644
+  - 6.971
+  - 4.907
+  digitised: true
+  verified: false
+  datasheet_page: 59
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 1.35
+    - 2.71
+    - 4.06
+    - 5.42
+    - 6.77
+    - 8.13
+    - 9.48
+    - 10.84
+    h_m:
+    - 541.33
+    - 540.81
+    - 518.62
+    - 487.75
+    - 455.67
+    - 420.67
+    - 371.69
+    - 299.75
+    - 211.0
+- manufacturer: Lubi
+  series: W46
+  model: W46 (13-37 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 37
+  stages_max: 37
+  catalogued_stage_counts:
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 26
+  - 28
+  - 30
+  - 33
+  - 35
+  - 37
+  per_stage_head_m:
+  - 13.607
+  - 13.23
+  - 12.652
+  - 11.957
+  - 11.131
+  - 10.169
+  - 8.948
+  - 7.398
+  - 5.464
+  digitised: true
+  verified: false
+  datasheet_page: 63
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 2.08
+    - 4.17
+    - 6.25
+    - 8.33
+    - 10.42
+    - 12.5
+    - 14.58
+    - 16.67
+    h_m:
+    - 503.46
+    - 489.51
+    - 468.12
+    - 442.41
+    - 411.85
+    - 376.25
+    - 331.08
+    - 273.73
+    - 202.17
+- manufacturer: Lubi
+  series: W60
+  model: W60 (22-37 stage)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 150
+  stages: 37
+  stages_max: 37
+  catalogued_stage_counts:
+  - 22
+  - 26
+  - 30
+  - 37
+  per_stage_head_m:
+  - 10.56
+  - 10.322
+  - 9.884
+  - 8.99
+  - 7.967
+  - 6.95
+  - 5.902
+  - 4.775
+  - 3.176
+  digitised: true
+  verified: false
+  datasheet_page: 67
+  source: Lubi 6-inch SS 50 Hz Borehole Submersible Catalogue; stacked-stage H-Q family
+    read from the vector PDF, per-stage head averaged over the catalogued stage counts
+  notes: machine-digitised; per-stage curve x stage count. Efficiency is pump (not
+    wire-to-water). Confirm against the printed page.
+  curve:
+    q_lps:
+    - 0.0
+    - 2.71
+    - 5.42
+    - 8.12
+    - 10.83
+    - 13.54
+    - 16.25
+    - 18.96
+    - 21.67
+    h_m:
+    - 390.72
+    - 381.91
+    - 365.71
+    - 332.63
+    - 294.78
+    - 257.15
+    - 218.37
+    - 176.68
+    - 117.51
+  eff_bep_pct: 79.6
+  q_bep_lps: 17.02

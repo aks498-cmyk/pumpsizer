@@ -167,7 +167,10 @@ efficiency — are plain YAML; edit or point the API at your own via
   `tools/digitise_ksb_multitec.py`: per-stage Q-H curve + `stages_max` from the
   booklet's Table 9, so selection tries `1..stages_max` equal stages and takes
   the shortest stack that clears the duty head — see
-  `examples/high_head_booster_ksb_multitec.yaml`).
+  `examples/high_head_booster_ksb_multitec.yaml`),
+  and **16 Lubi 6-inch borehole submersible series** (`lubi_6inch_50hz.yaml`
+  via `tools/digitise_lubi_6inch.py`: stacked-stage H-Q family → per-stage curve
+  + `stages_max`, deep-well lift to ~750 m).
   Selection flags each digitised hit with "confirm against datasheet p.N" and a
   score penalty. `pumpsizer catalog-check` runs the machine QA (curve shape,
   BEP-in-range, per-stage `H₀ × stages_max`, and `n²` / `D²` affinity between
