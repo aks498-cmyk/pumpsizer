@@ -222,9 +222,12 @@ def digitise_page(page, limits):
         qh[0] = (0.0, qh[0][1])
         q = [float(x) for x, _ in qh]
         h = [float(y) for _, y in qh]
+        # each impeller in a family sits below the previous one at shut-off; a
+        # heavily reduced one read deep into run-out can top a 2.7 ratio.
+        prev_h0 = impellers[-1]["per_stage_h_m"][0] if impellers else float("inf")
         if not (all(b >= a - 1e-6 for a, b in zip(q, q[1:])) and h[0] > h[-1] and q[-1] > 0):
             continue
-        if not (1.03 <= h[0] / max(h[-1], 0.1) <= 2.7):
+        if not (1.03 <= h[0] / max(h[-1], 0.1) <= 4.5 and h[0] < prev_h0 + 1e-6):
             continue
         npshr = None
         if np_ax and k < len(npshs):

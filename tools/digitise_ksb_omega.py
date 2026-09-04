@@ -142,7 +142,19 @@ def digitise_page(page):
             and max(ys) - min(ys) > 12
         )  # actually a curve, not a border line
 
-    heads = [c["pts"] for c in page.curves if curve_band(c["pts"], h_band)]
+    def descends_lr(pts):
+        """A real H-Q curve falls left-to-right (top-origin: y grows as H drops).
+        A chart border - horizontal top or vertical side - does not, and must be
+        filtered here so it doesn't consume an impeller-diameter slot."""
+        s = sorted(pts, key=lambda p: p[0])
+        n = max(len(s) // 3, 1)
+        left = np.mean([p[1] for p in s[:n]])
+        right = np.mean([p[1] for p in s[-n:]])
+        return right - left > 12
+
+    heads = [
+        c["pts"] for c in page.curves if curve_band(c["pts"], h_band) and descends_lr(c["pts"])
+    ]
     npshs = [c["pts"] for c in page.curves if np_ax and curve_band(c["pts"], np_band)]
     if not heads:
         out["fail"] = "no head curves"

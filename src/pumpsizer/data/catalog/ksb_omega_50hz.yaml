@@ -228,11 +228,11 @@ pumps:
   q_bep_lps: 39.46
 - manufacturer: KSB
   series: Omega
-  model: 080-210B ø200 (2900rpm)
+  model: 080-210B ø215 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 80
-  impeller_diameter_mm: 200
+  impeller_diameter_mm: 215
   min_impeller_diameter_mm: 170
   impeller_options_mm: &id002
   - 215
@@ -243,7 +243,7 @@ pumps:
   verified: false
   datasheet_page: 9
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 200 mm
+    read from the vector PDF, impeller 215 mm
   notes: machine-digitised from the datasheet curve; confirm against the printed page
     before design use
   curve:
@@ -267,22 +267,37 @@ pumps:
     - 42.0
     - 34.4
     - 25.23
-  eff_bep_pct: 78.1
-  q_bep_lps: 34.99
+  npshr_points:
+    q_lps:
+    - 0.03
+    - 14.48
+    - 28.92
+    - 43.36
+    - 57.8
+    - 72.24
+    value_m:
+    - 16.1
+    - 16.1
+    - 16.1
+    - 16.1
+    - 16.1
+    - 16.1
+  eff_bep_pct: 79.5
+  q_bep_lps: 35.9
 - manufacturer: KSB
   series: Omega
-  model: 080-210B ø185 (2900rpm)
+  model: 080-210B ø200 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 80
-  impeller_diameter_mm: 185
-  min_impeller_diameter_mm: 161
+  impeller_diameter_mm: 200
+  min_impeller_diameter_mm: 174
   impeller_options_mm: *id002
   digitised: true
   verified: false
   datasheet_page: 9
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 185 mm
+    read from the vector PDF, impeller 200 mm
   notes: machine-digitised from the datasheet curve; confirm against the printed page
     before design use
   curve:
@@ -306,20 +321,22 @@ pumps:
     - 36.02
     - 29.17
     - 20.92
+  eff_bep_pct: 78.1
+  q_bep_lps: 34.99
 - manufacturer: KSB
   series: Omega
-  model: 080-210B ø170 (2900rpm)
+  model: 080-210B ø185 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 80
-  impeller_diameter_mm: 170
-  min_impeller_diameter_mm: 148
+  impeller_diameter_mm: 185
+  min_impeller_diameter_mm: 161
   impeller_options_mm: *id002
   digitised: true
   verified: false
   datasheet_page: 9
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 170 mm
+    read from the vector PDF, impeller 185 mm
   notes: machine-digitised from the datasheet curve; confirm against the printed page
     before design use
   curve:
@@ -345,18 +362,18 @@ pumps:
     - 16.68
 - manufacturer: KSB
   series: Omega
-  model: 080-210B (2900rpm)
+  model: 080-210B ø170 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 80
-  impeller_diameter_mm: null
-  min_impeller_diameter_mm: null
+  impeller_diameter_mm: 170
+  min_impeller_diameter_mm: 148
   impeller_options_mm: *id002
   digitised: true
   verified: false
   datasheet_page: 9
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF
+    read from the vector PDF, impeller 170 mm
   notes: machine-digitised from the datasheet curve; confirm against the printed page
     before design use
   curve:
@@ -1027,11 +1044,11 @@ pumps:
   q_bep_lps: 68.03
 - manufacturer: KSB
   series: Omega
-  model: 100-250B ø236 (2900rpm)
+  model: 100-250B ø254 (2900rpm)
   reference_speed_rpm: 2900
   poles: 2
   discharge_dn: 100
-  impeller_diameter_mm: 236
+  impeller_diameter_mm: 254
   min_impeller_diameter_mm: 201
   impeller_options_mm: &id006
   - 254
@@ -1042,7 +1059,7 @@ pumps:
   verified: false
   datasheet_page: 13
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 236 mm
+    read from the vector PDF, impeller 254 mm
   notes: machine-digitised from the datasheet curve; confirm against the printed page
     before design use
   curve:
@@ -1066,6 +1083,60 @@ pumps:
     - 66.0
     - 58.09
     - 49.28
+  npshr_points:
+    q_lps:
+    - 0.02
+    - 20.58
+    - 41.14
+    - 61.7
+    - 82.25
+    - 102.81
+    value_m:
+    - 14.02
+    - 14.02
+    - 14.02
+    - 14.02
+    - 14.02
+    - 14.02
+  eff_bep_pct: 81.5
+  q_bep_lps: 68.21
+- manufacturer: KSB
+  series: Omega
+  model: 100-250B ø236 (2900rpm)
+  reference_speed_rpm: 2900
+  poles: 2
+  discharge_dn: 100
+  impeller_diameter_mm: 236
+  min_impeller_diameter_mm: 205
+  impeller_options_mm: *id006
+  digitised: true
+  verified: false
+  datasheet_page: 13
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 236 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 11.02
+    - 22.01
+    - 33.0
+    - 43.99
+    - 54.98
+    - 65.98
+    - 76.97
+    - 87.96
+    h_m:
+    - 78.09
+    - 76.82
+    - 74.91
+    - 71.95
+    - 67.55
+    - 62.24
+    - 56.29
+    - 49.52
+    - 41.72
   npshr_points:
     q_lps:
     - 34.04
@@ -1102,24 +1173,24 @@ pumps:
   curve:
     q_lps:
     - 0.0
-    - 11.02
-    - 22.01
-    - 33.0
-    - 43.99
-    - 54.98
-    - 65.98
-    - 76.97
-    - 87.96
+    - 10.32
+    - 20.61
+    - 30.9
+    - 41.19
+    - 51.48
+    - 61.77
+    - 72.06
+    - 82.35
     h_m:
-    - 78.09
-    - 76.82
-    - 74.91
-    - 71.95
-    - 67.55
-    - 62.24
-    - 56.29
-    - 49.52
-    - 41.72
+    - 67.06
+    - 66.09
+    - 64.72
+    - 62.47
+    - 58.53
+    - 53.95
+    - 48.66
+    - 42.26
+    - 34.88
   npshr_points:
     q_lps:
     - 31.39
@@ -1156,60 +1227,6 @@ pumps:
   curve:
     q_lps:
     - 0.0
-    - 10.32
-    - 20.61
-    - 30.9
-    - 41.19
-    - 51.48
-    - 61.77
-    - 72.06
-    - 82.35
-    h_m:
-    - 67.06
-    - 66.09
-    - 64.72
-    - 62.47
-    - 58.53
-    - 53.95
-    - 48.66
-    - 42.26
-    - 34.88
-  npshr_points:
-    q_lps:
-    - 29.42
-    - 40.0
-    - 50.59
-    - 61.18
-    - 71.76
-    - 82.35
-    value_m:
-    - 4.82
-    - 5.04
-    - 5.51
-    - 6.34
-    - 7.95
-    - 11.18
-  eff_bep_pct: 76.9
-  q_bep_lps: 55.57
-- manufacturer: KSB
-  series: Omega
-  model: 100-250B (2900rpm)
-  reference_speed_rpm: 2900
-  poles: 2
-  discharge_dn: 100
-  impeller_diameter_mm: null
-  min_impeller_diameter_mm: null
-  impeller_options_mm: *id006
-  digitised: true
-  verified: false
-  datasheet_page: 13
-  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
-  curve:
-    q_lps:
-    - 0.0
     - 9.65
     - 19.28
     - 28.91
@@ -1230,19 +1247,21 @@ pumps:
     - 28.56
   npshr_points:
     q_lps:
-    - 27.51
-    - 37.42
-    - 47.33
-    - 57.23
-    - 67.14
-    - 77.05
+    - 29.42
+    - 40.0
+    - 50.59
+    - 61.18
+    - 71.76
+    - 82.35
     value_m:
-    - 4.97
-    - 5.08
-    - 5.41
-    - 6.05
-    - 7.31
-    - 10.0
+    - 4.82
+    - 5.04
+    - 5.51
+    - 6.34
+    - 7.95
+    - 11.18
+  eff_bep_pct: 76.9
+  q_bep_lps: 55.57
 - manufacturer: KSB
   series: Omega
   model: 100-310A ø325 (2900rpm)
@@ -13745,11 +13764,11 @@ pumps:
     - 64.62
 - manufacturer: KSB
   series: Omega
-  model: 300-700B ø655 (1450rpm)
+  model: 300-700B ø705 (1450rpm)
   reference_speed_rpm: 1450
   poles: 4
   discharge_dn: 300
-  impeller_diameter_mm: 655
+  impeller_diameter_mm: 705
   min_impeller_diameter_mm: 550
   impeller_options_mm: &id067
   - 705
@@ -13760,7 +13779,7 @@ pumps:
   verified: false
   datasheet_page: 74
   source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF, impeller 655 mm
+    read from the vector PDF, impeller 705 mm
   notes: machine-digitised from the datasheet curve; confirm against the printed page
     before design use
   curve:
@@ -13784,6 +13803,60 @@ pumps:
     - 139.82
     - 127.07
     - 112.63
+  npshr_points:
+    q_lps:
+    - 0.12
+    - 138.98
+    - 277.85
+    - 416.71
+    - 555.57
+    - 694.43
+    value_m:
+    - 13.02
+    - 13.02
+    - 13.02
+    - 13.02
+    - 13.02
+    - 13.02
+  eff_bep_pct: 83.7
+  q_bep_lps: 460.27
+- manufacturer: KSB
+  series: Omega
+  model: 300-700B ø655 (1450rpm)
+  reference_speed_rpm: 1450
+  poles: 4
+  discharge_dn: 300
+  impeller_diameter_mm: 655
+  min_impeller_diameter_mm: 570
+  impeller_options_mm: *id067
+  digitised: true
+  verified: false
+  datasheet_page: 74
+  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
+    read from the vector PDF, impeller 655 mm
+  notes: machine-digitised from the datasheet curve; confirm against the printed page
+    before design use
+  curve:
+    q_lps:
+    - 0.0
+    - 73.85
+    - 147.58
+    - 221.31
+    - 295.04
+    - 368.77
+    - 442.5
+    - 516.23
+    - 589.96
+    h_m:
+    - 158.65
+    - 156.09
+    - 151.65
+    - 145.38
+    - 137.87
+    - 128.88
+    - 118.31
+    - 106.24
+    - 93.08
   npshr_points:
     q_lps:
     - 234.89
@@ -13820,24 +13893,24 @@ pumps:
   curve:
     q_lps:
     - 0.0
-    - 73.85
-    - 147.58
-    - 221.31
-    - 295.04
-    - 368.77
-    - 442.5
-    - 516.23
-    - 589.96
+    - 67.61
+    - 135.09
+    - 202.58
+    - 270.06
+    - 337.55
+    - 405.03
+    - 472.52
+    - 540.0
     h_m:
-    - 158.65
-    - 156.09
-    - 151.65
-    - 145.38
-    - 137.87
-    - 128.88
-    - 118.31
-    - 106.24
-    - 93.08
+    - 132.88
+    - 129.86
+    - 125.77
+    - 120.36
+    - 113.8
+    - 106.83
+    - 98.81
+    - 89.24
+    - 79.58
   npshr_points:
     q_lps:
     - 219.07
@@ -13874,58 +13947,6 @@ pumps:
   curve:
     q_lps:
     - 0.0
-    - 67.61
-    - 135.09
-    - 202.58
-    - 270.06
-    - 337.55
-    - 405.03
-    - 472.52
-    - 540.0
-    h_m:
-    - 132.88
-    - 129.86
-    - 125.77
-    - 120.36
-    - 113.8
-    - 106.83
-    - 98.81
-    - 89.24
-    - 79.58
-  npshr_points:
-    q_lps:
-    - 202.0
-    - 269.6
-    - 337.2
-    - 404.8
-    - 472.4
-    - 540.0
-    value_m:
-    - 3.0
-    - 3.23
-    - 3.52
-    - 3.9
-    - 5.27
-    - 10.04
-- manufacturer: KSB
-  series: Omega
-  model: 300-700B (1450rpm)
-  reference_speed_rpm: 1450
-  poles: 4
-  discharge_dn: 300
-  impeller_diameter_mm: null
-  min_impeller_diameter_mm: null
-  impeller_options_mm: *id067
-  digitised: true
-  verified: false
-  datasheet_page: 74
-  source: KSB Omega / Omega V 50 Hz Characteristic Curves Booklet (15.02.2016); curve
-    read from the vector PDF
-  notes: machine-digitised from the datasheet curve; confirm against the printed page
-    before design use
-  curve:
-    q_lps:
-    - 0.0
     - 61.36
     - 122.6
     - 183.84
@@ -13946,19 +13967,19 @@ pumps:
     - 66.43
   npshr_points:
     q_lps:
-    - 186.19
-    - 246.96
-    - 307.73
-    - 368.51
-    - 429.28
-    - 490.05
+    - 202.0
+    - 269.6
+    - 337.2
+    - 404.8
+    - 472.4
+    - 540.0
     value_m:
-    - 3.17
+    - 3.0
     - 3.23
-    - 3.38
-    - 3.62
-    - 4.38
-    - 8.01
+    - 3.52
+    - 3.9
+    - 5.27
+    - 10.04
 - manufacturer: KSB
   series: Omega
   model: 350-360A ø382 (1450rpm)

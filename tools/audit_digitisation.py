@@ -12,6 +12,11 @@ asks, per page:
 
 It ranks the pages worst-first so the human datasheet pass can start there.
 
+Known noise: the Multitec booklet prints its curve section twice and de-dup can
+land a size's two impellers on the two page numbers, so a Multitec page can read
+"2 o-labels vs 1 entries" while both impellers are in fact digitised (on the
+twin page). Cross-check the size, not the page, before acting on those.
+
     py tools/audit_digitisation.py [--csv audit.csv]
         [--omega-pdf KSB/dow-omega-data.pdf] [--multitec-pdf KSB/dow-multitec-data.pdf]
 
@@ -64,7 +69,13 @@ def _omega_page_strokes(page):
     def band(pts):
         xs = [p[0] for p in pts]
         ys = [p[1] for p in pts]
-        return lo < np.mean(ys) < hi and max(xs) - min(xs) > 60 and max(ys) - min(ys) > 12
+        if not (lo < np.mean(ys) < hi and max(xs) - min(xs) > 60 and max(ys) - min(ys) > 12):
+            return False
+        # a real H-Q curve falls left-to-right; drop chart borders so they are
+        # not counted as a "missing" impeller stroke
+        s = sorted(pts, key=lambda p: p[0])
+        n = max(len(s) // 3, 1)
+        return np.mean([p[1] for p in s[-n:]]) - np.mean([p[1] for p in s[:n]]) > 12
 
     strokes = [c["pts"] for c in page.curves if band(c["pts"])]
     return strokes, qax

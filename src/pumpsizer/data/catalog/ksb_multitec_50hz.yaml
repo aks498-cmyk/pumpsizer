@@ -4,7 +4,7 @@
 # per_stage_head_m + stages_max let selection pick fewer stages.
 # verified: false - confirm against the printed datasheet before use.
 # Regenerate: py tools/digitise_ksb_multitec.py
-# 45 curves from 43 pages, 12 skipped.
+# 45 curves from 44 pages, 11 skipped.
 
 pumps:
 - manufacturer: KSB

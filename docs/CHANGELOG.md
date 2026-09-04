@@ -31,6 +31,12 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 - `tools/audit_digitisation.py` — page-level audit against the source PDFs
   (curves dropped vs H-band strokes, ø-label count mismatch, truncated Qmax),
   worst-pages-first, to steer the human datasheet pass.
+- Both digitisers and the audit now drop a stroke that does not fall
+  left-to-right (a chart border wrongly counted as a curve): this fixed the
+  Omega diameter labels on pages 9 and 13 and cut the audit's flagged list from
+  12 to 9. Multitec's shape gate matches Omega's (`ratio ≤ 4.5` + family order).
+  Remaining audit flags: Omega p66/67/73/75 (smallest impeller, run-out ratio
+  6–8, or a missing ø-label) and Multitec twin-page split noise.
 - `pip install "pumpsizer[xlwings]"` extra (openpyxl + xlwings) for the Excel
   button; `docs/excel_button.md` gains a win32com snippet that embeds the macro
   and places the button, producing a ready-to-click `pumpsizer.xlsm`.
