@@ -10,6 +10,22 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
+### Added
+- **KSB Multitec 50 Hz catalogue** (`ksb_multitec_50hz.yaml`, 45 curves) —
+  machine-digitised multistage pumps. `tools/digitise_ksb_multitec.py` reads the
+  per-stage H-Q curve from the vector PDF (stitching the fragmented polylines
+  back together) and the maximum stage count from the booklet's Table 9.
+  `PumpModel` gains `stages_max` / `per_stage_head_m` and
+  `to_pump_curve(stages=n)`; `selection` tries `1..stages_max` equal stages and
+  picks the shortest stack that clears the duty head ("n of max m stages"), and
+  reports the chosen count in `Candidate.stages`.
+  `examples/high_head_booster_ksb_multitec.yaml` — a worked high-lift booster
+  driven from the Multitec catalogue; end-to-end test added.
+- Per-stage `H₀ × stages_max` is cross-checked against Table 9's published
+  maximum head: within ~4% for DN32–DN125, ±10–15% for the two DN150 sizes
+  (whose H axis reads less cleanly — those entries carry a `NOTE:` in the YAML
+  and `table9_delta_pct`). 2900/1450 rpm per-stage `H₀` ratio 3.9–4.1.
+
 ### Changed
 - **KSB Omega catalogue is now machine-digitised, not envelope-only.**
   `tools/digitise_ksb_omega.py` reads the vector datasheet PDF: it calibrates

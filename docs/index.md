@@ -53,6 +53,7 @@ pumpsizer schema        # annotated project file
 
 ```python
 from pumpsizer import Project
+
 res = Project.from_yaml("myproject.yaml").run()
 print(res.operating_point.as_dict())
 ```

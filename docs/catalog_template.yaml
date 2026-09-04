@@ -27,6 +27,11 @@ pumps:
     reference_speed_rpm: 1480      # nameplate speed of the published curve
     poles: 4
     stages: 1
+    # --- multistage only (e.g. KSB Multitec) --------------------------------
+    # stages_max: 8                 # max equal stages (no balancing drum)
+    # per_stage_head_m: [ ., ., . ] # H per stage vs q_lps below; selection
+    #                               # tries 1..stages_max, curve.h_m is the
+    #                               # per-stage head x stages_max
     impeller_diameter_mm: 400      # diameter the curve below is for
     min_impeller_diameter_mm: 340  # vendor trim limit -> trim_limit_ratio 0.85
     min_speed_ratio: 1.0           # < 1.0 only if VFD-rated

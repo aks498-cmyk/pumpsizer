@@ -102,6 +102,7 @@ Library:
 
 ```python
 from pumpsizer import Project
+
 res = Project.from_yaml("myproject.yaml").run()
 print(res.operating_point.as_dict())
 print(res.epanet_export.full_snippet())
@@ -155,7 +156,12 @@ efficiency — are plain YAML; edit or point the API at your own via
   Bundled catalogues: 5 illustrative pumps + **246 KSB Omega / Omega V 50 Hz
   curves machine-digitised** from the vector datasheet booklet
   (`ksb_omega_50hz.yaml` via `tools/digitise_ksb_omega.py`: one entry per
-  impeller ø, ~30 sizes × 2 speeds, real Q-H + NPSHr + BEP; `verified: false`).
+  impeller ø, ~30 sizes × 2 speeds, real Q-H + NPSHr + BEP; `verified: false`)
+  and **45 KSB Multitec 50 Hz multistage curves** (`ksb_multitec_50hz.yaml` via
+  `tools/digitise_ksb_multitec.py`: per-stage Q-H curve + `stages_max` from the
+  booklet's Table 9, so selection tries `1..stages_max` equal stages and takes
+  the shortest stack that clears the duty head — see
+  `examples/high_head_booster_ksb_multitec.yaml`).
   Selection flags each digitised hit with "confirm against datasheet p.N" and a
   score penalty. See `docs/catalog_from_ksb.md`.
 * **Phase 3** – `inpfile.InpModel` structured `.inp` reader/writer; `.inp`
@@ -186,7 +192,8 @@ efficiency — are plain YAML; edit or point the API at your own via
   stage` (+ demand / pumps / tank-level plot) and a `staging:` project block. ✅
 * **Next** – optional xlwings "Run" button inside the workbook itself (needs
   Python alongside Excel on each machine); real vendor curves digitised into
-  the catalogue beyond KSB Omega; verifying the digitised entries you rely on.
+  the catalogue beyond KSB Omega / Multitec; verifying the digitised entries
+  you rely on.
 
 ## Contributing
 

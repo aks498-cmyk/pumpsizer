@@ -1,0 +1,98 @@
+# High-lift clear-water booster: the duty head (~145 m) needs a multistage
+# pump, so the pump is chosen from the digitised KSB Multitec catalogue.
+# Selection tries 1..stages_max equal stages and takes the shortest stack
+# that clears the duty head.
+# Run:  pumpsizer run examples/high_head_booster_ksb_multitec.yaml
+
+project:
+  name: High-Head Booster (KSB Multitec selection)
+  description: Clear-water booster lifting to a hilltop tank via a long rising main.
+fluid:
+  temperature_c: 25
+  altitude_m: 0
+pipe:
+  material: ductile_iron
+  series: null
+  headloss_method: DW
+flow:
+  total_demand_lps: 30
+  duty_pumps: 1
+  standby_pumps: 1
+segments:
+- name: pump_suction
+  group: suction
+  length_m: 12
+  dn: 250
+- name: pump_discharge
+  group: discharge
+  length_m: 15
+  dn: 200
+- name: rising_main
+  group: discharge
+  length_m: 1900
+  dn: 200
+fitting_reference:
+  suction: pump_suction
+  discharge: pump_discharge
+fittings:
+  suction:
+    entrance_bellmouth: 1
+    gate_valve: 1
+    bend_90: 2
+  discharge:
+    enlarger: 1
+    bend_45: 4
+    bend_90: 6
+    gate_valve: 1
+    non_return_valve: 1
+    exit_sharp: 1
+levels:
+  reservoir_hwl_m: 112
+  reservoir_bwl_m: 106
+  sump_hwl_m: 6
+  sump_bwl_m: 2
+  pump_centreline_m: 2
+velocity_limits:
+  suction_max_m_s: 1.2
+  discharge_max_m_s: 2.5
+autosize_diameter: false
+suction:
+  npsh_safety_margin_m: 0.5
+pump:
+  source: catalogue
+  catalogue_path: src/pumpsizer/data/catalog/ksb_multitec_50hz.yaml
+  selection:
+    allow_trim: true
+    allow_vfd: true
+    npsh_available_m: 9.5
+control:
+  arrangement: single
+  vfd: false
+  vfd_min_speed_pct: 70
+  vfd_target_flow_lps: null
+motor:
+  poles: 2
+  ie_class: IE3
+  rating_margin_pct: 15
+  sizing_basis: operating_point
+water_hammer:
+  enabled: true
+  method: rule_of_thumb
+  closure_time_s: null
+  pressure_class_pn: 25
+  allowable_max_head_m: 260
+  restraint: 1.0
+energy:
+  hours_per_day: 18
+  tariff_per_kwh: 0.12
+  demand_charge_per_kw_month: 0
+  life_cycle_years: 20
+  discount_rate: 0.08
+  capital_cost: 0
+epanet:
+  flow_units: LPS
+  pump_id: PMP1
+  from_node: SUMP
+  to_node: PUMP_OUT
+  head_points: 3
+  efficiency_points: 7

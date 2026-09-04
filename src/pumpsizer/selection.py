@@ -64,6 +64,7 @@ class Candidate:
     head_margin_pct: float  # (curve head at duty flow, full size) vs duty head
     shaft_power_kw: float
     score: float
+    stages: int = 1
     reasons: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict:
@@ -73,6 +74,7 @@ class Candidate:
             "method": self.method,
             "trim_ratio": round(self.trim_ratio, 4),
             "speed_ratio": round(self.speed_ratio, 4),
+            "stages": self.stages,
             "operating_flow_lps": round(self.operating_flow_m3s * 1000, 2),
             "operating_head_m": round(self.operating_head_m, 2),
             "efficiency_pct": None
@@ -95,10 +97,35 @@ def _trim_efficiency_penalty_pts(trim_ratio: float) -> float:
     return max(0.0, (1.0 - trim_ratio) * 20.0)
 
 
+def _best_stage_count(model: PumpModel, qd: float, hd: float) -> int:
+    """Fewest equal stages whose full curve clears the duty head at duty flow.
+
+    ``per_stage_head_m`` is the head one stage delivers across ``q_lps``; N
+    stages give N x that.  Pick the smallest N (<= ``stages_max``) that reaches
+    the duty, so the pump is not needlessly tall; fall back to ``stages_max``.
+    """
+    q = np.asarray(model.q_lps, dtype=float) * LPS_TO_M3S
+    hps = np.asarray(model.per_stage_head_m, dtype=float)
+    h_stage_at_duty = float(np.interp(qd, q, hps, left=hps[0], right=hps[-1]))
+    if h_stage_at_duty <= 0:
+        return int(model.stages_max)
+    n = int(np.ceil(hd / h_stage_at_duty))
+    return max(1, min(n, int(model.stages_max)))
+
+
 def evaluate(model: PumpModel, c: SelectionCriteria) -> Candidate:
     reasons: list[str] = []
     qd, hd = c.duty_flow_m3s, c.duty_head_m
-    base = model.to_pump_curve()
+    n_stages = 1
+    if model.is_multistage:
+        n_stages = _best_stage_count(model, qd, hd)
+        base = model.to_pump_curve(stages=n_stages)
+        if n_stages < model.stages_max:
+            reasons.append(f"{n_stages} of max {model.stages_max} stages")
+        else:
+            reasons.append(f"{n_stages} stages (max stack)")
+    else:
+        base = model.to_pump_curve()
 
     h_full_at_duty = float(base.head(qd))
     head_margin_pct = (h_full_at_duty - hd) / hd * 100.0 if hd > 0 else 0.0
@@ -210,6 +237,7 @@ def evaluate(model: PumpModel, c: SelectionCriteria) -> Candidate:
         method=method,
         trim_ratio=trim,
         speed_ratio=speed,
+        stages=n_stages,
         operating_flow_m3s=q_op,
         operating_head_m=h_op,
         efficiency_pct=eff,

@@ -607,11 +607,14 @@ class Project:
             feasible[0],
         )
         curve = chosen.model.to_pump_curve(
-            speed_ratio=chosen.speed_ratio, diameter_ratio=chosen.trim_ratio
+            speed_ratio=chosen.speed_ratio,
+            diameter_ratio=chosen.trim_ratio,
+            stages=chosen.stages if chosen.model.is_multistage else None,
         )
         curve.design_q_m3s = duty_q
+        stg = f", {chosen.stages} stages" if chosen.model.is_multistage else ""
         warnings.append(
-            f"selected {chosen.model.key} ({chosen.method}, "
+            f"selected {chosen.model.key} ({chosen.method}{stg}, "
             f"score {chosen.score:.2f}); {len(feasible)} feasible of {len(cat)}"
         )
         if not chosen.model.verified:

@@ -38,6 +38,8 @@ class PumpModel:
     min_impeller_diameter_mm: float | None = None  # trim limit
     impeller_options_mm: list[float] | None = None
     stages: int = 1
+    stages_max: int | None = None  # multistage: max stack (no balancing drum)
+    per_stage_head_m: list[float] | None = None  # H per stage vs q_lps
     poles: int = 2
     min_speed_ratio: float = 1.0  # < 1 if VFD-rated
     max_speed_ratio: float = 1.0
@@ -73,11 +75,26 @@ class PumpModel:
             return self.min_impeller_diameter_mm / self.impeller_diameter_mm
         return 0.80  # typical practical minimum trim
 
+    @property
+    def is_multistage(self) -> bool:
+        return bool(self.stages_max and self.per_stage_head_m and self.q_lps)
+
     # -- to a solvable curve ----------------------------------------
-    def to_pump_curve(self, *, speed_ratio: float = 1.0, diameter_ratio: float = 1.0) -> PumpCurve:
+    def to_pump_curve(
+        self,
+        *,
+        speed_ratio: float = 1.0,
+        diameter_ratio: float = 1.0,
+        stages: int | None = None,
+    ) -> PumpCurve:
         if self.q_lps and self.h_m:
             q = np.asarray(self.q_lps, dtype=float) * LPS_TO_M3S
-            h = np.asarray(self.h_m, dtype=float)
+            if stages is not None and self.per_stage_head_m:
+                # rebuild the head curve for a chosen stage count; efficiency and
+                # NPSHr are set by one impeller and don't scale with the stack
+                h = np.asarray(self.per_stage_head_m, dtype=float) * float(stages)
+            else:
+                h = np.asarray(self.h_m, dtype=float)
 
             eff = eff_q = None
             if self.eff_pct:

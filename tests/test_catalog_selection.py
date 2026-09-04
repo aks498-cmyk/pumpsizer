@@ -114,6 +114,51 @@ def test_ksb_omega_digitised_catalogue():
     assert ranked[0].model.discharge_dn >= 250
 
 
+def test_ksb_multitec_digitised_catalogue():
+    p = _ROOT / "src/pumpsizer/data/catalog/ksb_multitec_50hz.yaml"
+    cat = Catalog.from_path(p)
+    assert len(cat) >= 40
+    m = cat.models[0]
+    assert m.digitised and not m.verified and m.is_multistage
+    assert m.stages_max and m.per_stage_head_m and len(m.per_stage_head_m) == len(m.q_lps)
+    # curve:h_m is the per-stage head x the max stack
+    full = m.to_pump_curve()
+    assert full.head(0.0) == pytest.approx(m.per_stage_head_m[0] * m.stages_max, rel=0.02)
+    # a chosen stage count scales head pro rata, leaves NPSHr alone
+    half = m.to_pump_curve(stages=max(1, m.stages_max // 2))
+    assert half.head(0.0) < full.head(0.0)
+
+
+def test_ksb_multitec_example_end_to_end():
+    """The Multitec-driven high-head booster runs the whole pipeline."""
+    ex = _ROOT / "examples" / "high_head_booster_ksb_multitec.yaml"
+    res = Project.from_yaml(ex).run()
+    op = res.operating_point
+    assert res.selection and res.selection[0].feasible
+    assert "Multitec" in res.pump.name
+    assert res.selection[0].model.is_multistage
+    assert 1 < res.selection[0].stages <= res.selection[0].model.stages_max
+    assert 25 < op.flow_lps < 45
+    assert 95 < op.head_m < 135
+    assert 60 < op.efficiency_pct < 88
+    assert any("stages" in w for w in res.warnings)
+
+
+def test_multitec_selection_picks_stage_count():
+    p = _ROOT / "src/pumpsizer/data/catalog/ksb_multitec_50hz.yaml"
+    cat = Catalog.from_path(p)
+
+    hi = select(cat, SelectionCriteria.from_duty(30, 120, npsh_available_m=9.0), top=1)
+    lo = select(cat, SelectionCriteria.from_duty(30, 55, npsh_available_m=9.0), top=1)
+    assert hi and lo and hi[0].feasible and lo[0].feasible
+    # fewer stages for the lower-head duty on the same family, or at least not more
+    same = hi[0].model.key == lo[0].model.key
+    if same:
+        assert lo[0].stages <= hi[0].stages
+    assert 1 <= lo[0].stages <= lo[0].model.stages_max
+    assert any("stage" in r for r in lo[0].reasons)
+
+
 def test_project_catalogue_source_runs():
     data = {**Project.from_yaml(EXAMPLE).data}
     data["pump"] = {"source": "catalogue"}  # -> bundled illustrative catalogue
