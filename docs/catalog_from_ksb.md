@@ -41,9 +41,10 @@ percent on H, a bit more on NPSH (its axis has fewer ticks). It is a
 "curve machine-digitised — confirm against datasheet p.N" and applies a small
 score penalty so a hand-verified pump always ranks above it.
 
-**Spot check.** The digitised H-Q points were overlaid on the rendered
-datasheet pages 8, 26, 46 and 71 (all four impellers each) — they sit on the
-printed curves within plotting tolerance:
+**Spot check.** `tools/verify_ksb_omega.py` overlays the digitised H-Q
+polylines on the rendered datasheet pages (8, 26, 46, 71 by default, or any set
+with `--pages a,b,c`) — one colour per impeller ø; they sit on the printed
+curves within plotting tolerance:
 
 ![digitised curves overlaid on the datasheet](ksb_omega_verification.png)
 
@@ -80,9 +81,10 @@ pumpsizer catalog-verify                       # status by series
 pumpsizer catalog-verify --emit checklist.csv  # the to-do list
 ```
 
-Work down the CSV with the booklet open — `tools/verify_ksb_multitec.py
-<pdf> --pages 38,40` (or the Omega overlay) renders any page with the
-digitised polyline on top. Mark each row `ok` / `corrected` / `reject`, then
+Work down the CSV with the booklet open — `tools/verify_ksb_omega.py <pdf>
+--pages 8,26` or `tools/verify_ksb_multitec.py <pdf> --pages 38,40` renders any
+page with the digitised polyline on top. Mark each row `ok` / `corrected` /
+`reject`, then
 set `verified: true` on the `ok` entries in the YAML (a one-word edit; the
 tool deliberately doesn't rewrite the generated files for you).
 
@@ -151,6 +153,7 @@ first if you're about to rely on them.
 ```bash
 py tools/digitise_ksb_omega.py    path/to/dow-omega-data.pdf
 py tools/digitise_ksb_multitec.py path/to/dow-multitec-data.pdf
+py tools/verify_ksb_omega.py      path/to/dow-omega-data.pdf      # overlay PNG
 py tools/verify_ksb_multitec.py   path/to/dow-multitec-data.pdf   # overlay PNG
 ```
 

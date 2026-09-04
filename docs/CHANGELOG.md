@@ -10,6 +10,11 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
+### Added
+- `tools/verify_ksb_omega.py` — the Omega counterpart of the Multitec overlay
+  tool (`--pages a,b,c` to check any datasheet pages while verifying a
+  shortlisted pump); it also regenerates `docs/ksb_omega_verification.png`.
+
 ### Changed
 - `pip install "pumpsizer[xlwings]"` extra (openpyxl + xlwings) for the Excel
   button; `docs/excel_button.md` gains a win32com snippet that embeds the macro
