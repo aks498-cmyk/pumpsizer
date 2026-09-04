@@ -17,7 +17,7 @@ include:
 exclude:
   - social-preview.jpg
 
-footer_version: v0.3.1
+footer_version: v0.3.2
 
 # top navigation (relative links - the site is flat, one level deep)
 nav:
