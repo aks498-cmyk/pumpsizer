@@ -16,10 +16,10 @@ and `README.txt` (this, condensed).
 
 ## One-time setup (per machine)
 
-1. **Install Python 3.10+** and the engine with the Excel extras:
+1. **Install Python 3.10+** and the engine with the xlwings extra:
 
    ```bash
-   pip install "pumpsizer[excel]" xlwings
+   pip install "pumpsizer[xlwings]"
    ```
 
 2. **Install the xlwings add-in** — this is what gives the workbook the
@@ -41,6 +41,26 @@ and `README.txt` (this, condensed).
 
 5. **Add the button.** On the Input sheet: Developer ▸ Insert ▸ Form Control ▸
    Button. Draw it, and in the "Assign Macro" dialog pick `RunPumpsizer`.
+
+### Shortcut: a ready-made `.xlsm`
+
+Steps 3–5 can be scripted on Windows if Excel's *Trust Center ▸ Macro Settings ▸
+Trust access to the VBA project object model* is ticked. From the folder
+`pumpsizer excel-addin` produced:
+
+```python
+import pathlib, win32com.client as w                       # pywin32
+d = pathlib.Path(".")                                       # the excel-addin folder
+xl = w.DispatchEx("Excel.Application"); xl.DisplayAlerts = False
+wb = xl.Workbooks.Open(str(d / "pumpsizer_inputs.xlsx"))
+wb.VBProject.VBComponents.Import(str(d / "pumpsizer.bas"))  # embed the macro
+b = wb.Worksheets("Input").Buttons().Add(320, 5, 150, 26)   # place the button
+b.Text, b.OnAction = "Run pumpsizer", "RunPumpsizer"
+wb.SaveAs(str(d / "pumpsizer.xlsm"), FileFormat=52); wb.Close(False); xl.Quit()
+```
+
+The resulting `pumpsizer.xlsm` opens with the button already on the Input sheet —
+the user just enables macros and clicks.
 
 ## Using it
 

@@ -10,6 +10,11 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
+### Changed
+- `pip install "pumpsizer[xlwings]"` extra (openpyxl + xlwings) for the Excel
+  button; `docs/excel_button.md` gains a win32com snippet that embeds the macro
+  and places the button, producing a ready-to-click `pumpsizer.xlsm`.
+
 ## [0.3.0] — 2026-09-04
 
 Real digitised manufacturer curves (KSB Omega + Multitec), catalogue QA and a

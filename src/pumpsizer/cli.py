@@ -346,7 +346,7 @@ def _cmd_excel_addin(args: argparse.Namespace) -> int:
     (out / "README.txt").write_text(
         "pumpsizer Excel button - one-time setup\n"
         "======================================\n\n"
-        '1. pip install "pumpsizer[excel]" xlwings\n'
+        '1. pip install "pumpsizer[xlwings]"\n'
         "2. xlwings addin install            (adds RunPython to Excel)\n"
         "3. Open pumpsizer_inputs.xlsx, save it as .xlsm (macro-enabled).\n"
         "4. Developer > Visual Basic > File > Import File... > pumpsizer.bas\n"

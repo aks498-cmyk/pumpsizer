@@ -19,6 +19,7 @@ dependencies = [
 [project.optional-dependencies]
 plot = ["matplotlib>=3.7"]
 excel = ["openpyxl>=3.1"]
+xlwings = ["openpyxl>=3.1", "xlwings>=0.30"]  # the in-workbook "Run" button (Windows/macOS + Excel)
 epanet = ["epyt>=1.2"]
 dev = ["pytest>=7.4", "ruff>=0.6", "matplotlib>=3.7", "openpyxl>=3.1", "epyt>=1.2"]
 

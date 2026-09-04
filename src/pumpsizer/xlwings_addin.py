@@ -32,7 +32,7 @@ Attribute VB_Name = "pumpsizer"
 ' pumpsizer - "Run" button macro.
 '
 ' Setup (once per machine):
-'   1. Install Python + the engine:  pip install "pumpsizer[excel]" xlwings
+'   1. Install Python + the engine:  pip install "pumpsizer[xlwings]"
 '   2. Install the xlwings add-in:    xlwings addin install
 '      (gives this workbook the RunPython function used below)
 '   3. In Excel: Developer > Visual Basic > File > Import File... > this .bas
