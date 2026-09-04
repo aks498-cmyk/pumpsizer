@@ -10,71 +10,61 @@ to follow [Semantic Versioning](https://semver.org/) once it reaches 1.0.
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-09-04
+
+Real digitised manufacturer curves (KSB Omega + Multitec), catalogue QA and a
+verification workflow, and an in-workbook Excel "Run" button.
+
 ### Added
-- **KSB Multitec 50 Hz catalogue** (`ksb_multitec_50hz.yaml`, 45 curves) —
-  machine-digitised multistage pumps. `tools/digitise_ksb_multitec.py` reads the
-  per-stage H-Q curve from the vector PDF (stitching the fragmented polylines
-  back together) and the maximum stage count from the booklet's Table 9.
-  `PumpModel` gains `stages_max` / `per_stage_head_m` and
-  `to_pump_curve(stages=n)`; `selection` tries `1..stages_max` equal stages and
-  picks the shortest stack that clears the duty head ("n of max m stages"), and
-  reports the chosen count in `Candidate.stages`.
-  `examples/high_head_booster_ksb_multitec.yaml` — a worked high-lift booster
-  driven from the Multitec catalogue; end-to-end test added.
-- Per-stage `H₀ × stages_max` is cross-checked against Table 9's published
-  maximum head: within ~4% for DN32–DN125, ±10–15% for the two DN150 sizes
-  (whose H axis reads less cleanly — those entries carry a `NOTE:` in the YAML
-  and `table9_delta_pct`). 2900/1450 rpm per-stage `H₀` ratio 3.9–4.1.
-- `tools/verify_ksb_multitec.py` renders four datasheet pages with the stitched
-  H-Q polyline overlaid (`docs/ksb_multitec_verification.png`) — the digitised
-  points sit on the printed per-stage curves for both impellers.
+- **KSB Omega 50 Hz catalogue is machine-digitised from the vector datasheet.**
+  `tools/digitise_ksb_omega.py` calibrates each size page's axes from the tick
+  labels and maps *every* impeller's curve polylines to data — a real Q-H
+  curve, NPSHr points and a BEP per impeller diameter: **246 curves from 73 of
+  74 pages**. Entries are `digitised: true`, `verified: false`. The 1450/2900
+  rpm and diameter families come out affinity-consistent (H ∝ n², H ∝ D²).
+  Replaces the old envelope-only data and its builder.
+- **KSB Multitec 50 Hz catalogue** (`ksb_multitec_50hz.yaml`, 45 multistage
+  curves). `tools/digitise_ksb_multitec.py` reads the per-stage H-Q curve from
+  the vector PDF — stitching the fragmented polylines back together — and the
+  maximum stage count from the booklet's Table 9. `PumpModel` gains
+  `stages_max` / `per_stage_head_m` / `to_pump_curve(stages=n)`; `selection`
+  tries `1..stages_max` equal stages, takes the shortest stack that clears the
+  duty head ("n of max m stages") and reports it in `Candidate.stages`.
+  Per-stage `H₀ × stages_max` matches Table 9 within ~4% for DN32–DN125; the
+  two DN150 sizes read ±10–15% and carry a `NOTE:` + `table9_delta_pct`.
 - **`pumpsizer catalog-check`** + `pumpsizer.catalog_qa` — machine QA for a
   catalogue: curve-shape and BEP/NPSHr sanity, multistage `per_stage × stages`
   consistency and the Table 9 cross-check, and `n²` / `D²` affinity between
-  speed and impeller-diameter families. Findings are `OK`/`WARN`/`FAIL`; exits
-  non-zero on a `FAIL`. The bundled catalogues report 0 FAIL.
+  speed and impeller-diameter families. `OK`/`WARN`/`FAIL`; exits non-zero on a
+  `FAIL`. The bundled catalogues report 0 FAIL.
 - **`pumpsizer catalog-verify`** — status of the human "against the paper
   datasheet" pass (verified vs. still-to-check, by series) and `--emit
   checklist.csv`, a row per unverified entry with its key digitised numbers,
-  `datasheet_page` and blank verdict/checked-by columns to work through.
-  `tools/verify_ksb_multitec.py` gains `--pages a,b,c` to overlay any pages.
-
+  `datasheet_page` and blank verdict / checked-by columns.
 - **xlwings "Run" button** — `pumpsizer excel-addin --out <dir>` writes
   `pumpsizer.bas` (the button macro), a fresh input template and setup notes.
   `pumpsizer.xlwings_addin.run()` (what the button calls) saves the live
-  workbook and hands the file to the existing headless `excelio.run_workbook`,
-  then opens the `*-results.xlsx` and writes a status line to `Input!F1`.
-  Template vs. legacy `Pump Sizing.xlsx` is auto-detected. Needs Python +
-  `xlwings` on the machine with Excel; full guide in `docs/excel_button.md`.
-
-### Changed (tooling)
-- CI now runs `ruff check` + `ruff format --check` (on `src tests tools`) as a
-  separate job before the test matrix; `ruff` is in the `dev` extra and the
-  `ruff` `src` list includes `tools`. `make lint` / `make format` cover `tools`
-  too; the stale `make catalog` target now calls the two digitisers, and
-  `make catalog-check` is new.
+  workbook and hands the file to the headless `excelio.run_workbook`, opens the
+  `*-results.xlsx` and writes a status line to `Input!F1`. Template vs. legacy
+  `Pump Sizing.xlsx` is auto-detected. Needs Python + `xlwings` on the machine
+  with Excel; full guide in `docs/excel_button.md`.
+- Verification overlays `docs/ksb_omega_verification.png` and
+  `docs/ksb_multitec_verification.png` (`tools/verify_ksb_multitec.py`, with a
+  `--pages a,b,c` option); worked examples
+  `examples/potable_water_pumping_station_ksb.yaml` and
+  `examples/high_head_booster_ksb_multitec.yaml` with end-to-end tests.
 
 ### Changed
-- **KSB Omega catalogue is now machine-digitised, not envelope-only.**
-  `tools/digitise_ksb_omega.py` reads the vector datasheet PDF: it calibrates
-  each size page's axes from the tick labels and maps every impeller's curve
-  polylines to data, giving a real Q-H curve, NPSHr points and a BEP
-  (Q, efficiency) per impeller diameter — **246 curves from 73 of 74 size
-  pages** (1 skipped). Entries are `digitised: true`, still `verified: false`.
-  The 1450/2900 rpm and impeller-diameter families come out affinity-consistent
-  (H ∝ n², H ∝ D²) — a check that the calibration is right.
-- `catalog.PumpModel` reads `curve:` / `npshr_points:` / `eff_bep_pct:`;
-  `selection` flags digitised candidates ("confirm against datasheet p.N",
-  ×0.94 score) distinctly from unverified envelope entries.
-- The 5 illustrative catalogue pumps are tagged `illustrative` and ×0.5 in
-  selection, so `pump.source: catalogue` with no path (which loads the bundled
-  digitised KSB Omega curves + the illustrative ones) never returns a synthetic
-  pump over real data.
-- `examples/potable_water_pumping_station_ksb.yaml` — the worked station with
-  the pump chosen from the digitised KSB catalogue; end-to-end test added.
-- Digitised H-Q points spot-checked against 4 rendered datasheet pages
-  (`docs/ksb_omega_verification.png`); they sit on the printed curves.
-- Removed the old envelope-only builder (`tools/build_ksb_omega_catalog.py`).
+- `catalog.PumpModel` reads `curve:` / `npshr_points:` / `eff_bep_pct:` /
+  `per_stage_head_m` / `stages_max` / the `table9_*` QA fields. `selection`
+  flags digitised candidates ("confirm against datasheet p.N", ×0.94 score) and
+  ×0.5-penalises the illustrative pumps (now tagged `illustrative`), so
+  `pump.source: catalogue` with no path never returns a synthetic pump over
+  real data.
+- CI runs `ruff check` + `ruff format --check` (on `src tests tools`) as a job
+  before the test matrix; `ruff` is in the `dev` extra. `make lint` / `format`
+  cover `tools`; `make catalog` calls the two digitisers; `make catalog-check`
+  is new.
 
 ## [0.2.0] — 2026-09-04
 
@@ -178,6 +168,7 @@ release.
 - The MOC solver is single-pipe and damps the cavity-collapse spike — use a
   specialist package for a branched network or final sign-off.
 
-[Unreleased]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/aks498-cmyk/pumpsizer/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/aks498-cmyk/pumpsizer/releases/tag/v0.1.0
